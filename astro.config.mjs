@@ -10,7 +10,7 @@ import mkcert from 'vite-plugin-mkcert';
 import 'dotenv/config';
 
 export default defineConfig({
-  site: 'https://yourdomain.com',
+  site: 'https://goffnelsonlibrary.org',
   vite: {
     plugins: [tailwindcss(), mkcert()],
     server: {

@@ -11,6 +11,13 @@
   [headers.values]
     Content-Security-Policy = "frame-ancestors 'self' https://app.storyblok.com"
 
+# Proxy CEFLS catalog to avoid CORS — must come before the catch-all redirect
+[[redirects]]
+  from = "/proxy/catalog/*"
+  to = "https://cefls.ent.sirsi.net/client/en_US/default/:splat"
+  status = 200
+  force = true
+
 # Redirect all routes to index (Astro handles routing)
 [[redirects]]
   from = "/*"

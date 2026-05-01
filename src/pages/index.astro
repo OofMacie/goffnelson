@@ -1,19 +1,44 @@
 ---
+import Layout from '../layouts/Layout.astro'
 import Nav from '../components/Nav.tsx'
+import { BookCarousel } from '../components/BookCarousel.tsx'
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <img src="src/assets/logo.png" alt="Goff-Nelson Memorial Library Logo" />
-    <title>Goff-Nelson Memorial Library</title>
-  </head>
-  <body>
-    <Nav client:load />
-    <main class="p-8">
-      <h1 class="text-4xl font-bold text-green-800">
-        Welcome to Goff-Nelson Memorial Library 🌲
-      </h1>
-    </main>
-  </body>
-</html>
+<Layout
+  title="Goff-Nelson Memorial Library | Books, Events & Community Resources"
+  description="Your community library in Tupper Lake, NY. Browse books, eBooks, audiobooks, DVDs, attend events, join programs for kids and teens, and access free digital resources."
+  image="/images/outsidebuilding/outside.webp"
+>
+  <Nav client:load />
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" aria-label="Library hero image">
+      <img
+        src="/images/ChildrensRoom/20250719_101707.jpg"
+        alt="Children's Room at Goff-Nelson Memorial Library, Tupper Lake NY"
+        width="1600"
+        height="600"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="hero-overlay">
+        <a href="https://cefls.ent.sirsi.net/client/en_US/default/search/results?te=&lm=TUP" class="cta-btn" target="_blank" rel="noopener noreferrer">
+          Search Our Catalog
+        </a>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro" aria-labelledby="intro-heading">
+      <h1 id="intro-heading">Welcome to Goff-Nelson Memorial Library</h1>
+      <p>
+        Serving Tupper Lake and the Adirondack region since 1916. Free library cards for all residents.
+        Visit us at <strong>41 Lake Street, Tupper Lake, NY</strong> or call <a href="tel:+15183599421">518-359-9421</a>.
+      </p>
+    </section>
+
+    <!-- New Arrivals Carousel -->
+    <BookCarousel client:load />
+  </main>
+</Layout>
