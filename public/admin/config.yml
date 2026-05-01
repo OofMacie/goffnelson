@@ -1,0 +1,49 @@
+backend:
+  name: github
+  repo: OofMacie/goffnelson
+  branch: main
+  base_url: https://sveltia-cms-auth.vercel.app
+
+# Where uploaded images are stored
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: events
+    label: Events
+    label_singular: Event
+    folder: src/content/events
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Event Title", name: title, widget: string }
+      - { label: "Event Date", name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "End Date (optional)", name: endDate, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: "Time (e.g. 10:00 AM – 12:00 PM)", name: time, widget: string, required: false }
+      - { label: "Location", name: location, widget: string, required: false }
+      - label: "Category"
+        name: category
+        widget: select
+        options:
+          - { label: "Book Club", value: book-club }
+          - { label: "Children's Program", value: childrens }
+          - { label: "Teen Program", value: teen }
+          - { label: "Adult Program", value: adult }
+          - { label: "Community Event", value: community }
+          - { label: "Other", value: other }
+        default: community
+      - { label: "Short Description", name: description, widget: text }
+      - { label: "Full Details", name: body, widget: markdown }
+
+  - name: articles
+    label: Articles & News
+    label_singular: Article
+    folder: src/content/articles
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Article Title", name: title, widget: string }
+      - { label: "Publish Date", name: publishDate, widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Author", name: author, widget: string, default: "Goff Nelson Library Staff" }
+      - { label: "Short Description", name: description, widget: text }
+      - { label: "Article Content", name: body, widget: markdown }
