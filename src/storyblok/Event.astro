@@ -1,0 +1,47 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+
+interface Props {
+  blok: {
+    _uid: string
+    title: string
+    date: string
+    end_date?: string
+    time?: string
+    location?: string
+    category: string
+    description: string
+  }
+}
+
+const { blok } = Astro.props
+
+const categoryLabels: Record<string, string> = {
+  'book-club': 'Book Club',
+  'childrens': "Children's",
+  'teen': 'Teen',
+  'adult': 'Adult',
+  'community': 'Community',
+  'other': 'Other',
+}
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+---
+
+<li class="event-card" {...storyblokEditable(blok)}>
+  <div class="event-meta">
+    <span class="event-category">{categoryLabels[blok.category] ?? blok.category}</span>
+    <span class="event-date">{formatDate(blok.date)}</span>
+    {blok.time && <span class="event-time">{blok.time}</span>}
+  </div>
+  <h3 class="event-title">{blok.title}</h3>
+  {blok.location && <p class="event-location">{blok.location}</p>}
+  <p class="event-description">{blok.description}</p>
+</li>

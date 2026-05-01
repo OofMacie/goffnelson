@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import storyblok from '@storyblok/astro';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
@@ -11,5 +12,23 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [sitemap(), mdx(), partytown(), compress(), react()],
+  integrations: [
+    storyblok({
+      accessToken: import.meta.env.STORYBLOK_TOKEN,
+      components: {
+        event: 'storyblok/Event',
+        article: 'storyblok/Article',
+        page: 'storyblok/Page',
+        site_settings: 'storyblok/SiteSettings',
+      },
+      apiOptions: {
+        region: 'us',
+      },
+    }),
+    sitemap(),
+    mdx(),
+    partytown(),
+    compress(),
+    react(),
+  ],
 });

@@ -1,0 +1,27 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+
+interface HourEntry {
+  _uid: string
+  day: string
+  open_time: string
+  close_time: string
+  closed: boolean
+}
+
+interface Props {
+  blok: {
+    _uid: string
+    address?: string
+    phone?: string
+    email?: string
+    hours?: HourEntry[]
+  }
+}
+
+const { blok } = Astro.props
+---
+
+<div {...storyblokEditable(blok)}>
+  <slot />
+</div>

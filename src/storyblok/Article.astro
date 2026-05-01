@@ -1,0 +1,36 @@
+---
+import { storyblokEditable, renderRichText } from '@storyblok/astro'
+
+interface Props {
+  blok: {
+    _uid: string
+    title: string
+    publish_date: string
+    author: string
+    description: string
+    body?: unknown
+  }
+}
+
+const { blok } = Astro.props
+
+const bodyHtml = blok.body ? renderRichText(blok.body) : ''
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+---
+
+<li class="article-card" {...storyblokEditable(blok)}>
+  <div class="article-meta">
+    <span class="article-date">{formatDate(blok.publish_date)}</span>
+    <span class="article-author">{blok.author ?? 'Goff Nelson Library Staff'}</span>
+  </div>
+  <h2 class="article-title">{blok.title}</h2>
+  <p class="article-description">{blok.description}</p>
+  {bodyHtml && <div class="article-body" set:html={bodyHtml} />}
+</li>

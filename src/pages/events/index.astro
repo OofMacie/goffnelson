@@ -1,0 +1,143 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import NavBar from '../../components/NavBar.astro'
+import { useStoryblokApi } from '@storyblok/astro'
+
+const storyblokApi = useStoryblokApi()
+
+const { data } = await storyblokApi.get('cdn/stories', {
+  version: import.meta.env.DEV ? 'draft' : 'published',
+  starts_with: 'events/',
+  sort_by: 'content.date:asc',
+})
+
+const events = data.stories.map((s: any) => s.content)
+
+const today = new Date()
+today.setHours(0, 0, 0, 0)
+
+const upcoming = events.filter((e: any) => new Date(e.date + 'T00:00:00') >= today)
+const past = events
+  .filter((e: any) => new Date(e.date + 'T00:00:00') < today)
+  .reverse()
+
+const categoryLabels: Record<string, string> = {
+  'book-club': 'Book Club',
+  'childrens': "Children's",
+  'teen': 'Teen',
+  'adult': 'Adult',
+  'community': 'Community',
+  'other': 'Other',
+}
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+---
+
+<Layout title="Events | Goff Nelson Memorial Library" description="Browse upcoming events at Goff Nelson Memorial Library.">
+  <NavBar />
+  <main class="events-page">
+    <div class="page-header">
+      <h1>Events</h1>
+      <p>Programs and events at Goff Nelson Memorial Library</p>
+    </div>
+
+    <div class="events-container">
+      <section>
+        <h2>Upcoming Events</h2>
+        {upcoming.length > 0 ? (
+          <ul class="events-list">
+            {upcoming.map((event: any) => (
+              <li class="event-card">
+                <div class="event-meta">
+                  <span class="event-category">{categoryLabels[event.category] ?? event.category}</span>
+                  <span class="event-date">{formatDate(event.date)}</span>
+                  {event.time && <span class="event-time">{event.time}</span>}
+                </div>
+                <h3 class="event-title">{event.title}</h3>
+                {event.location && <p class="event-location">{event.location}</p>}
+                <p class="event-description">{event.description}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="no-content">No upcoming events at this time. Check back soon!</p>
+        )}
+      </section>
+
+      {past.length > 0 && (
+        <section class="past-events">
+          <h2>Past Events</h2>
+          <ul class="events-list">
+            {past.map((event: any) => (
+              <li class="event-card past">
+                <div class="event-meta">
+                  <span class="event-category">{categoryLabels[event.category] ?? event.category}</span>
+                  <span class="event-date">{formatDate(event.date)}</span>
+                </div>
+                <h3 class="event-title">{event.title}</h3>
+                {event.location && <p class="event-location">{event.location}</p>}
+                <p class="event-description">{event.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .events-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+  .page-header { margin-bottom: 2.5rem; }
+  .page-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  .page-header p { color: #555; }
+  .events-container section { margin-bottom: 3rem; }
+  .events-container h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-bottom: 2px solid #222;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .events-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
+  .event-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+  }
+  .event-card.past { opacity: 0.7; }
+  .event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    color: #555;
+  }
+  .event-category {
+    background: #f0f0f0;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: #333;
+  }
+  .event-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .event-location { font-size: 0.875rem; color: #666; margin-bottom: 0.5rem; }
+  .event-description { color: #444; line-height: 1.6; }
+  .no-content { color: #666; font-style: italic; }
+  .past-events h2 { color: #666; border-color: #ccc; }
+</style>

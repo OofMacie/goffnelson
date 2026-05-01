@@ -1,0 +1,22 @@
+---
+import { storyblokEditable, renderRichText } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+
+interface Props {
+  blok: {
+    _uid: string
+    body?: unknown[]
+    content?: unknown
+  }
+}
+
+const { blok } = Astro.props
+---
+
+<div {...storyblokEditable(blok)}>
+  {Array.isArray(blok.body)
+    ? blok.body.map((nestedBlok: any) => (
+        <StoryblokComponent blok={nestedBlok} />
+      ))
+    : null}
+</div>
