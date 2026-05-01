@@ -1,95 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import NavBar from '../components/NavBar.astro';
-import { getCollection } from 'astro:content';
-
-const allEvents = await getCollection('events');
-const upcomingEvents = allEvents
-  .sort((a, b) => a.data.date.localeCompare(b.data.date))
-  .slice(0, 3);
-
-const allArticles = await getCollection('articles');
-const recentArticles = allArticles
-  .sort((a, b) => b.data.publishDate.localeCompare(a.data.publishDate))
-  .slice(0, 2);
-
-const categoryLabels: Record<string, string> = {
-  'book-club': 'Book Club',
-  'childrens': "Children's",
-  'teen': 'Teen',
-  'adult': 'Adult',
-  'community': 'Community',
-  'other': 'Other',
-};
 ---
 
 <Layout>
   <NavBar />
   <main>
-
-    <!-- Hero -->
-    <section class="bg-blue-700 text-white py-20 px-4 text-center">
-      <h1 class="text-5xl font-bold mb-4">Goff Nelson Memorial Library</h1>
-      <p class="text-xl text-blue-100 max-w-xl mx-auto mb-8">Books, programs, and community resources — for everyone.</p>
-      <div class="flex gap-4 justify-center flex-wrap">
-        <a href="/events" class="bg-white text-blue-700 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors">View Events</a>
-        <a href="/articles" class="border border-white text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">Library News</a>
-      </div>
-    </section>
-
-    <!-- Upcoming Events -->
-    <section class="max-w-4xl mx-auto px-4 py-16">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl font-bold">Upcoming Events</h2>
-        <a href="/events" class="text-blue-600 hover:underline text-sm font-medium">View all &rarr;</a>
-      </div>
-
-      {upcomingEvents.length === 0 && (
-        <p class="text-gray-500">No upcoming events. Check back soon!</p>
-      )}
-
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {upcomingEvents.map((event) => (
-          <a href={`/events/${event.id}`} class="group border border-gray-200 rounded-xl p-5 hover:border-blue-400 hover:shadow-md transition-all duration-200">
-            <span class="text-xs font-semibold uppercase tracking-wide bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
-              {categoryLabels[event.data.category] ?? event.data.category}
-            </span>
-            <h3 class="font-semibold mt-2 group-hover:text-blue-600 transition-colors">{event.data.title}</h3>
-            <p class="text-sm text-gray-500 mt-1">
-              {new Date(event.data.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
-              {event.data.time && <span> &mdash; {event.data.time}</span>}
-            </p>
-            <p class="text-sm text-gray-600 mt-2 line-clamp-2">{event.data.description}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- Recent News -->
-    <section class="bg-gray-50 py-16 px-4">
-      <div class="max-w-4xl mx-auto">
-        <div class="flex items-center justify-between mb-8">
-          <h2 class="text-3xl font-bold">Library News</h2>
-          <a href="/articles" class="text-blue-600 hover:underline text-sm font-medium">All articles &rarr;</a>
-        </div>
-
-        {recentArticles.length === 0 && (
-          <p class="text-gray-500">No articles yet.</p>
-        )}
-
-        <div class="grid gap-4 sm:grid-cols-2">
-          {recentArticles.map((article) => (
-            <a href={`/articles/${article.id}`} class="group bg-white border border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-md transition-all duration-200">
-              <p class="text-xs text-gray-400 mb-1">
-                {new Date(article.data.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </p>
-              <h3 class="font-semibold group-hover:text-blue-600 transition-colors">{article.data.title}</h3>
-              <p class="text-sm text-gray-600 mt-2 line-clamp-3">{article.data.description}</p>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
+    <p>Goff Nelson Memorial Library</p>
   </main>
 </Layout>
