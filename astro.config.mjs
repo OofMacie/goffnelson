@@ -7,6 +7,7 @@ import partytown from '@astrojs/partytown';
 import compress from '@playform/compress';
 import react from '@astrojs/react';
 import mkcert from 'vite-plugin-mkcert';
+import 'dotenv/config';
 
 export default defineConfig({
   site: 'https://yourdomain.com',
@@ -18,16 +19,19 @@ export default defineConfig({
   },
   integrations: [
     storyblok({
-      accessToken: import.meta.env.STORYBLOK_TOKEN,
+      accessToken: process.env.STORYBLOK_TOKEN,
       bridge: true,
       components: {
         event: 'storyblok/Event',
         article: 'storyblok/Article',
         page: 'storyblok/Page',
         site_settings: 'storyblok/SiteSettings',
+        teaser: 'storyblok/Teaser',
+        grid: 'storyblok/Grid',
+        feature: 'storyblok/Feature',
       },
       apiOptions: {
-        region: 'us',
+        region: 'eu',
       },
     }),
     sitemap(),

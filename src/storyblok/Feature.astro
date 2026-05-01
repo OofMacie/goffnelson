@@ -1,0 +1,18 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+import type { SbBlokData } from '@storyblok/astro'
+
+interface FeatureBlok extends SbBlokData {
+  name?: string
+}
+
+interface Props {
+  blok: FeatureBlok
+}
+
+const { blok } = Astro.props
+---
+
+<div class="feature" {...storyblokEditable(blok)}>
+  {blok.name && <p>{blok.name}</p>}
+</div>

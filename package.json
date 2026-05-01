@@ -7,12 +7,17 @@
     "build": "astro build",
     "preview": "astro preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "sb:components": "storyblok components pull",
+    "sb:types": "storyblok components pull && storyblok types generate",
+    "sb:stories": "storyblok stories pull",
+    "sb:pull": "storyblok components pull && storyblok stories pull"
   },
   "devDependencies": {
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "storyblok": "^4.17.2",
     "vite-plugin-mkcert": "^2.0.0"
   },
   "dependencies": {
@@ -26,6 +31,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "astro": "^6.2.1",
+    "dotenv": "^17.4.2",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "tailwindcss": "^4.2.4"
