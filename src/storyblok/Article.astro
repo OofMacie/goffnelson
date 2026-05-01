@@ -1,20 +1,23 @@
 ---
 import { storyblokEditable, renderRichText } from '@storyblok/astro'
+import type { SbBlokData } from '@storyblok/astro'
+import type { StoryblokRichTextNode } from '@storyblok/richtext'
+
+interface ArticleBlok extends SbBlokData {
+  title: string
+  publish_date: string
+  author: string
+  description: string
+  body?: StoryblokRichTextNode<string>
+}
 
 interface Props {
-  blok: {
-    _uid: string
-    title: string
-    publish_date: string
-    author: string
-    description: string
-    body?: unknown
-  }
+  blok: ArticleBlok
 }
 
 const { blok } = Astro.props
 
-const bodyHtml = blok.body ? renderRichText(blok.body) : ''
+const bodyHtml = blok.body ? renderRichText(blok.body as StoryblokRichTextNode<string>) : ''
 
 function formatDate(dateStr: string) {
   return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {

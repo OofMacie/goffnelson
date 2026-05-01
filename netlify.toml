@@ -5,6 +5,12 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Allow Storyblok Visual Editor to embed the site in an iframe
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors 'self' https://app.storyblok.com"
+
 # Redirect all routes to index (Astro handles routing)
 [[redirects]]
   from = "/*"

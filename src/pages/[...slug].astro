@@ -1,0 +1,36 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import Layout from '../layouts/Layout.astro'
+import NavBar from '../components/NavBar.astro'
+import type { ISbStoryData } from '@storyblok/astro'
+
+interface Props {
+  story: ISbStoryData
+}
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi()
+  const { data } = await storyblokApi.get('cdn/stories', {
+    version: 'draft',
+  })
+
+  return data.stories.map((story: ISbStoryData) => ({
+    params: {
+      slug: story.full_slug === 'home' ? undefined : story.full_slug,
+    },
+    props: { story },
+  }))
+}
+
+const { story } = Astro.props
+const title = (story.content?.title as string | undefined) || story.name || 'Goff Nelson Memorial Library'
+const description = (story.content?.description as string | undefined) || ''
+---
+
+<Layout title={title} description={description}>
+  <NavBar />
+  <main>
+    <StoryblokComponent blok={story.content} />
+  </main>
+</Layout>
