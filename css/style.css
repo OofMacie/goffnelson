@@ -85,7 +85,10 @@ textarea {
   overflow: hidden;
   background-color: #333;
   font-family: Arial;
+  width: 100%;
+  position: sticky;
 }
+
 .logo > img {
   display: flex;
   float: left;
@@ -102,8 +105,7 @@ textarea {
   color: white;
   text-align: center;
   padding: 14px 16px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  padding-top: 5px;
   text-decoration: none;
 }
 
@@ -352,4 +354,3 @@ textarea {
     page-break-after: avoid;
   }
 }
-
