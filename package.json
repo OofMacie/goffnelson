@@ -1,11 +1,7 @@
 {
   "name": "goffnelson",
   "version": "0.0.1",
-  "description": "",
   "private": true,
-  "keywords": [""],
-  "license": "",
-  "author": "",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -14,22 +10,16 @@
     "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@playform/compress": "^0.2.3",
-    "copy-webpack-plugin": "^11.0.0",
-    "html-webpack-plugin": "^5.5.3",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.8.0",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
-    "webpack-merge": "^5.9.0"
+    "prettier-plugin-tailwindcss": "^0.8.0"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/partytown": "^2.1.7",
     "@astrojs/react": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
+    "@playform/compress": "^0.2.3",
     "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
