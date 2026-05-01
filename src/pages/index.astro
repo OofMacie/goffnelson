@@ -1,12 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import NavBar from '../components/NavBar.astro';
+import Nav from '../components/Nav.tsx'
 ---
 
-<Layout>
-  <NavBar />
-  <main>
-      <img src="images/" alt="hero-img">
-    <p>Goff Nelson Memorial Library</p>
-  </main>
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <img src="src/assets/logo.png" alt="Goff-Nelson Memorial Library Logo" />
+    <title>Goff-Nelson Memorial Library</title>
+  </head>
+  <body>
+    <Nav client:load />
+    <main class="p-8">
+      <h1 class="text-4xl font-bold text-green-800">
+        Welcome to Goff-Nelson Memorial Library 🌲
+      </h1>
+    </main>
+  </body>
+</html>

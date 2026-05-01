@@ -206,6 +206,19 @@ textarea {
   display: table;
   clear: both;
 }
+.hero > img {
+margin-bottom: 30px;
+    display: flex;
+    height: 400px;
+    width: 99.4vw;
+    position: relative;
+    left: calc(-1 * (100vw - 100%) / 2);
+    background-size: cover;
+    background-color: #ccc;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
 
 /* ==========================================================================
    Author's custom styles

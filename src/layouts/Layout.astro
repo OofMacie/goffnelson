@@ -1,63 +1,23 @@
----
-import '../styles/global.css';
-
-interface Props {
-  title?: string;
-  description?: string;
-}
-
-const {
-  title = 'Goff Nelson Memorial Library | Books, Events & Community Resources',
-  description = 'Goff Nelson Memorial Library offers books, e-books, audiobooks, DVDs, community events, book clubs, and programs for children and teens. Visit your local library today.',
-} = Astro.props;
----
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Primary SEO -->
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta
-      name="keywords"
-      content="Goff Nelson Memorial Library, library, books, e-books, audiobooks, community events, book clubs, children programs, teen programs, local library"
-    />
-    <meta name="author" content="Goff Nelson Memorial Library" />
-    <meta name="robots" content="index, follow" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="language" content="English" />
-    <link rel="canonical" href="" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:image:alt" content="Goff Nelson Memorial Library" />
-    <meta property="og:site_name" content="Goff Nelson Memorial Library" />
-    <meta property="og:locale" content="en_US" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:image:alt" content="Goff Nelson Memorial Library" />
-
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#fafafa" />
-
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
-  <body>
-    <slot />
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro Basics</title>
+	</head>
+	<body>
+		<slot />
+	</body>
 </html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>
