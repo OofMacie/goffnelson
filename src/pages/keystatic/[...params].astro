@@ -1,0 +1,21 @@
+---
+export const prerender = false;
+import { KeystaticApp } from '../../components/KeystaticApp';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Keystatic Admin</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <KeystaticApp client:only="react" />
+  </body>
+</html>
