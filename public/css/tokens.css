@@ -1,0 +1,162 @@
+/* ================================================================
+   GOFF-NELSON MEMORIAL LIBRARY — Design Tokens
+   Tupper Lake, NY · Adirondack Wilderness Palette
+   ================================================================ */
+
+:root {
+
+  /* ── Raw palette  */
+
+  --spruce:              #1E3828;   /* deep pine forest                  */
+  --spruce-dark:         #0F1F16;   /* near-black pine                   */
+  --spruce-mid:          #2E5241;   /* mid forest                        */
+  --spruce-light:        #527B6A;   /* lighter spruce                    */
+  --spruce-pale:         #C2D5CA;   /* spruce tint                       */
+  --spruce-ghost:        #E8F0EC;   /* near-white green                  */
+
+  --lake:                #3D7A8A;   /* Raquette Pond blue                */
+  --lake-dark:           #133645;   /* deep water navy                   */
+  --lake-mid:            #255968;   /* evening lake                      */
+  --lake-bright:         #4E9BAD;   /* morning reflection                */
+  --lake-pale:           #B8DCE4;   /* sky on water                      */
+  --lake-ghost:          #E3F2F5;   /* near-white lake tint              */
+
+  --maple:               #C49A3C;   /* autumn maple gold                 */
+  --maple-dark:          #6B4D18;   /* aged wood                         */
+  --maple-mid:           #9A7228;   /* mid amber                         */
+  --maple-bright:        #DEB94E;   /* golden hour                       */
+  --maple-pale:          #F0D88C;   /* birch-leaf yellow                 */
+  --maple-ghost:         #FAF3E0;   /* warm cream tint                   */
+
+  --fern:                #8BA888;   /* understory green                  */
+
+  --sumac:               #963030;   /* sumac berry red                   */
+  --sumac-dark:          #6B1E1E;   /* dark sumac                        */
+  --sumac-ghost:         #FAEAEA;   /* sumac tint                        */
+
+  --birch:               #F6F2EC;   /* warm page white                   */
+  --mist:                #EAE5DC;   /* card / surface                    */
+  --driftwood:           #C4BEB4;   /* borders                           */
+  --granite:             #7A756C;   /* muted text                        */
+  --bark:                #383430;   /* body text                         */
+  --night:               #141210;   /* headings                          */
+
+
+  /* ── Site layout ─────────────────────────────────────────────── */
+
+  --page-bg:             var(--birch);          /* html / body background */
+  --page-width:          1100px;                /* max-width wrapper      */
+  --page-gutter:         1.5rem;                /* side padding, mobile   */
+
+
+  /* ── Navigation ──────────────────────────────────────────────── */
+
+  --nav-bg:              var(--spruce);         /* top nav bar background */
+  --nav-text:            var(--spruce-pale);    /* nav link color         */
+  --nav-text-hover:      var(--birch);          /* nav link hover         */
+  --nav-active:          var(--maple);          /* current page link      */
+  --nav-dropdown-bg:     var(--spruce-mid);     /* dropdown panel bg      */
+  --nav-border:          var(--spruce-mid);     /* bottom rule under nav  */
+
+
+  /* ── Hero / page header ──────────────────────────────────────── */
+
+  --hero-bg:             var(--lake-mid);       /* hero section bg        */
+  --hero-heading:        var(--lake-ghost);     /* h1 on hero             */
+  --hero-sub:            var(--lake-pale);      /* subheading / tagline   */
+  --hero-btn:            var(--maple);          /* CTA button on hero     */
+  --hero-btn-text:       var(--maple-dark);     /* text on --hero-btn     */
+  --hero-btn-hover:      var(--maple-bright);   /* hover state            */
+
+
+  /* ── Cards & surfaces ────────────────────────────────────────── */
+
+  --card-bg:             #ffffff;               /* white card face        */
+  --card-surface:        var(--mist);           /* inset / tinted card    */
+  --card-border:         var(--driftwood);      /* card border            */
+  --card-heading:        var(--night);          /* card title             */
+  --card-text:           var(--bark);           /* card body copy         */
+  --card-meta:           var(--granite);        /* dates, labels, caps    */
+
+
+  /* ── Programs & Events ───────────────────────────────────────── */
+
+  --event-accent:        var(--maple);          /* highlight stripe       */
+  --event-bg:            var(--maple-ghost);    /* event card bg          */
+  --event-date:          var(--maple-mid);      /* event date text        */
+  --event-tag-bg:        var(--maple-pale);     /* category badge fill    */
+  --event-tag-text:      var(--maple-dark);     /* badge text             */
+
+
+  /* ── Children's room ─────────────────────────────────────────── */
+
+  --kids-accent:         var(--lake-bright);    /* section color          */
+  --kids-bg:             var(--lake-ghost);     /* section background     */
+  --kids-tag-bg:         var(--lake-pale);      /* badge fill             */
+  --kids-tag-text:       var(--lake-dark);      /* badge text             */
+
+
+  /* ── Adirondack history room ─────────────────────────────────── */
+
+  --history-accent:      var(--fern);           /* section color          */
+  --history-bg:          var(--spruce-ghost);   /* section background     */
+  --history-border:      var(--spruce-pale);    /* card left-border rule  */
+  --history-text:        var(--spruce-mid);     /* section body text      */
+
+
+  /* ── Online resources / databases ───────────────────────────── */
+
+  --resource-accent:     var(--lake);           /* resource link color    */
+  --resource-bg:         var(--lake-ghost);     /* resource tile bg       */
+  --resource-border:     var(--lake-pale);      /* tile border            */
+
+
+  /* ── Hours / info table ──────────────────────────────────────── */
+
+  --table-head-bg:       var(--spruce);         /* th background          */
+  --table-head-text:     var(--spruce-pale);    /* th text                */
+  --table-row-alt:       var(--mist);           /* alternating row        */
+  --table-border:        var(--driftwood);      /* cell borders           */
+  --table-open:          var(--spruce-light);   /* open hours text        */
+  --table-closed:        var(--sumac);          /* closed / holiday text  */
+
+
+  /* ── Notices & alerts ────────────────────────────────────────── */
+
+  --notice-info-bg:      var(--lake-ghost);     /* general notice bg      */
+  --notice-info-text:    var(--lake-dark);      /* notice body            */
+  --notice-info-bar:     var(--lake);           /* left accent bar        */
+
+  --notice-warn-bg:      var(--maple-ghost);    /* closure warning bg     */
+  --notice-warn-text:    var(--maple-dark);     /* warning body           */
+  --notice-warn-bar:     var(--maple);          /* left accent bar        */
+
+  --notice-closed-bg:    var(--sumac-ghost);    /* closed holiday banner  */
+  --notice-closed-text:  var(--sumac-dark);     /* text on closed notice  */
+  --notice-closed-bar:   var(--sumac);          /* left accent bar        */
+
+
+  /* ── Typography ──────────────────────────────────────────────── */
+
+  --text-heading:        var(--night);          /* h1–h3                  */
+  --text-body:           var(--bark);           /* paragraphs             */
+  --text-muted:          var(--granite);        /* captions, meta, dates  */
+  --text-link:           var(--lake);           /* inline links           */
+  --text-link-hover:     var(--lake-mid);       /* hovered link           */
+  --text-on-dark:        var(--birch);          /* text on dark bg        */
+
+
+  /* ── Footer ──────────────────────────────────────────────────── */
+
+  --footer-bg:           var(--spruce-dark);    /* footer background      */
+  --footer-text:         var(--spruce-light);   /* footer body text       */
+  --footer-link:         var(--spruce-pale);    /* footer links           */
+  --footer-border:       var(--spruce-mid);     /* footer rule / divider  */
+
+
+  /* ── Focus & accessibility ───────────────────────────────────── */
+
+  --focus-ring:          var(--lake);           /* outline on focus       */
+  --focus-offset:        3px;                   /* outline-offset         */
+
+}

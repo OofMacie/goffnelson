@@ -1,7 +1,12 @@
 ---
+import { ThemeModeScript } from "flowbite-react";
+import RootLayout from "../layouts/index.astro";
 import Layout from '../layouts/Layout.astro'
 import Nav from '../components/Nav.tsx'
 import { BookCarousel } from '../components/BookCarousel.tsx'
+import Events from '../components/Events.tsx'
+import Footer from '../components/Footer.tsx'
+
 ---
 
 <Layout
@@ -40,5 +45,11 @@ import { BookCarousel } from '../components/BookCarousel.tsx'
 
     <!-- New Arrivals Carousel -->
     <BookCarousel client:load />
+
+    <!-- Events Carousel -->
+    <Events client:load />
+
+    <!-- Footer -->
+    <Footer client:load />
   </main>
 </Layout>
