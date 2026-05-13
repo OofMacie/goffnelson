@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro'
 import Nav from '../components/Nav.tsx'
 import { BookCarousel } from '../components/BookCarousel.tsx'
-import Events from '../components/Events.tsx'
 import Footer from '../components/Footer.tsx'
 
 ---
@@ -15,11 +14,13 @@ import Footer from '../components/Footer.tsx'
   <Nav client:load />
 
   <main>
-    <input class="search-events"
+    <div id="events">
+    <input class="search" aria-labelledby="search-events"
     type="search"
     >
 
     <!-- Footer -->
     <Footer client:load />
   </main>
+  </div>
 </Layout>

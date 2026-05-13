@@ -850,6 +850,7 @@ body {
 /* General page content padding */
 @media (max-width: 767px) {
   main {
+    display: flex;
     overflow-x: hidden;
   }
 }
@@ -857,4 +858,15 @@ body {
 footer img {
   width: 180px;
   height: 180px;
+}
+
+/* Events Search */
+
+
+.search {
+  display: block;
+  margin: 20px auto;
+  width: 40%;
+  font-size: 14px;
+  background-color: var(--lake);
 }
