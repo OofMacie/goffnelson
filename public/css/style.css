@@ -853,10 +853,8 @@ body {
     overflow-x: hidden;
   }
 }
-.events {
 
-}
-FooterBrand, img {
+footer img {
   width: 180px;
   height: 180px;
 }

@@ -10,9 +10,11 @@
     "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.8.0"
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",

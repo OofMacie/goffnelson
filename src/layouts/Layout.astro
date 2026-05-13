@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css'
+
 interface Props {
   title?: string
   description?: string
@@ -140,7 +142,7 @@ const schema = {
     <link rel="dns-prefetch" href="https://cefls.ent.sirsi.net" />
 
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 
     <!-- Styles -->
     <link rel="stylesheet" href="/css/style.css" />
