@@ -336,7 +336,7 @@ export default function Nav() {
                                 <div key={j} style={{ minWidth: 160 }}>
                                     <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--event-tag-text)", marginBottom: 14, display: "block" }}>{col.heading}</span>
                                     {col.links.map((link, k) => (
-                                        <a key={k} href="link.href" style={{ display: "block", fontSize: 13, color: "var(--card-text)", textDecoration: "none", padding: "5px 0", lineHeight: 1.4 }}>
+                                        <a key={k} href={link.href || "#"} style={{ display: "block", fontSize: 13, color: "var(--card-text)", textDecoration: "none", padding: "5px 0", lineHeight: 1.4 }}>
                                             {link.text}
                                             {link.note !== "" && <span style={{ display: "block", fontSize: 11, color: "var(--card-meta)", marginTop: 1 }}>{link.note}</span>}
                                         </a>

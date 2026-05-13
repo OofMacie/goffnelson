@@ -1,6 +1,25 @@
+---
 import Layout from '../layouts/Layout.astro'
 import Nav from '../components/Nav.tsx'
+import { BookCarousel } from '../components/BookCarousel.tsx'
 import Events from '../components/Events.tsx'
 import Footer from '../components/Footer.tsx'
 
-<input type="search">
+---
+
+<Layout
+  title="Goff-Nelson Memorial Library | Books, Events & Community Resources"
+  description="Your community library in Tupper Lake, NY. Browse books, eBooks, audiobooks, DVDs, attend events, join programs for kids and teens, and access free digital resources."
+  image="/images/outsidebuilding/outside.webp"
+>
+  <Nav client:load />
+
+  <main>
+    <input class="search-events"
+    type="search"
+    >
+
+    <!-- Footer -->
+    <Footer client:load />
+  </main>
+</Layout>
