@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: "22"
       - name: Resolve packages
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Validate CMS content
         run: npm run content:check
       - name: Validate Astro and TypeScript
