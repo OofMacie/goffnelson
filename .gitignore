@@ -11,3 +11,4 @@ dist
 public/admin
 tina/__generated__
 !.env.example
+.vercel

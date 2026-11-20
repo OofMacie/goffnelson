@@ -6,12 +6,21 @@ const branch =
   process.env.VERCEL_GIT_COMMIT_REF ||
   "main";
 
+// Tina does not block saving an empty list item, so required text is validated explicitly.
 const stringField = (name: string, label: string, required = true) => ({
   type: "string" as const,
   name,
   label,
   required,
+  ...(required && {
+    ui: { validate: (value?: string) => (value?.trim() ? undefined : "This field is required.") },
+  }),
 });
+
+const textField = (name: string, label: string) => {
+  const field = stringField(name, label);
+  return { ...field, ui: { ...field.ui, component: "textarea" } };
+};
 
 export default defineConfig({
   branch,
@@ -20,7 +29,7 @@ export default defineConfig({
   // Prefer the documented key. CONTENT_READONLY is supported for the existing Vercel setup.
   token: (process.env.TINA_TOKEN || process.env.CONTENT_READONLY)?.trim(),
   build: { outputFolder: "admin", publicFolder: "public" },
-  media: { tina: { mediaRoot: "images/uploads", publicFolder: "public" } },
+  media: { tina: { mediaRoot: "images", publicFolder: "public" } },
   schema: {
     collections: [
       {
@@ -37,7 +46,7 @@ export default defineConfig({
           { type: "image", name: "heroImage", label: "Homepage photograph", required: true },
           stringField("heroAlt", "Describe the photograph for screen-reader users"),
           stringField("headline", "Main heading"),
-          { ...stringField("introduction", "Welcome paragraph"), ui: { component: "textarea" } },
+          textField("introduction", "Welcome paragraph"),
         ],
       },
       {
@@ -45,7 +54,7 @@ export default defineConfig({
         label: "Events and programs",
         path: "content/events",
         format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
+        ui: { router: () => "/", allowedActions: { create: false, delete: false } },
         fields: [
           stringField("title", "Section heading"),
           {
@@ -58,7 +67,7 @@ export default defineConfig({
               stringField("title", "Event name"),
               stringField("date", "Date or repeating schedule"),
               stringField("time", "Start time"),
-              { ...stringField("description", "Event description"), ui: { component: "textarea" } },
+              textField("description", "Event description"),
               stringField("category", "Audience or category"),
               { type: "image", name: "image", label: "Event photograph" },
               stringField("imageAlt", "Describe the photograph (if informative)", false),
@@ -72,7 +81,7 @@ export default defineConfig({
         label: "Staff book picks",
         path: "content/books",
         format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
+        ui: { router: () => "/", allowedActions: { create: false, delete: false } },
         fields: [
           stringField("title", "Carousel heading"),
           {
@@ -84,8 +93,8 @@ export default defineConfig({
             fields: [
               stringField("title", "Book title"),
               stringField("author", "Author"),
-              stringField("isbn", "ISBN", false),
-              { type: "image", name: "cover", label: "Book cover", required: true },
+              stringField("isbn", "ISBN (used for the cover when no image is chosen)", false),
+              { type: "image", name: "cover", label: "Book cover (optional)" },
             ],
           },
         ],
@@ -98,7 +107,7 @@ export default defineConfig({
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
           stringField("title", "Internal title"),
-          { ...stringField("about", "About the library"), ui: { component: "textarea" } },
+          textField("about", "About the library"),
           stringField("address", "Street address"),
           stringField("phone", "Display phone number"),
           stringField("phoneLink", "Phone number for clickable links"),

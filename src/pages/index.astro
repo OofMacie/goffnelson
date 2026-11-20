@@ -1,16 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.tsx";
-import { BookCarousel } from "../components/BookCarousel.tsx";
-import Events from "../components/Events.tsx";
 import Footer from "../components/Footer.tsx";
 import TinaIsland from "@tinacms/astro/TinaIsland.astro";
 import HomeBody from "../components/cms/HomeBody.astro";
-import { getHome } from "../lib/tina-data";
+import BookCarousel from "../components/cms/BookCarousel.astro";
+import EventCarousel from "../components/cms/EventCarousel.astro";
+import { getBooks, getEvents, getHome } from "../lib/tina-data";
 import { islands } from "../lib/tina-islands";
 
-const response = await getHome();
-const home = response.data?.home;
+const [home, books, events] = await Promise.all([getHome(), getBooks(), getEvents()]);
 ---
 
 <Layout
@@ -21,10 +20,14 @@ const home = response.data?.home;
   <Nav client:load />
   <main id="main-content">
     <TinaIsland name="home" wrapper={islands.home.wrapper} primary>
-      <HomeBody data={home} />
+      <HomeBody data={home.data?.home} />
     </TinaIsland>
-    <BookCarousel client:load />
-    <Events client:load />
+    <TinaIsland name="books" wrapper={islands.books.wrapper}>
+      <BookCarousel data={books.data?.books} />
+    </TinaIsland>
+    <TinaIsland name="events" wrapper={islands.events.wrapper}>
+      <EventCarousel data={events.data?.events} />
+    </TinaIsland>
   </main>
   <Footer client:load />
 </Layout>

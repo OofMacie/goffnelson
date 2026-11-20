@@ -34,7 +34,7 @@ for (const [i, event] of events.entries.entries()) {
 }
 for (const [i, book] of books.entries.entries()) {
   check(text(book.title), `Book ${i + 1} needs a title`);
-  check(text(book.cover), `Book ${i + 1} needs an image`);
+  check(text(book.cover) || text(book.isbn), `Book ${i + 1} needs a cover image or ISBN`);
 }
 check(text(settings.address), "Missing library address");
 check(text(settings.phoneLink), "Missing contact telephone");

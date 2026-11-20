@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react"
+import Icon from "./Icon"
+import type { IconName } from "../lib/icons"
 
 const menuData = [
     {
@@ -18,8 +20,8 @@ const menuData = [
             },
         ],
         promos: [
-            { title: "Adirondack History Room", desc: "Photos, yearbooks & local history archives", color: "#e8f4e8" },
-            { title: "Library of Things", desc: "Borrow more than just books", color: "#e8eef4" },
+            { title: "Adirondack History Room", icon: "archive" as IconName, desc: "Photos, yearbooks & local history archives", color: "#e8f4e8" },
+            { title: "Library of Things", icon: "package" as IconName, desc: "Borrow more than just books", color: "#e8eef4" },
         ],
     },
     {
@@ -45,8 +47,8 @@ const menuData = [
             },
         ],
         promos: [
-            { title: "Yarn Social", desc: "Join our weekly knit & crochet group", color: "#f4eee8" },
-            { title: "Tabata with Courtney", desc: "Free fitness classes at the library", color: "#f0e8f4" },
+            { title: "Yarn Social", icon: "users" as IconName, desc: "Join our weekly knit & crochet group", color: "#f4eee8" },
+            { title: "Tabata with Courtney", icon: "dumbbell" as IconName, desc: "Free fitness classes at the library", color: "#f0e8f4" },
         ],
     },
     {
@@ -65,8 +67,8 @@ const menuData = [
             },
         ],
         promos: [
-            { title: "OverDrive / Libby", desc: "Thousands of free eBooks & audiobooks with your card", color: "#e8f4e8" },
-            { title: "NYHeritage Archive", desc: "Explore historic Tupper Lake photos & yearbooks", color: "#e8eef4" },
+            { title: "OverDrive / Libby", icon: "headphones" as IconName, desc: "Thousands of free eBooks & audiobooks with your card", color: "#e8f4e8" },
+            { title: "NYHeritage Archive", icon: "landmark" as IconName, desc: "Explore historic Tupper Lake photos & yearbooks", color: "#e8eef4" },
         ],
     },
     {
@@ -94,8 +96,8 @@ const menuData = [
             },
         ],
         promos: [
-            { title: "Donate Today", desc: "Your support keeps the library thriving for everyone", color: "#f4eee8" },
-            { title: "Get a Card", desc: "Free library cards for all Tupper Lake residents", color: "#e8f4e8" },
+            { title: "Donate Today", icon: "heart-handshake" as IconName, desc: "Your support keeps the library thriving for everyone", color: "#f4eee8" },
+            { title: "Get a Card", icon: "id-card" as IconName, desc: "Free library cards for all Tupper Lake residents", color: "#e8f4e8" },
         ],
     },
 ]
@@ -113,8 +115,6 @@ const pills = [
     { label: "Adirondack History", href: `${CATALOG}&q=adirondack` },
     { label: "Events", href: "/Events/" },
 ]
-
-const promoEmojis = ["🌲", "📚", "🎧", "🏔️", "🧶", "💪", "📖", "🗂️"]
 
 // ─── Mobile accordion section ──────────────────────────────────────────────
 function MobileSection({ menu, index }: { menu: typeof menuData[0]; index: number }) {
@@ -220,7 +220,7 @@ export default function Nav() {
                         {/* Quick search */}
                         <div style={{ padding: "16px 20px", background: "#f8f6f0", borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
                             <div style={{ display: "flex", alignItems: "center", background: "#fff", borderRadius: 24, border: "1.5px solid #ccc", padding: "9px 16px", gap: 8 }}>
-                                <span style={{ fontSize: 14 }}>🔍</span>
+                                <Icon name="search" />
                                 <input
                                     style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
                                     placeholder="Search the library catalog…"
@@ -239,8 +239,8 @@ export default function Nav() {
 
                         {/* Footer links */}
                         <div style={{ padding: "20px", background: "#f8f6f0", marginTop: 8 }}>
-                            <p style={{ fontSize: 13, color: "#555", margin: "0 0 4px" }}>📍 41 Lake Street, Tupper Lake NY 12986</p>
-                            <p style={{ fontSize: 13, color: "#555", margin: 0 }}>📞 <a href="tel:+15183599421" style={{ color: "#1b4332", textDecoration: "none" }}>518-359-9421</a></p>
+                            <p style={{ fontSize: 13, color: "#555", margin: "0 0 4px" }}><Icon name="map-pin" /> 41 Lake Street, Tupper Lake NY 12986</p>
+                            <p style={{ fontSize: 13, color: "#555", margin: 0 }}><Icon name="phone" /> <a href="tel:+15183599421" style={{ color: "#1b4332", textDecoration: "none" }}>518-359-9421</a></p>
                         </div>
                     </div>
                 )}
@@ -272,7 +272,7 @@ export default function Nav() {
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <button onClick={() => { setSearchOpen(!searchOpen); setOpen(null) }} aria-expanded={searchOpen} style={{ display: "flex", alignItems: "center", gap: 7, background: searchOpen ? "rgba(0,0,0,0.07)" : "rgba(0,0,0,0.04)", border: "none", borderRadius: 22, padding: "7px 16px", fontSize: 13, color: "#414141", cursor: "pointer", whiteSpace: "nowrap" }}>
-                        🔍 Search
+                        <Icon name="search" /> Search
                     </button>
                     <button style={{ background: "#1b4332", border: "none", borderRadius: 22, padding: "7px 18px", fontSize: 13, fontWeight: 600, color: "#fff", cursor: "pointer", whiteSpace: "nowrap" }}>
                         Get a Card
@@ -285,7 +285,7 @@ export default function Nav() {
                 <div style={{ position: "absolute", top: 64, left: 0, right: 0, background: "#fff", borderBottom: "1px solid rgba(0,0,0,0.1)", boxShadow: "0 16px 40px rgba(0,0,0,0.1)", zIndex: 200, padding: "32px 40px 28px", boxSizing: "border-box" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 12, maxWidth: 700, margin: "0 auto 20px" }}>
                         <div style={{ flex: 1, display: "flex", alignItems: "center", border: "2px solid #222", borderRadius: 30, padding: "10px 18px", gap: 10, background: "#fff" }}>
-                            <span>🔍</span>
+                            <Icon name="search" />
                             <input
                                 style={{ border: "none", background: "transparent", fontSize: 15, outline: "none", flex: 1, color: "#333" }}
                                 placeholder="Search the library"
@@ -321,7 +321,7 @@ export default function Nav() {
                         {menuData[open].hasSearch && (
                             <div style={{ marginBottom: 24 }}>
                                 <div style={{ display: "flex", alignItems: "center", background: "#f5f5f5", borderRadius: 30, padding: "10px 18px", gap: 10, maxWidth: 480 }}>
-                                    <span>🔍</span>
+                                    <Icon name="search" />
                                     <input
                                         style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
                                         placeholder="Search everything we lend"
@@ -354,7 +354,7 @@ export default function Nav() {
                         {menuData[open].promos.map((promo, p) => (
                             <div key={p} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", borderRadius: 10, cursor: "pointer", border: "1px solid rgba(0,0,0,0.06)", background: promo.color }}>
                                 <div style={{ width: 48, height: 48, borderRadius: 6, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, background: "rgba(255,255,255,0.6)" }}>
-                                    {promoEmojis[open * 2 + p] || "📚"}
+                                    <Icon name={promo.icon} />
                                 </div>
                                 <div>
                                     <div style={{ fontSize: 13, fontWeight: 600, color: "#111", marginBottom: 3 }}>{promo.title}</div>

@@ -4,17 +4,12 @@
  * Presentation components do not own editable content.
  */
 import eventData from "../../content/events/events.json";
-import bookData from "../../content/books/books.json";
 import settingsData from "../../content/settings/settings.json";
 
 export const libraryEvents = eventData.entries;
-export const staffPicks = bookData.entries;
 export const eventHeading = eventData.title;
-export const bookHeading = bookData.title;
 export const librarySettings = settingsData;
 
-export type LibraryEvent = (typeof libraryEvents)[number];
-export type StaffPick = (typeof staffPicks)[number];
 
 export function formatOpeningTime(value: string): string {
   const [hours, minutes] = value.split(":").map(Number);

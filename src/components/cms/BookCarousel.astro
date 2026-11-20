@@ -1,0 +1,67 @@
+---
+import { tinaField } from "@tinacms/astro/tina-field";
+import Icon from "../Icon.astro";
+import type { BooksQuery } from "../../../tina/__generated__/types";
+
+interface Props {
+  data: BooksQuery["books"];
+}
+
+const CATALOG = "https://cefls.ent.sirsi.net/client/en_US/default";
+const catalogSearch = (title: string) =>
+  `${CATALOG}/search/results?te=&lm=TUP&q=${encodeURIComponent(title)}&qf=TITLE`;
+
+const { data } = Astro.props;
+// Skip half-filled entries so one blank book never breaks the carousel.
+const books = (data?.entries ?? []).flatMap((book) => (book?.title?.trim() ? [book] : []));
+const coverFor = (book: (typeof books)[number]) =>
+  book?.cover ||
+  (book?.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn.replace(/\D/g, "")}-L.jpg` : "");
+---
+
+{data && (
+  <section class="carousel-section" aria-labelledby="staff-picks-title" data-carousel>
+    <div class="carousel-header">
+      <h2 class="carousel-title" id="staff-picks-title">
+        <Icon name="book-open" /><span data-tina-field={tinaField(data, "title")}>{data.title}</span>
+      </h2>
+      <a
+        href={`${CATALOG}/search/results?te=&lm=TUP&sort=NEWLY_ACQUIRED&rw=0`}
+        class="carousel-view-all"
+        target="_blank"
+        rel="noopener noreferrer"
+      >New arrivals</a>
+    </div>
+    <div class="carousel-wrapper">
+      <button type="button" class="carousel-arrow carousel-arrow-left" data-carousel-arrow="left" aria-label="Scroll books left" disabled>‹</button>
+      <div class="carousel-track" data-carousel-track>
+        {books.map((book) => {
+          const cover = coverFor(book);
+          const url = catalogSearch(book.title);
+          return (
+            <article class="book-card" data-tina-field={tinaField(book)}>
+              <a href={url} target="_blank" rel="noopener noreferrer" class="book-card-cover-link" aria-label={`View ${book.title} in the library catalog`}>
+                <div class="book-card-cover">
+                  {cover && <img src={cover} alt={`Cover of ${book.title}`} loading="lazy" decoding="async" data-tina-field={tinaField(book, "cover")} />}
+                  <div class="book-card-placeholder" aria-hidden="true" data-placeholder hidden={Boolean(cover)}>
+                    <span>{book.title.slice(0, 2).toUpperCase()}</span>
+                  </div>
+                </div>
+              </a>
+              <div class="book-card-info">
+                <h3 class="book-card-title" data-tina-field={tinaField(book, "title")}>{book.title}</h3>
+                {book.author && <p class="book-card-author" data-tina-field={tinaField(book, "author")}>{book.author}</p>}
+                <a href={url} class="book-card-btn" target="_blank" rel="noopener noreferrer">Find in catalog</a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <button type="button" class="carousel-arrow carousel-arrow-right" data-carousel-arrow="right" aria-label="Scroll books right">›</button>
+    </div>
+  </section>
+)}
+
+<script>
+  import "../../scripts/carousels";
+</script>

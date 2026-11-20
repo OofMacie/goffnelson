@@ -881,3 +881,16 @@ footer img {
   text-underline-offset: .2em;
 }
 .events-view-all:hover, .carousel-view-all:hover { color: #102b1e; }
+
+/* Inline SVG icons (src/lib/icons.ts) scale with the surrounding font size. */
+.icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  vertical-align: -0.125em;
+}
+
+.carousel-title .icon,
+.events-title .icon {
+  margin-inline-end: 0.4em;
+}
