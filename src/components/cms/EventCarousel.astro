@@ -1,60 +1,102 @@
 ---
-import { tinaField } from "@tinacms/astro/tina-field";
-import Icon from "../Icon.astro";
-import type { EventsQuery } from "../../../tina/__generated__/types";
-import { eventId } from "../../lib/library-content";
+import { tinaField } from '@tinacms/astro/tina-field';
+import Icon from '../Icon.astro';
+import type { EventsQuery } from '../../../tina/__generated__/types';
+import { eventId } from '../../lib/library-content';
 
 interface Props {
-  data: EventsQuery["events"];
+  data: EventsQuery['events'];
 }
 
 const { data } = Astro.props;
 const events = (data?.entries ?? []).flatMap((event) => (event?.title?.trim() ? [event] : []));
 ---
 
-{data && (
-  <section class="events-section" aria-labelledby="upcoming-events-title" data-carousel>
-    <div class="events-header">
-      <h2 class="events-title" id="upcoming-events-title">
-        <Icon name="calendar-days" /><span data-tina-field={tinaField(data, "title")}>{data.title}</span>
-      </h2>
-      <a href="/Events/" class="events-view-all">View all events</a>
-    </div>
-    <div class="events-wrapper">
-      <button type="button" class="events-arrow events-arrow-left" data-carousel-arrow="left" aria-label="Scroll events left" disabled><Icon name="chevron-left" /></button>
-      <div class="events-track" data-carousel-track>
-        {events.map((event) => (
-          <article class="event-card" data-tina-field={tinaField(event)}>
-            <div class="event-card-image">
-              {event.image && (
-                <img src={event.image} alt={event.imageAlt || ""} loading="lazy" decoding="async" data-tina-field={tinaField(event, "image")} />
-              )}
-              <div class="event-card-image-placeholder" aria-hidden="true" data-placeholder hidden={Boolean(event.image)}><Icon name="calendar-days" /></div>
-            </div>
-            <div class="event-card-content">
-              <div class="event-card-header">
-                <h3 class="event-card-title" data-tina-field={tinaField(event, "title")}>{event.title}</h3>
-                <span class="event-card-category" data-tina-field={tinaField(event, "category")}>{event.category}</span>
-              </div>
-              <div class="event-card-details">
-                <p class="event-card-date">
-                  <span data-tina-field={tinaField(event, "date")}>{event.date}</span> •
-                  <span data-tina-field={tinaField(event, "time")}>{event.time}</span>
-                </p>
-                <p class="event-card-description" data-tina-field={tinaField(event, "description")}>{event.description}</p>
-              </div>
-              <a href={event.link || `/Events/#${eventId(event.title)}`} class="event-card-btn">
-                {event.link ? "Event details" : "View program information"}
-              </a>
-            </div>
-          </article>
-        ))}
+{
+  data && (
+    <section
+      class="carousel carousel--events"
+      aria-labelledby="upcoming-events-title"
+      data-carousel
+    >
+      <div class="container">
+        <div class="carousel__header">
+          <h2 class="carousel__title" id="upcoming-events-title">
+            <Icon name="calendar-days" />
+            <span data-tina-field={tinaField(data, 'title')}>{data.title}</span>
+          </h2>
+          <a href="/Events/" class="carousel__link">
+            View all events
+          </a>
+        </div>
+        <div class="carousel__viewport">
+          <button
+            type="button"
+            class="icon-button carousel__arrow carousel__arrow--prev"
+            data-carousel-arrow="left"
+            aria-label="Scroll events left"
+            disabled
+          >
+            <Icon name="chevron-left" />
+          </button>
+          <div class="carousel__track" data-carousel-track>
+            {events.map((event) => (
+              <article class="event-card" data-tina-field={tinaField(event)}>
+                <div class="event-card__image">
+                  {event.image && (
+                    <img
+                      src={event.image}
+                      alt={event.imageAlt || ''}
+                      loading="lazy"
+                      decoding="async"
+                      data-tina-field={tinaField(event, 'image')}
+                    />
+                  )}
+                  <span aria-hidden="true" data-placeholder hidden={Boolean(event.image)}>
+                    <Icon name="calendar-days" />
+                  </span>
+                </div>
+                <div class="event-card__body">
+                  <h3 class="event-card__title" data-tina-field={tinaField(event, 'title')}>
+                    {event.title}
+                  </h3>
+                  <span class="event-card__category" data-tina-field={tinaField(event, 'category')}>
+                    {event.category}
+                  </span>
+                  <p class="event-card__date">
+                    <span data-tina-field={tinaField(event, 'date')}>{event.date}</span> •
+                    <span data-tina-field={tinaField(event, 'time')}>{event.time}</span>
+                  </p>
+                  <p
+                    class="event-card__description"
+                    data-tina-field={tinaField(event, 'description')}
+                  >
+                    {event.description}
+                  </p>
+                  <a
+                    href={event.link || `/Events/#${eventId(event.title)}`}
+                    class="button button--accent"
+                  >
+                    {event.link ? 'Event details' : 'View program information'}
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+          <button
+            type="button"
+            class="icon-button carousel__arrow carousel__arrow--next"
+            data-carousel-arrow="right"
+            aria-label="Scroll events right"
+          >
+            <Icon name="chevron-right" />
+          </button>
+        </div>
       </div>
-      <button type="button" class="events-arrow events-arrow-right" data-carousel-arrow="right" aria-label="Scroll events right"><Icon name="chevron-right" /></button>
-    </div>
-  </section>
-)}
+    </section>
+  )
+}
 
 <script>
-  import "../../scripts/carousels";
+  import '../../scripts/carousels';
 </script>

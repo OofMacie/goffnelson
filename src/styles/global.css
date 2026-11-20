@@ -1,3 +1,9 @@
 @import "tailwindcss";
 @import "flowbite-react/plugin/tailwindcss";
 @source "../../.flowbite-react/class-list.json";
+
+/* Site styles: tokens first, then base primitives, then page/section components. */
+@import "./tokens.css";
+@import "./base.css";
+@import "./home.css";
+@import "./carousel.css";

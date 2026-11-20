@@ -1,370 +1,311 @@
-import { useState, useRef, useEffect } from "react"
-import Icon from "./Icon"
-import type { IconName } from "../lib/icons"
+import { useEffect, useRef, useState, type CSSProperties, type SyntheticEvent } from 'react';
+import Icon from './Icon';
+import { CATALOG, catalogSearchUrl, menus, pills, type Menu } from '../lib/nav-data';
+import '../styles/nav.css';
 
-const menuData = [
-    {
-        label: "Books & More",
-        hasSearch: true,
-        columns: [
-            {
-                heading: "THINGS WE LEND",
-                links: [
-                    { text: "Books, eBooks & AudioBooks", note: "" },
-                    { text: "Movies & DVDs", note: "" },
-                    { text: "Museum Passes", note: "" },
-                    { text: "CDs & Music", note: "" },
-                    { text: "Large Print", note: "" },
-                    { text: "Audiobooks", note: "" },
-                ],
-            },
-        ],
-        promos: [
-            { title: "Adirondack History Room", icon: "archive" as IconName, desc: "Photos, yearbooks & local history archives", color: "#e8f4e8" },
-            { title: "Library of Things", icon: "package" as IconName, desc: "Borrow more than just books", color: "#e8eef4" },
-        ],
-    },
-    {
-        label: "Events & Programs",
-        hasSearch: false,
-        columns: [
-            {
-                heading: "EVENTS",
-                links: [
-                    { text: "All Events Calendar", note: "" },
-                    { text: "Tupper Tots", note: "Story time for little ones" },
-                    { text: "Tupper Teens", note: "After school programs" },
-                ],
-            },
-            {
-                heading: "BY AUDIENCE",
-                links: [
-                    { text: "Kids", note: "" },
-                    { text: "Teens", note: "" },
-                    { text: "Adults", note: "" },
-                    { text: "BOCES HSE / GED", note: "Evening classes" },
-                ],
-            },
-        ],
-        promos: [
-            { title: "Yarn Social", icon: "users" as IconName, desc: "Join our weekly knit & crochet group", color: "#f4eee8" },
-            { title: "Tabata with Courtney", icon: "dumbbell" as IconName, desc: "Free fitness classes at the library", color: "#f0e8f4" },
-        ],
-    },
-    {
-        label: "Online Resources",
-        hasSearch: false,
-        columns: [
-            {
-                heading: "DIGITAL",
-                links: [
-                    { text: "eBooks & Audiobooks", note: "Free via OverDrive / Libby" },
-                    { text: "Databases", note: "Research & reference tools" },
-                    { text: "Library of Things", note: "" },
-                    { text: "Historic Tupper Lake Photos", note: "NYHeritage archive" },
-                    { text: "Links & Resources", note: "" },
-                ],
-            },
-        ],
-        promos: [
-            { title: "OverDrive / Libby", icon: "headphones" as IconName, desc: "Thousands of free eBooks & audiobooks with your card", color: "#e8f4e8" },
-            { title: "NYHeritage Archive", icon: "landmark" as IconName, desc: "Explore historic Tupper Lake photos & yearbooks", color: "#e8eef4" },
-        ],
-    },
-    {
-        label: "About",
-        hasSearch: false,
-        columns: [
-            {
-                heading: "VISIT US",
-                links: [
-                    { text: "Hours & Location", note: "41 Lake Street, Tupper Lake NY" },
-                    { text: "Contact Us", note: "518-359-9421" },
-                    { text: "History of the Library", note: "" },
-                    { text: "Board of Trustees", note: "" },
-                    { text: "Policies & Annual Report", note: "" },
-                ],
-            },
-            {
-                heading: "SUPPORT",
-                links: [
-                    { text: "Donate", note: "Support your local library" },
-                    { text: "Get a Library Card", note: "Free for all residents" },
-                    { text: "Volunteer", note: "" },
-                    { text: "Room Reservations", note: "" },
-                ],
-            },
-        ],
-        promos: [
-            { title: "Donate Today", icon: "heart-handshake" as IconName, desc: "Your support keeps the library thriving for everyone", color: "#f4eee8" },
-            { title: "Get a Card", icon: "id-card" as IconName, desc: "Free library cards for all Tupper Lake residents", color: "#e8f4e8" },
-        ],
-    },
-]
+type Panel = { kind: 'menu'; index: number } | { kind: 'search' } | { kind: 'drawer' } | null;
+type OpenPanel = Exclude<Panel, null>;
 
-const CATALOG = "https://cefls.ent.sirsi.net/client/en_US/default/search/results?te=&lm=TUP"
+const MOBILE_QUERY = '(max-width: 74.99rem)';
+const openCatalog = (url: string) => window.open(url, '_blank', 'noopener,noreferrer');
 
-const pills = [
-    { label: "New Arrivals", href: `${CATALOG}&rw=0&sort=NEWLY_ACQUIRED` },
-    { label: "Kids Books", href: `${CATALOG}&q=children` },
-    { label: "Teen Reads", href: `${CATALOG}&q=young+adult` },
-    { label: "Large Print", href: `${CATALOG}&q=large+print` },
-    { label: "Audiobooks", href: `${CATALOG}&q=audiobook` },
-    { label: "DVDs", href: `${CATALOG}&q=dvd` },
-    { label: "Graphic Novels", href: `${CATALOG}&q=graphic+novel` },
-    { label: "Adirondack History", href: `${CATALOG}&q=adirondack` },
-    { label: "Events", href: "/Events/" },
-]
+// ─── Search input shared by the search panel, mega menu and mobile drawer ───
+interface SearchFieldProps {
+  label: string;
+  placeholder: string;
+  variant?: 'outlined' | 'filled';
+  autoFocus?: boolean;
+  onSubmit: (query: string) => void;
+}
 
-// ─── Mobile accordion section ──────────────────────────────────────────────
-function MobileSection({ menu, index }: { menu: typeof menuData[0]; index: number }) {
-    const [expanded, setExpanded] = useState(false)
-    return (
-        <div style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
-            <button
-                onClick={() => setExpanded(!expanded)}
-                aria-expanded={expanded}
-                style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", background: "none", border: "none", fontSize: 15, fontWeight: 600, color: "#1a1a1a", cursor: "pointer", textAlign: "left" }}
-            >
-                {menu.label}
-                <span style={{ fontSize: 18, transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.2s", display: "inline-block" }}><Icon name="chevron-down" /></span>
-            </button>
-            {expanded && (
-                <div style={{ padding: "0 20px 16px" }}>
-                    {menu.columns.flatMap(col => col.links).map((link, k) => (
-                        <a key={k} href="#" style={{ display: "block", padding: "9px 0", fontSize: 14, color: "#333", textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
-                            {link.text}
-                            {link.note && <span style={{ display: "block", fontSize: 12, color: "#454545", marginTop: 2 }}>{link.note}</span>}
-                        </a>
-                    ))}
-                </div>
-            )}
+function SearchField({
+  label,
+  placeholder,
+  variant = 'outlined',
+  autoFocus,
+  onSubmit,
+}: SearchFieldProps) {
+  const [query, setQuery] = useState('');
+
+  const submit = (event: SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (query.trim()) onSubmit(query);
+  };
+
+  return (
+    <form className={`search-field search-field--${variant}`} role="search" onSubmit={submit}>
+      <Icon name="search" />
+      <input
+        type="search"
+        className="search-field__input"
+        placeholder={placeholder}
+        aria-label={label}
+        value={query}
+        autoFocus={autoFocus}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+    </form>
+  );
+}
+
+// ─── Menu content, shared by the desktop mega menu and the mobile accordion ───
+function MenuLinks({ links }: { links: Menu['columns'][number]['links'] }) {
+  return links.map((link) => (
+    <a key={link.text} href="#" className="nav__link">
+      {link.text}
+      {link.note && <span className="nav__note">{link.note}</span>}
+    </a>
+  ));
+}
+
+function MegaMenu({ menu, id }: { menu: Menu; id: string }) {
+  return (
+    <div className="nav__panel nav__desktop" id={id}>
+      <div className="nav__mega container">
+        <div className="nav__mega-main">
+          {menu.hasSearch && (
+            <SearchField
+              variant="filled"
+              label="Search everything the library lends"
+              placeholder="Search everything we lend"
+              onSubmit={(query) => openCatalog(catalogSearchUrl(query))}
+            />
+          )}
+          <div className="nav__columns">
+            {menu.columns.map((column) => (
+              <div key={column.heading} className="nav__column">
+                <span className="nav__column-heading">{column.heading}</span>
+                <MenuLinks links={column.links} />
+              </div>
+            ))}
+          </div>
         </div>
-    )
+        <div className="nav__promos">
+          {menu.promos.map((promo) => (
+            <div
+              key={promo.title}
+              className="promo"
+              style={{ '--promo-bg': promo.color } as CSSProperties}
+            >
+              <span className="promo__icon">
+                <Icon name={promo.icon} />
+              </span>
+              <div>
+                <div className="promo__title">{promo.title}</div>
+                <div className="promo__desc">{promo.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SearchPanel({ id }: { id: string }) {
+  return (
+    <div className="nav__panel nav__desktop" id={id}>
+      <div className="nav__search-panel container">
+        <div className="nav__search-row">
+          <SearchField
+            label="Search the library catalog"
+            placeholder="Search the library"
+            autoFocus
+            onSubmit={(query) => openCatalog(catalogSearchUrl(query))}
+          />
+          <button
+            type="button"
+            className="button button--primary"
+            onClick={() => openCatalog(CATALOG)}
+          >
+            Browse All
+          </button>
+        </div>
+        <span className="nav__topics-heading">Browse Popular Topics</span>
+        <div className="nav__pills">
+          {pills.map((pill) => (
+            <a
+              key={pill.label}
+              href={pill.href}
+              className="nav__pill"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {pill.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileSection({ menu }: { menu: Menu }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className="drawer__section">
+      <button
+        type="button"
+        className="drawer__toggle"
+        aria-expanded={expanded}
+        onClick={() => setExpanded(!expanded)}
+      >
+        {menu.label}
+        <span className={`nav__chevron${expanded ? 'is-open' : ''}`}>
+          <Icon name="chevron-down" />
+        </span>
+      </button>
+      {expanded && (
+        <div className="drawer__links">
+          <MenuLinks links={menu.columns.flatMap((column) => column.links)} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MobileDrawer({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <div className="nav__drawer nav__mobile" id="nav-drawer">
+      <div className="drawer__search">
+        <SearchField
+          label="Search the library catalog"
+          placeholder="Search the library catalog…"
+          onSubmit={(query) => {
+            openCatalog(catalogSearchUrl(query));
+            onNavigate();
+          }}
+        />
+      </div>
+      {menus.map((menu) => (
+        <MobileSection key={menu.label} menu={menu} />
+      ))}
+      <div className="drawer__contact">
+        <p>
+          <Icon name="map-pin" /> 41 Lake Street, Tupper Lake NY 12986
+        </p>
+        <p>
+          <Icon name="phone" /> <a href="tel:+15183599421">518-359-9421</a>
+        </p>
+      </div>
+    </div>
+  );
 }
 
 // ─── Main Nav ───────────────────────────────────────────────────────────────
 export default function Nav() {
-    const [open, setOpen] = useState<number | null>(null)
-    const [searchOpen, setSearchOpen] = useState(false)
-    const [mobileOpen, setMobileOpen] = useState(false)
-    const [query, setQuery] = useState("")
-    const [isMobile, setIsMobile] = useState(typeof window !== "undefined" ? window.innerWidth < 768 : false)
-    const ref = useRef<HTMLDivElement>(null)
+  const [panel, setPanel] = useState<Panel>(null);
+  const ref = useRef<HTMLElement>(null);
 
-    useEffect(() => {
-        const handler = () => setIsMobile(window.innerWidth < 768)
-        window.addEventListener("resize", handler)
-        return () => window.removeEventListener("resize", handler)
-    }, [])
+  const isOpen = (kind: OpenPanel['kind'], index?: number) =>
+    panel?.kind === kind && (panel.kind !== 'menu' || panel.index === index);
+  const toggle = (next: OpenPanel) =>
+    setPanel(isOpen(next.kind, next.kind === 'menu' ? next.index : undefined) ? null : next);
 
-    // Close on outside click
-    useEffect(() => {
-        const handler = (e: MouseEvent) => {
-            if (ref.current && !ref.current.contains(e.target as Node)) {
-                setOpen(null)
-                setSearchOpen(false)
-                setMobileOpen(false)
-            }
-        }
-        document.addEventListener("mousedown", handler)
-        return () => document.removeEventListener("mousedown", handler)
-    }, [])
+  // Dismiss on outside click or Escape (WCAG 1.4.13).
+  useEffect(() => {
+    const onPointerDown = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) setPanel(null);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setPanel(null);
+    };
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, []);
 
-    // Lock body scroll when mobile menu is open
-    useEffect(() => {
-        document.body.style.overflow = mobileOpen ? "hidden" : ""
-        return () => { document.body.style.overflow = "" }
-    }, [mobileOpen])
+  // The drawer is mobile-only: lock page scroll while it is open and close it if the viewport grows.
+  const drawerOpen = isOpen('drawer');
+  useEffect(() => {
+    document.body.style.overflow = drawerOpen ? 'hidden' : '';
+    const query = window.matchMedia(MOBILE_QUERY);
+    const onChange = () => {
+      if (!query.matches) setPanel(null);
+    };
+    query.addEventListener('change', onChange);
+    return () => {
+      document.body.style.overflow = '';
+      query.removeEventListener('change', onChange);
+    };
+  }, [drawerOpen]);
 
-    const doSearch = (q: string) => {
-        if (!q.trim()) return
-        window.open(`${CATALOG}&q=${encodeURIComponent(q.trim())}`, "_blank")
-    }
+  return (
+    <nav ref={ref} className="nav" aria-label="Main">
+      <div className="nav__bar">
+        <div className="nav__bar-inner container">
+          <a href="/" className="nav__brand">
+            <img src="/assets/logo2.png" className="nav__logo" alt="" width="104" height="40" />
+            <span>
+              Goff-Nelson <span className="nav__brand-sub">Memorial Library</span>
+            </span>
+          </a>
 
-    // ── Mobile layout ──────────────────────────────────────────────────────
-    if (isMobile) {
-        return (
-            <div ref={ref} style={{ width: "100%", fontFamily: "sans-serif", position: "relative", zIndex: 200 }}>
-                {/* Mobile bar */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 56, background: "#fff", borderBottom: "1px solid rgba(0,0,0,0.1)", boxSizing: "border-box" }}>
-                    <span style={{ fontSize: 30, fontWeight: 700, color: "#1a1a1a", lineHeight: 1.25 }}>
-                        Goff-Nelson<br /><span style={{ fontWeight: 400, fontSize: 12, color: "#555" }}>Memorial Library</span>
-                    </span>
-                    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                        <a
-                            href={`${CATALOG}&rw=0`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ background: "#1b4332", border: "none", borderRadius: 20, padding: "7px 14px", fontSize: 12, fontWeight: 600, color: "#fff", textDecoration: "none", whiteSpace: "nowrap" }}
-                        >
-                            Search Catalog
-                        </a>
-                        <button
-                            onClick={() => setMobileOpen(!mobileOpen)}
-                            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-                            aria-expanded={mobileOpen}
-                            style={{ background: "none", border: "none", cursor: "pointer", padding: 8, display: "flex", flexDirection: "column", gap: 5, alignItems: "center", justifyContent: "center" }}
-                        >
-                            {/* Hamburger / X icon */}
-                            <span style={{ display: "block", width: 22, height: 2, background: "#333", borderRadius: 2, transform: mobileOpen ? "translateY(7px) rotate(45deg)" : "none", transition: "transform 0.2s" }} />
-                            <span style={{ display: "block", width: 22, height: 2, background: "#333", borderRadius: 2, opacity: mobileOpen ? 0 : 1, transition: "opacity 0.2s" }} />
-                            <span style={{ display: "block", width: 22, height: 2, background: "#333", borderRadius: 2, transform: mobileOpen ? "translateY(-7px) rotate(-45deg)" : "none", transition: "transform 0.2s" }} />
-                        </button>
-                    </div>
-                </div>
+          <ul className="nav__menu nav__desktop">
+            {menus.map((menu, index) => (
+              <li key={menu.label}>
+                <button
+                  type="button"
+                  className="nav__trigger"
+                  aria-expanded={isOpen('menu', index)}
+                  aria-controls={`nav-menu-${index}`}
+                  onClick={() => toggle({ kind: 'menu', index })}
+                >
+                  {menu.label}
+                  <span className={`nav__chevron${isOpen('menu', index) ? 'is-open' : ''}`}>
+                    <Icon name="chevron-down" />
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
 
-                {/* Mobile drawer */}
-                {mobileOpen && (
-                    <div style={{ position: "fixed", top: 56, left: 0, right: 0, bottom: 0, background: "#fff", zIndex: 300, overflowY: "auto" }}>
-                        {/* Quick search */}
-                        <div style={{ padding: "16px 20px", background: "#f8f6f0", borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
-                            <div style={{ display: "flex", alignItems: "center", background: "#fff", borderRadius: 24, border: "1.5px solid #ccc", padding: "9px 16px", gap: 8 }}>
-                                <Icon name="search" />
-                                <input
-                                    style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
-                                    placeholder="Search the library catalog…"
-                                    aria-label="Search the library catalog"
-                                    value={query}
-                                    onChange={e => setQuery(e.target.value)}
-                                    onKeyDown={e => { if (e.key === "Enter") { doSearch(query); setMobileOpen(false) } }}
-                                />
-                            </div>
-                        </div>
+          <div className="nav__actions">
+            <button
+              type="button"
+              className="button nav__search-toggle nav__desktop"
+              aria-expanded={isOpen('search')}
+              aria-controls="nav-search"
+              onClick={() => toggle({ kind: 'search' })}
+            >
+              <Icon name="search" /> Search
+            </button>
+            <button type="button" className="button button--primary nav__desktop">
+              Get a Card
+            </button>
 
-                        {/* Accordion sections */}
-                        {menuData.map((menu, i) => (
-                            <MobileSection key={i} menu={menu} index={i} />
-                        ))}
-
-                        {/* Footer links */}
-                        <div style={{ padding: "20px", background: "#f8f6f0", marginTop: 8 }}>
-                            <p style={{ fontSize: 13, color: "#555", margin: "0 0 4px" }}><Icon name="map-pin" /> 41 Lake Street, Tupper Lake NY 12986</p>
-                            <p style={{ fontSize: 13, color: "#555", margin: 0 }}><Icon name="phone" /> <a href="tel:+15183599421" style={{ color: "#1b4332", textDecoration: "none" }}>518-359-9421</a></p>
-                        </div>
-                    </div>
-                )}
-            </div>
-        )
-    }
-
-    // ── Desktop layout ─────────────────────────────────────────────────────
-    return (
-        <div ref={ref} style={{ width: "100%", fontFamily: "sans-serif", position: "relative", zIndex: 100 }}>
-            {/* Desktop bar */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 40px", height: 64, background: "#fff", borderBottom: "1px solid rgba(0,0,0,0.08)", boxSizing: "border-box" }}>
-                <span style={{ fontSize: 15, fontWeight: 700, color: "#1a1a1a", whiteSpace: "nowrap", marginRight: 40 }}>
-                    Goff-Nelson Memorial Library
-                </span>
-                <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                    {menuData.map((menu, i) => (
-                        <button
-                            key={i}
-                            onClick={() => { setOpen(open === i ? null : i); setSearchOpen(false) }}
-                            aria-expanded={open === i}
-                            style={{ background: open === i ? "rgba(0,0,0,0.06)" : "none", border: "none", padding: "8px 14px", fontSize: 13, color: "#1a1a1a", cursor: "pointer", borderRadius: 8, display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap", fontWeight: open === i ? 600 : 400 }}
-                        >
-                            {menu.label}
-                            {/* ▼ Dropdown arrow size — increase fontSize to make it bigger */}
-                            <span style={{ fontSize: 18, display: "inline-block", transform: open === i ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.18s" }}><Icon name="chevron-down" /></span>
-                        </button>
-                    ))}
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <button onClick={() => { setSearchOpen(!searchOpen); setOpen(null) }} aria-expanded={searchOpen} style={{ display: "flex", alignItems: "center", gap: 7, background: searchOpen ? "rgba(0,0,0,0.07)" : "rgba(0,0,0,0.04)", border: "none", borderRadius: 22, padding: "7px 16px", fontSize: 13, color: "#414141", cursor: "pointer", whiteSpace: "nowrap" }}>
-                        <Icon name="search" /> Search
-                    </button>
-                    <button style={{ background: "#1b4332", border: "none", borderRadius: 22, padding: "7px 18px", fontSize: 13, fontWeight: 600, color: "#fff", cursor: "pointer", whiteSpace: "nowrap" }}>
-                        Get a Card
-                    </button>
-                </div>
-            </div>
-
-            {/* Search dropdown */}
-            {searchOpen && (
-                <div style={{ position: "absolute", top: 64, left: 0, right: 0, background: "#fff", borderBottom: "1px solid rgba(0,0,0,0.1)", boxShadow: "0 16px 40px rgba(0,0,0,0.1)", zIndex: 200, padding: "32px 40px 28px", boxSizing: "border-box" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12, maxWidth: 700, margin: "0 auto 20px" }}>
-                        <div style={{ flex: 1, display: "flex", alignItems: "center", border: "2px solid #222", borderRadius: 30, padding: "10px 18px", gap: 10, background: "#fff" }}>
-                            <Icon name="search" />
-                            <input
-                                style={{ border: "none", background: "transparent", fontSize: 15, outline: "none", flex: 1, color: "#333" }}
-                                placeholder="Search the library"
-                                aria-label="Search the library catalog"
-                                autoFocus
-                                value={query}
-                                onChange={e => setQuery(e.target.value)}
-                                onKeyDown={e => { if (e.key === "Enter") doSearch(query) }}
-                            />
-                        </div>
-                        <button
-                            onClick={() => window.open(CATALOG, "_blank")}
-                            style={{ display: "flex", alignItems: "center", gap: 8, background: "#1b4332", color: "#fff", border: "none", borderRadius: 30, padding: "12px 22px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
-                        >
-                            Browse All
-                        </button>
-                    </div>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: "#111", marginBottom: 12, textAlign: "center", display: "block" }}>Browse Popular Topics</span>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", maxWidth: 800, margin: "0 auto" }}>
-                        {pills.map((pill, i) => (
-                            <a key={i} href={pill.href} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "7px 16px", borderRadius: 30, border: "1.5px solid #ccc", fontSize: 13, color: "#333", textDecoration: "none", background: "#fff" }}>
-                                {pill.label}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            {/* Mega menu */}
-            {open !== null && (
-                <div style={{ position: "absolute", top: 64, left: 0, right: 0, background: "#fff", borderBottom: "1px solid rgba(0,0,0,0.1)", boxShadow: "0 16px 40px rgba(0,0,0,0.1)", zIndex: 200, padding: "32px 40px", boxSizing: "border-box", display: "flex" }}>
-                    <div style={{ flex: 1 }}>
-                        {menuData[open].hasSearch && (
-                            <div style={{ marginBottom: 24 }}>
-                                <div style={{ display: "flex", alignItems: "center", background: "#f5f5f5", borderRadius: 30, padding: "10px 18px", gap: 10, maxWidth: 480 }}>
-                                    <Icon name="search" />
-                                    <input
-                                        style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
-                                        placeholder="Search everything we lend"
-                                        aria-label="Search everything the library lends"
-                                        onKeyDown={e => {
-                                            if (e.key === "Enter") {
-                                                const val = (e.target as HTMLInputElement).value
-                                                window.open(`${CATALOG}&q=${encodeURIComponent(val.trim())}`, "_blank")
-                                            }
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        )}
-                        <div style={{ display: "flex", gap: 48 }}>
-                            {menuData[open].columns.map((col, j) => (
-                                <div key={j} style={{ minWidth: 160 }}>
-                                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#1b4332", marginBottom: 14, display: "block" }}>{col.heading}</span>
-                                    {col.links.map((link, k) => (
-                                        <a key={k} href="#" style={{ display: "block", fontSize: 13, color: "#222", textDecoration: "none", padding: "5px 0", lineHeight: 1.4 }}>
-                                            {link.text}
-                                            {link.note !== "" && <span style={{ display: "block", fontSize: 11, color: "#454545", marginTop: 1 }}>{link.note}</span>}
-                                        </a>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 280, paddingLeft: 40, borderLeft: "1px solid rgba(0,0,0,0.07)", marginLeft: 40 }}>
-                        {menuData[open].promos.map((promo, p) => (
-                            <div key={p} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", borderRadius: 10, cursor: "pointer", border: "1px solid rgba(0,0,0,0.06)", background: promo.color }}>
-                                <div style={{ width: 48, height: 48, borderRadius: 6, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, background: "rgba(255,255,255,0.6)" }}>
-                                    <Icon name={promo.icon} />
-                                </div>
-                                <div>
-                                    <div style={{ fontSize: 13, fontWeight: 600, color: "#111", marginBottom: 3 }}>{promo.title}</div>
-                                    <div style={{ fontSize: 12, color: "#414141", lineHeight: 1.4 }}>{promo.desc}</div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
+            <a
+              href={`${CATALOG}&rw=0`}
+              className="button button--primary nav__mobile"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Search Catalog
+            </a>
+            <button
+              type="button"
+              className="nav__hamburger nav__mobile"
+              aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={drawerOpen}
+              aria-controls="nav-drawer"
+              onClick={() => toggle({ kind: 'drawer' })}
+            >
+              <span className="nav__hamburger-bar" />
+              <span className="nav__hamburger-bar" />
+              <span className="nav__hamburger-bar" />
+            </button>
+          </div>
         </div>
-    )
+      </div>
+
+      {isOpen('search') && <SearchPanel id="nav-search" />}
+      {panel?.kind === 'menu' && (
+        <MegaMenu menu={menus[panel.index]} id={`nav-menu-${panel.index}`} />
+      )}
+      {drawerOpen && <MobileDrawer onNavigate={() => setPanel(null)} />}
+    </nav>
+  );
 }

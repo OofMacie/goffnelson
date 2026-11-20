@@ -14,6 +14,7 @@ const { data } = Astro.props;
   <>
     <section class="hero" aria-label="Library photograph">
       <img
+        class="hero__image"
         src={data.heroImage ?? ""}
         alt={data.heroAlt ?? ""}
         data-tina-field={tinaField(data, "heroImage")}
@@ -22,10 +23,10 @@ const { data } = Astro.props;
         fetchpriority="high"
         decoding="async"
       />
-      <div class="hero-overlay">
+      <div class="hero__actions">
         <a
           href="https://cefls.ent.sirsi.net/client/en_US/default/search/results?te=&lm=TUP"
-          class="cta-btn"
+          class="button button--accent"
           target="_blank"
           rel="noopener noreferrer"
         >

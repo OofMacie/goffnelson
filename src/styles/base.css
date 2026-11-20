@@ -1,0 +1,168 @@
+/* Page-level defaults, accessibility helpers and shared primitives (icons, buttons). */
+
+html {
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--page-bg);
+  /* Never let one wide child create a sideways scrollbar. */
+  overflow-x: clip;
+}
+
+:where(p) {
+  max-width: 80ch;
+  line-height: 1.6;
+}
+
+:where(li) {
+  line-height: 1.6;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ── Accessibility ───────────────────────────────────────────── */
+
+.skip-link {
+  position: fixed;
+  top: -6rem;
+  left: var(--space-4);
+  z-index: 10000;
+  padding: var(--space-3) var(--space-5);
+  color: #fff;
+  background: var(--spruce-dark);
+  border: 3px solid #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #b54b00;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ── Layout primitives ───────────────────────────────────────── */
+
+/* Centres content to the shared page width with a consistent side gutter. */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ── Icons (see src/lib/icons.ts) ────────────────────────────── */
+
+.icon-box {
+  display: inline-flex;
+}
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+
+/* Every button/link-button shares one box model so labels sit dead centre. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-5);
+  border: 0;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.button--primary {
+  background: var(--spruce);
+  color: #fff;
+}
+
+.button--primary:hover {
+  background: var(--spruce-dark);
+}
+
+.button--accent {
+  background: var(--hero-btn);
+  color: var(--hero-btn-text);
+}
+
+.button--accent:hover {
+  background: var(--spruce-dark);
+  color: #fff;
+}
+
+/* Circular icon-only button (carousel arrows, menu toggle). */
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  padding: 0;
+  border: 1.5px solid var(--card-border);
+  border-radius: 50%;
+  background: var(--card-bg);
+  color: var(--card-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.icon-button:hover:not(:disabled) {
+  background: var(--spruce);
+  border-color: var(--spruce);
+  color: #fff;
+}
+
+.icon-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}

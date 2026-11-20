@@ -1,22 +1,75 @@
+/* Site footer. */
+
 .library-footer {
-  background: var(--nav-bg, #153525);
-  color: #ffffff;
-  padding: 3rem clamp(1.25rem, 4vw, 2rem);
-  margin-top: 4rem;
+  padding: var(--section-y) var(--gutter);
+  background: var(--footer-bg);
+  color: var(--footer-text);
 }
-.library-footer__inner { max-width: 75rem; margin-inline: auto; }
+
+.library-footer__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
 .library-footer__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+  align-items: start;
+  gap: var(--space-6);
 }
-.library-footer__brand { display: flex; align-items: center; gap: .75rem; font-weight: 700; }
-.library-footer__logo { display: block; width: 72px; max-height: 72px; object-fit: contain; }
-.library-footer h2 { font-size: 1.125rem; color: #fff; margin-block: 0 1rem; }
-.library-footer p { max-width: 65ch; line-height: 1.65; margin-block: 0 1rem; }
-.library-footer ul { padding: 0; margin: 0; list-style: none; line-height: 1.75; }
-.library-footer li + li { margin-top: .65rem; }
-.library-footer a { color: #fff; text-decoration: underline; text-underline-offset: .2em; }
-.library-footer__divider { border: 0; border-top: 1px solid #e3e8df; margin: 2rem 0; }
-.library-footer__copyright { font-size: .875rem; text-align: center; margin: 0; }
+
+.library-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 700;
+}
+
+.library-footer__logo {
+  display: block;
+  width: 4.5rem;
+  max-height: 4.5rem;
+  object-fit: contain;
+}
+
+.library-footer h2 {
+  margin-bottom: var(--space-4);
+  font-size: 1.125rem;
+  color: #fff;
+}
+
+.library-footer p {
+  margin-bottom: var(--space-3);
+  line-height: 1.65;
+}
+
+.library-footer ul {
+  list-style: none;
+}
+
+.library-footer li + li {
+  margin-top: var(--space-3);
+}
+
+.library-footer address {
+  font-style: normal;
+}
+
+.library-footer a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.library-footer__divider {
+  margin: var(--space-6) 0;
+  border: 0;
+  border-top: 1px solid var(--footer-border);
+}
+
+.library-footer__copyright {
+  max-width: none;
+  margin: 0;
+  font-size: 0.875rem;
+  text-align: center;
+}

@@ -1,0 +1,292 @@
+/* Shared horizontal carousel used by the staff book picks and the events list. */
+
+.carousel {
+  padding-block: var(--section-y);
+}
+
+/* --card-w sizes the cards; --media-half is half the media height as a share of card width,
+   so the arrows sit centred on the cover/image instead of over the card text. */
+.carousel--books {
+  --card-w: 8.5rem;
+  --media-half: 0.75;
+}
+
+.carousel--events {
+  --card-w: min(18rem, 80vw);
+  --media-half: 0.28125;
+  background: var(--event-bg);
+}
+
+@media (min-width: 40rem) {
+  .carousel--books {
+    --card-w: 10.5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .carousel--books {
+    --card-w: 11.5rem;
+  }
+
+  .carousel--events {
+    --card-w: 20rem;
+  }
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+
+.carousel__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.carousel__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-heading);
+}
+
+.carousel__title .icon {
+  font-size: 1.15em;
+  color: var(--spruce);
+}
+
+.carousel__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--spruce);
+  text-underline-offset: 0.2em;
+}
+
+.carousel__link:hover {
+  color: var(--spruce-dark);
+}
+
+/* ── Viewport, arrows and scrolling track ────────────────────── */
+
+.carousel__viewport {
+  --arrow-offset: var(--space-2);
+  position: relative;
+}
+
+@media (min-width: 48rem) {
+  .carousel__viewport {
+    /* Sit the arrows on the container edge so they line up with the title. */
+    --arrow-offset: calc(var(--tap-target) / -2);
+  }
+}
+
+.carousel__arrow {
+  position: absolute;
+  /* Track padding-top (space-2) + centre of the media area. */
+  top: calc(var(--space-2) + var(--card-w) * var(--media-half));
+  z-index: 2;
+  translate: 0 -50%;
+}
+
+.carousel__arrow--prev {
+  inset-inline-start: var(--arrow-offset);
+}
+
+.carousel__arrow--next {
+  inset-inline-end: var(--arrow-offset);
+}
+
+.carousel__track {
+  display: flex;
+  gap: var(--space-5);
+  /* Vertical padding leaves room for card shadows inside the scroll box. */
+  padding-block: var(--space-2) var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Book card ───────────────────────────────────────────────── */
+
+.book-card {
+  display: flex;
+  flex: 0 0 var(--card-w);
+  flex-direction: column;
+  gap: var(--space-3);
+  scroll-snap-align: start;
+}
+
+.book-card__cover-link {
+  display: block;
+  text-decoration: none;
+}
+
+.book-card__cover {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--card-surface);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out);
+}
+
+.book-card__cover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-raised);
+}
+
+.book-card__cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Shown instead of the image when a cover is missing or fails to load. */
+.book-card__placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--spruce-mid), var(--spruce-dark));
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.book-card__info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.book-card__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-heading);
+}
+
+.book-card__author {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.book-card__link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: var(--tap-target);
+  margin-top: auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--spruce);
+  text-underline-offset: 0.2em;
+}
+
+.book-card__link:hover {
+  color: var(--spruce-dark);
+}
+
+/* ── Event card ──────────────────────────────────────────────── */
+
+.event-card {
+  display: flex;
+  flex: 0 0 var(--card-w);
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-card);
+  scroll-snap-align: start;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+.event-card__image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--event-bg);
+  color: var(--maple-dark);
+  font-size: 3rem;
+}
+
+.event-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+
+.event-card__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--card-heading);
+}
+
+.event-card__category {
+  align-self: flex-start;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--event-tag-bg);
+  color: var(--event-tag-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.event-card__date {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--event-date);
+}
+
+.event-card__description {
+  flex: 1;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--card-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-card__cover:hover,
+  .event-card:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,176 @@
+/* ================================================================
+   GOFF-NELSON MEMORIAL LIBRARY — Design Tokens
+   Tupper Lake, NY · Adirondack Wilderness Palette
+   ================================================================ */
+
+:root {
+  /* ── Raw palette  */
+
+  --spruce: #1e3828; /* deep pine forest                  */
+  --spruce-dark: #0f1f16; /* near-black pine                   */
+  --spruce-mid: #2e5241; /* mid forest                        */
+  --spruce-light: #527b6a; /* lighter spruce                    */
+  --spruce-pale: #c2d5ca; /* spruce tint                       */
+  --spruce-ghost: #e8f0ec; /* near-white green                  */
+
+  --lake: #3d7a8a; /* Raquette Pond blue                */
+  --lake-dark: #133645; /* deep water navy                   */
+  --lake-mid: #255968; /* evening lake                      */
+  --lake-bright: #4e9bad; /* morning reflection                */
+  --lake-pale: #b8dce4; /* sky on water                      */
+  --lake-ghost: #e3f2f5; /* near-white lake tint              */
+
+  --maple: #c49a3c; /* autumn maple gold                 */
+  --maple-dark: #6b4d18; /* aged wood                         */
+  --maple-mid: #9a7228; /* mid amber                         */
+  --maple-bright: #deb94e; /* golden hour                       */
+  --maple-pale: #f0d88c; /* birch-leaf yellow                 */
+  --maple-ghost: #faf3e0; /* warm cream tint                   */
+
+  --fern: #8ba888; /* understory green                  */
+
+  --sumac: #963030; /* sumac berry red                   */
+  --sumac-dark: #6b1e1e; /* dark sumac                        */
+  --sumac-ghost: #faeaea; /* sumac tint                        */
+
+  --birch: #f6f2ec; /* warm page white                   */
+  --mist: #eae5dc; /* card / surface                    */
+  --driftwood: #c4beb4; /* borders                           */
+  --granite: #4e4a43; /* muted text                        */
+  --bark: #383430; /* body text                         */
+  --night: #141210; /* headings                          */
+
+  /* ── Site layout ─────────────────────────────────────────────── */
+
+  --page-bg: var(--birch); /* html / body background */
+  --page-width: 1100px; /* max-width wrapper      */
+  --page-gutter: 1.5rem; /* side padding, mobile   */
+
+  /* ── Navigation ──────────────────────────────────────────────── */
+
+  --nav-bg: var(--spruce); /* top nav bar background */
+  --nav-text: var(--spruce-pale); /* nav link color         */
+  --nav-text-hover: var(--birch); /* nav link hover         */
+  --nav-active: var(--maple); /* current page link      */
+  --nav-dropdown-bg: var(--spruce-mid); /* dropdown panel bg      */
+  --nav-border: var(--spruce-mid); /* bottom rule under nav  */
+
+  /* ── Hero / page header ──────────────────────────────────────── */
+
+  --hero-bg: var(--lake-mid); /* hero section bg        */
+  --hero-heading: var(--lake-ghost); /* h1 on hero             */
+  --hero-sub: var(--lake-pale); /* subheading / tagline   */
+  --hero-btn: var(--maple); /* CTA button on hero     */
+  --hero-btn-text: #08140d; /* text on --hero-btn     */
+  --hero-btn-hover: var(--maple-bright); /* hover state            */
+
+  /* ── Cards & surfaces ────────────────────────────────────────── */
+
+  --card-bg: #ffffff; /* white card face        */
+  --card-surface: var(--mist); /* inset / tinted card    */
+  --card-border: var(--driftwood); /* card border            */
+  --card-heading: var(--night); /* card title             */
+  --card-text: var(--bark); /* card body copy         */
+  --card-meta: var(--granite); /* dates, labels, caps    */
+
+  /* ── Programs & Events ───────────────────────────────────────── */
+
+  --event-accent: var(--maple); /* highlight stripe       */
+  --event-bg: var(--maple-ghost); /* event card bg          */
+  --event-date: var(--maple-dark); /* event date text        */
+  --event-tag-bg: var(--maple-pale); /* category badge fill    */
+  --event-tag-text: #4a3410; /* badge text, 7:1 on tag */
+
+  /* ── Children's room ─────────────────────────────────────────── */
+
+  --kids-accent: var(--lake-bright); /* section color          */
+  --kids-bg: var(--lake-ghost); /* section background     */
+  --kids-tag-bg: var(--lake-pale); /* badge fill             */
+  --kids-tag-text: var(--lake-dark); /* badge text             */
+
+  /* ── Adirondack history room ─────────────────────────────────── */
+
+  --history-accent: var(--fern); /* section color          */
+  --history-bg: var(--spruce-ghost); /* section background     */
+  --history-border: var(--spruce-pale); /* card left-border rule  */
+  --history-text: var(--spruce-mid); /* section body text      */
+
+  /* ── Online resources / databases ───────────────────────────── */
+
+  --resource-accent: var(--lake-dark); /* resource link color    */
+  --resource-bg: var(--lake-ghost); /* resource tile bg       */
+  --resource-border: var(--lake-pale); /* tile border            */
+
+  /* ── Hours / info table ──────────────────────────────────────── */
+
+  --table-head-bg: var(--spruce); /* th background          */
+  --table-head-text: var(--spruce-pale); /* th text                */
+  --table-row-alt: var(--mist); /* alternating row        */
+  --table-border: var(--driftwood); /* cell borders           */
+  --table-open: var(--spruce-mid); /* open hours text        */
+  --table-closed: var(--sumac); /* closed / holiday text  */
+
+  /* ── Notices & alerts ────────────────────────────────────────── */
+
+  --notice-info-bg: var(--lake-ghost); /* general notice bg      */
+  --notice-info-text: var(--lake-dark); /* notice body            */
+  --notice-info-bar: var(--lake); /* left accent bar        */
+
+  --notice-warn-bg: var(--maple-ghost); /* closure warning bg     */
+  --notice-warn-text: var(--maple-dark); /* warning body           */
+  --notice-warn-bar: var(--maple); /* left accent bar        */
+
+  --notice-closed-bg: var(--sumac-ghost); /* closed holiday banner  */
+  --notice-closed-text: var(--sumac-dark); /* text on closed notice  */
+  --notice-closed-bar: var(--sumac); /* left accent bar        */
+
+  /* ── Typography ──────────────────────────────────────────────── */
+
+  --text-heading: var(--night); /* h1–h3                  */
+  --text-body: var(--bark); /* paragraphs             */
+  --text-muted: var(--granite); /* captions, meta, dates  */
+  --text-link: var(--spruce); /* inline links           */
+  --text-link-hover: var(--lake-mid); /* hovered link           */
+  --text-on-dark: var(--birch); /* text on dark bg        */
+
+  /* ── Footer ──────────────────────────────────────────────────── */
+
+  --footer-bg: var(--spruce-dark); /* footer background      */
+  --footer-text: var(--birch); /* footer body text       */
+  --footer-link: var(--spruce-pale); /* footer links           */
+  --footer-border: var(--spruce-mid); /* footer rule / divider  */
+
+  /* ── Focus & accessibility ───────────────────────────────────── */
+
+  --focus-ring: var(--lake); /* outline on focus       */
+  --focus-offset: 3px; /* outline-offset         */
+
+  /* ── Layout & spacing scale (use these instead of ad-hoc values) ── */
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  --container: 75rem; /* 1200px content width  */
+  --gutter: clamp(1rem, 4vw, 2rem); /* page side padding     */
+  --section-y: clamp(2.5rem, 6vw, 4rem); /* section top/bottom    */
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-pill: 999px;
+
+  --tap-target: 2.75rem; /* 44px, WCAG 2.5.5 AAA  */
+  --nav-height: 4rem;
+  --nav-height-mobile: 3.5rem;
+
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.12), 0 4px 12px rgb(0 0 0 / 0.1);
+  --shadow-raised: 0 2px 6px rgb(0 0 0 / 0.14), 0 12px 28px rgb(0 0 0 / 0.18);
+  --shadow-panel: 0 16px 40px rgb(0 0 0 / 0.1);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

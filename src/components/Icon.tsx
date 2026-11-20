@@ -1,5 +1,5 @@
-import { iconSvg, type IconName } from "../lib/icons";
+import { iconSvg, type IconName } from '../lib/icons';
 
 export default function Icon({ name }: { name: IconName }) {
-  return <span style={{ display: "inline-flex" }} dangerouslySetInnerHTML={{ __html: iconSvg(name) }} />;
+  return <span className="icon-box" dangerouslySetInnerHTML={{ __html: iconSvg(name) }} />;
 }
