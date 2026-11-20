@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 210" preserveAspectRatio="none">
+<!-- Goff–Nelson Memorial Library front facade roof, manually illustrated after photos of the building at 41 Lake St, Tupper Lake. -->
+<defs>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#92b8bb" offset="0"/><stop stop-color="#406b70" offset=".55"/><stop stop-color="#233d44" offset="1"/>
+</linearGradient>
+<linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+<stop stop-color="#392d25" offset="0"/><stop stop-color="#1d241f" offset="1"/>
+</linearGradient>
+<linearGradient id="stone" x1="0" y1="0" x2="1" y2="1">
+<stop stop-color="#8b9188" offset="0"/><stop stop-color="#4e5a55" offset=".65"/><stop stop-color="#343e3a" offset="1"/>
+</linearGradient>
+<clipPath id="chimney"><path d="M60 12 160 14 165 207 56 207Z"/></clipPath>
+</defs>
+<!-- Window glazing beneath the asymmetric descending roof. -->
+<path d="M0 174 194 78 1098 194 1098 207 0 207Z" fill="#1d382e"/>
+<path d="M12 182 195 91 1084 200 1084 207 12 207Z" fill="url(#glass)" opacity=".9"/>
+<!-- Timber mullions, like the real glazed facade. -->
+<g stroke="#3b2e27" stroke-width="12">
+<path d="M236 95V210 M400 117V210 M571 139V210 M743 162V210 M920 181V210"/>
+</g>
+<g stroke="#cfddd1" stroke-width="2" opacity=".42">
+<path d="M253 105V198 M417 129V199 M586 152V201 M759 174V201"/>
+</g>
+<path d="M170 122 1075 201" stroke="#6d513b" stroke-width="11"/>
+<path d="M170 132 1075 207" stroke="#211e1b" stroke-width="5"/>
+<!-- Roof: real building's left hip meets a long rightward slope. -->
+<path d="M0 147 192 64 1100 181" fill="none" stroke="#1b231e" stroke-width="26" stroke-linejoin="miter"/>
+<path d="M0 141 192 59 1100 176" fill="none" stroke="#62462f" stroke-width="16" stroke-linejoin="miter"/>
+<path d="M0 138 192 57 1100 173" fill="none" stroke="#b39767" stroke-width="3" stroke-linejoin="miter" opacity=".8"/>
+<path d="M0 155 192 75 1099 194" fill="none" stroke="#182820" stroke-width="7"/>
+<!-- Stone chimney at left, rising above the roof, with individual uneven masonry joints. -->
+<path d="M58 15 162 17 166 208 56 208Z" fill="url(#stone)" stroke="#2a3532" stroke-width="6"/>
+<path d="M49 12 166 12 166 23 49 23Z" fill="#69756c" stroke="#26332e" stroke-width="3"/>
+<g clip-path="url(#chimney)" stroke="#b0b6a9" stroke-opacity=".42" stroke-width="2.2" fill="none" stroke-linecap="round">
+<path d="M60 33 164 34 M58 50 164 52 M59 69 166 68 M58 88 164 89 M58 108 165 106 M56 125 165 127 M57 147 166 145 M56 166 167 167 M57 185 166 183"/>
+<path d="M83 23 83 34 M132 34 133 50 M86 52 87 69 M143 68 143 88 M86 89 87 108 M129 108 129 127 M85 127 84 145 M140 145 140 166 M93 166 94 185 M135 184 135 209"/>
+</g>
+<g clip-path="url(#chimney)" stroke="#1d2c28" stroke-width="2" stroke-opacity=".4" fill="none">
+<path d="M76 37 100 38 M122 71 151 73 M64 116 83 115 M109 152 130 153 M73 175 91 177 M105 196 147 198"/>
+</g>
+<!-- Bold timber sill sits immediately above the living calendar grid. -->
+<path d="M0 201 H1100" stroke="#372a21" stroke-width="15"/>
+<path d="M0 199 H1100" stroke="#bd9d5b" stroke-width="3" opacity=".7"/>
+</svg>
