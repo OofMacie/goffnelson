@@ -2,16 +2,15 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { libraryEvents, eventId } from "../lib/library-content";
 import "./AdirondackCalendar.css";
 
-type LibraryEvent = (typeof libraryEvents)[number];
+type LibraryEvent = { title: string; date: string; time: string; description: string; category: string; image?: string; imageAlt?: string; link?: string; };
+const calendarEvents: LibraryEvent[] = libraryEvents;
 type BusySlot = { starts_at: string; ends_at: string };
 type Availability = { enabled: boolean; busy: BusySlot[]; room: string; message?: string };
 type View = "events" | "rooms";
 type BookingStatus = "idle" | "sending" | "success" | "error";
 
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const ENGRAVING = "https://upload.wikimedia.org/wikipedia/commons/0/0a/AmCyc_Adirondack_Mountains_-_view_from_Placid_Lake.jpg";
 const LIBRARY_PHONE = "518-359-9421";
-const historyUrl = "https://tupperlakepubliclibrary.org/";
 const eventTone = (event: LibraryEvent) => /child|tot|story/i.test(event.category + " " + event.title) ? "lake" : /teen|young adult/i.test(event.category) ? "berry" : /craft|knit|yarn/i.test(event.category + " " + event.title) ? "gold" : /history|heritage/i.test(event.category + " " + event.title) ? "spruce" : /tech|computer/i.test(event.category + " " + event.title) ? "fern" : "maple";
 const LIBRARY_TEL = "tel:+15183599421";
 const isISO = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value);
@@ -75,8 +74,8 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const dialog = useRef<HTMLDialogElement>(null);
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const days = useMonthDates(month);
-  const categories = ["All programs", ...Array.from(new Set(libraryEvents.map(e => e.category).filter(Boolean)))];
-  const visible = category === "All programs" ? libraryEvents : libraryEvents.filter(e => e.category === category);
+  const categories = ["All programs", ...Array.from(new Set(calendarEvents.map(e => e.category).filter(Boolean)))];
+  const visible = category === "All programs" ? libraryEvents : calendarEvents.filter(e => e.category === category);
   const unscheduled = visible.filter(e => !isCalendarRule(e));
 
   useEffect(() => {
