@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { libraryEvents, eventId, type LibraryEvent } from "../lib/library-content";
 import "./AdirondackCalendar.css";
 
+type LibraryEvent = (typeof libraryEvents)[number];
 type BusySlot = { starts_at: string; ends_at: string };
 type Availability = { enabled: boolean; busy: BusySlot[]; room: string; message?: string };
 type View = "events" | "rooms";
@@ -49,9 +50,9 @@ function useMonthDates(month: Date): Date[] {
   }, [month]);
 }
 
-export default function AdirondackCalendar() {
+export default function AdirondackCalendar({ initialView = "events" }: { initialView?: View }) {
   const [month, setMonth] = useState(nextStart);
-  const [view, setView] = useState<View>("events");
+  const [view, setView] = useState<View>(initialView);
   const [selected, setSelected] = useState<Date | null>(null);
   const [availability, setAvailability] = useState<Availability | null>(null);
   const [loading, setLoading] = useState(false);
@@ -111,7 +112,7 @@ export default function AdirondackCalendar() {
   useEffect(() => {
     if (!turnstileLoaded || !selected || !availability?.enabled || !turnstileContainer.current || turnstileWidget) return;
     if (!window.turnstile || !import.meta.env.PUBLIC_TURNSTILE_SITE_KEY) return;
-    const id = window.turnstile.render(turnstileContainer.current, { sitekey: import.meta.env.PUBLIC_TURNSTILE_SITE_KEY, theme: "light" });
+    const id = window.turnstile.render(turnstileContainer.current, { sitekey: import.meta.env.PUBLIC_TURNSTILE_SITE_KEY, theme: "light", action: "room_request" });
     setTurnstileWidget(id);
   }, [turnstileLoaded, selected, availability?.enabled, turnstileWidget]);
 
@@ -204,9 +205,9 @@ export default function AdirondackCalendar() {
             const busy = busyFor(date);
             const count = eventItems.length;
             return (
-              <button type="button" role="gridcell" aria-label={friendlyDate(date) + ": " + (view === "events" ? count + " listed programs" : availability?.enabled ? busy.length + " room reservations" : "availability not confirmed")} key={keyOf(date)} className={"adk-day" + (!isActive(date) ? " adk-day-muted" : "") + (keyOf(date) === today ? " adk-day-today" : "")} onClick={() => openDate(date)}>
+              <button type="button" role="gridcell" aria-label={friendlyDate(date) + ": " + (view === "events" ? count + " listed programs" : availability?.enabled ? busy.length + " unavailable periods" : "availability not confirmed")} key={keyOf(date)} className={"adk-day" + (!isActive(date) ? " adk-day-muted" : "") + (keyOf(date) === today ? " adk-day-today" : "")} onClick={() => openDate(date)}>
                 <span className="adk-number">{date.getDate()}</span>
-                {view === "events" ? <span className="adk-day-events">{eventItems.slice(0, 2).map(e => <span className="adk-event-chip" key={eventId(e.title)}>{e.title}</span>)}{count > 2 && <span className="adk-more">+{count - 2} more</span>}</span> : <span className="adk-day-events">{availability?.enabled ? (busy.length ? <span className="adk-reserved">{busy.length} reserved</span> : <span className="adk-see-times">See times</span>) : <span className="adk-unknown">Check with staff</span>}</span>}
+                {view === "events" ? <span className="adk-day-events">{eventItems.slice(0, 2).map(e => <span className="adk-event-chip" key={eventId(e.title)}>{e.title}</span>)}{count > 2 && <span className="adk-more">+{count - 2} more</span>}</span> : <span className="adk-day-events">{availability?.enabled ? (busy.length ? <span className="adk-reserved">{busy.length} unavailable</span> : <span className="adk-see-times">See times</span>) : <span className="adk-unknown">Check with staff</span>}</span>}
                 {view === "events" && count > 0 && <span className="adk-dots" aria-hidden="true"><i /><i /></span>}
               </button>
             );
@@ -230,8 +231,8 @@ export default function AdirondackCalendar() {
           {view === "events" ? <div className="adk-dialog-items">{dateEvents(selected).length ? dateEvents(selected).map(event => <article className="adk-item" key={eventId(event.title)}><span>{event.category}</span><h3>{event.title}</h3><p><strong>{event.time}</strong> · {event.date}</p><p>{event.description}</p>{event.link && <a href={event.link}>Event details</a>}</article>) : <p>There are no currently listed programs for this date. You can still contact us about upcoming activities.</p>}<button type="button" className="adk-quiet-link" onClick={() => { close(); setView("rooms"); }}>Looking for a room instead?</button></div> : <div className="adk-dialog-items">
             <h3>Simmons Room</h3>
             {!availability?.enabled ? <div className="adk-not-connected"><strong>Availability not confirmed online</strong><p>The secure booking service has not been connected to the library database yet. No time shown here should be assumed available.</p><a href={LIBRARY_TEL}>Call {LIBRARY_PHONE}</a></div> : <>
-              <h4>Reserved times</h4>
-              {busyFor(selected).length ? <ul className="adk-busy-list">{busyFor(selected).map((slot, i) => <li key={i}><span className="adk-status-dot" /> Reserved: {timeNY(slot.starts_at)}–{timeNY(slot.ends_at)}</li>)}</ul> : <p>No reservations currently shown for this date. Staff approval is still required.</p>}
+              <h4>Unavailable times</h4>
+              {busyFor(selected).length ? <ul className="adk-busy-list">{busyFor(selected).map((slot, i) => <li key={i}><span className="adk-status-dot" /> Unavailable: {timeNY(slot.starts_at)}–{timeNY(slot.ends_at)}</li>)}</ul> : <p>No reservations currently shown for this date. Staff approval is still required.</p>}
               {bookingStatus === "success" ? <div role="status" className="adk-success"><h3>Request received</h3><p>Thank you! Your requested time is pending staff approval. This is not a confirmed reservation.</p></div> : <form className="adk-form" onSubmit={requestBooking}>
                 <h4>Request a room time</h4>
                 <div className="adk-form-two"><label>Start time<input type="time" value={startTime} onChange={e => setStartTime(e.target.value)} min="09:00" max="21:00" step="1800" required /></label><label>End time<input type="time" value={endTime} onChange={e => setEndTime(e.target.value)} min="09:00" max="21:00" step="1800" required /></label></div>
@@ -255,7 +256,7 @@ export default function AdirondackCalendar() {
 declare global {
   interface Window {
     turnstile?: {
-      render: (container: HTMLElement, options: { sitekey: string; theme: string }) => string;
+      render: (container: HTMLElement, options: { sitekey: string; theme: string; action: string }) => string;
       getResponse: (id: string) => string;
       reset: (id: string) => void;
       remove: (id: string) => void;
