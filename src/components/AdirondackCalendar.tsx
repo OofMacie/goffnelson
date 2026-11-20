@@ -54,6 +54,11 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const [month, setMonth] = useState(nextStart);
   const [view, setView] = useState<View>(initialView);
   const [selected, setSelected] = useState<Date | null>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [openedEvent, setOpenedEvent] = useState<LibraryEvent | null>(null);
+  const [demoStep, setDemoStep] = useState<"time" | "review" | "complete">("time");
+  const [demoSlot, setDemoSlot] = useState("10:00");
+
   const [availability, setAvailability] = useState<Availability | null>(null);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("All programs");
@@ -119,6 +124,10 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const openDate = (date: Date, nextView?: View) => {
     if (nextView) setView(nextView);
     setSelected(date);
+    setSlideIndex(0);
+    setOpenedEvent(null);
+    setDemoStep("time");
+    setDemoSlot("10:00");
     setBookingStatus("idle");
     setBookingError("");
     dialog.current?.showModal();
@@ -128,6 +137,8 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
     if (turnstileWidget && window.turnstile) window.turnstile.remove(turnstileWidget);
     setTurnstileWidget(null);
     setSelected(null);
+    setOpenedEvent(null);
+    setDemoStep("time");
     setBookingStatus("idle");
   };
   const changeMonth = (n: number) => setMonth(atNoon(month.getFullYear(), month.getMonth() + n, 1));
@@ -136,6 +147,10 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const monthTitle = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(month);
   const isActive = (date: Date) => date.getMonth() === month.getMonth();
   const today = keyOf(new Date());
+  const selectedDayEvents = selected ? dateEvents(selected) : [];
+  const displayedEvent = selectedDayEvents.length ? selectedDayEvents[slideIndex % selectedDayEvents.length] : null;
+  const sampleSlots = [{ start: "10:00", end: "11:00", busy: false },{ start: "11:00", end: "12:00", busy: true },{ start: "12:00", end: "13:00", busy: false },{ start: "13:00", end: "14:00", busy: false },{ start: "14:00", end: "15:00", busy: true },{ start: "15:00", end: "16:00", busy: false }];
+  const demoChoice = sampleSlots.find(slot => slot.start === demoSlot) || sampleSlots[0];
 
   async function requestBooking(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -225,29 +240,139 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
       {view === "events" && unscheduled.length > 0 && <details className="adk-other"><summary>Programs awaiting a specific calendar date ({unscheduled.length})</summary><div>{unscheduled.map(event => <article key={eventId(event.title)}><h3>{event.title}</h3><p>{event.date} · {event.time} — {event.description}</p></article>)}</div></details>}
       <p className="adk-art-credit">Historical artwork: <a href="https://commons.wikimedia.org/wiki/File:AmCyc_Adirondack_Mountains_-_view_from_Placid_Lake.jpg" target="_blank" rel="noreferrer">John Filmer, <em>The American Cyclopædia</em> (1879)</a>. Engraving is from the Lake Placid region, not the library building.</p>
 
-      <dialog ref={dialog} className="adk-dialog" onClose={close} aria-label={selected ? "Details for " + friendlyDate(selected) : "Date details"}>
-        {selected && <div className="adk-dialog-inner">
-          <div className="adk-dialog-heading"><div><span className="adk-eyebrow">YOUR SELECTED DAY</span><h2>{friendlyDate(selected)}</h2></div><button type="button" className="adk-close" aria-label="Close date details" onClick={close}>×</button></div>
-          {view === "events" ? <div className="adk-dialog-items">{dateEvents(selected).length ? dateEvents(selected).map(event => <article className="adk-item" key={eventId(event.title)}><span>{event.category}</span><h3>{event.title}</h3><p><strong>{event.time}</strong> · {event.date}</p><p>{event.description}</p>{event.link && <a href={event.link}>Event details</a>}</article>) : <p>There are no currently listed programs for this date. You can still contact us about upcoming activities.</p>}<button type="button" className="adk-quiet-link" onClick={() => { close(); setView("rooms"); }}>Looking for a room instead?</button></div> : <div className="adk-dialog-items">
-            <h3>Simmons Room</h3>
-            {!availability?.enabled ? <div className="adk-not-connected"><strong>Availability not confirmed online</strong><p>The secure booking service has not been connected to the library database yet. No time shown here should be assumed available.</p><a href={LIBRARY_TEL}>Call {LIBRARY_PHONE}</a></div> : <>
-              <h4>Unavailable times</h4>
-              {busyFor(selected).length ? <ul className="adk-busy-list">{busyFor(selected).map((slot, i) => <li key={i}><span className="adk-status-dot" /> Unavailable: {timeNY(slot.starts_at)}–{timeNY(slot.ends_at)}</li>)}</ul> : <p>No reservations currently shown for this date. Staff approval is still required.</p>}
-              {bookingStatus === "success" ? <div role="status" className="adk-success"><h3>Request received</h3><p>Thank you! Your requested time is pending staff approval. This is not a confirmed reservation.</p></div> : <form className="adk-form" onSubmit={requestBooking}>
-                <h4>Request a room time</h4>
-                <div className="adk-form-two"><label>Start time<input type="time" value={startTime} onChange={e => setStartTime(e.target.value)} min="09:00" max="21:00" step="1800" required /></label><label>End time<input type="time" value={endTime} onChange={e => setEndTime(e.target.value)} min="09:00" max="21:00" step="1800" required /></label></div>
-                <label>Your name<input type="text" autoComplete="name" maxLength={100} value={staffContact.name} onChange={e => setStaffContact(c => ({ ...c, name: e.target.value }))} required /></label>
-                <label>Email address<input type="email" autoComplete="email" maxLength={200} value={staffContact.email} onChange={e => setStaffContact(c => ({ ...c, email: e.target.value }))} required /></label>
-                <label>Phone (optional)<input type="tel" autoComplete="tel" maxLength={40} value={staffContact.phone} onChange={e => setStaffContact(c => ({ ...c, phone: e.target.value }))} /></label>
-                <label>What is the gathering for?<textarea rows={3} maxLength={600} value={staffContact.purpose} onChange={e => setStaffContact(c => ({ ...c, purpose: e.target.value }))} required /></label>
-                <label className="adk-check"><input type="checkbox" checked={moneyCollected} onChange={e => setMoneyCollected(e.target.checked)} /><span>Our event will collect money or charge admission (staff review required; this does not mean a booking fee).</span></label>
-                <div ref={turnstileContainer} className="adk-turnstile" aria-label="Spam protection" />
-                {bookingError && <p role="alert" className="adk-error">{bookingError}</p>}
-                <button className="adk-submit" type="submit" disabled={bookingStatus === "sending" || !turnstileWidget}>{bookingStatus === "sending" ? "Sending request…" : "Submit request for approval"}</button>
-              </form>}
-            </>}
-          </div>}
-        </div>}
+      <dialog
+        ref={dialog}
+        className={"adk-dialog" + (view === "rooms" ? " adk-dialog-room" : "")}
+        onClose={close}
+        onClick={(event) => { if (event.target === dialog.current) close(); }}
+        aria-label={selected ? "Details for " + friendlyDate(selected) : "Date details"}
+      >
+        {selected && (
+          <div className="adk-dialog-inner">
+            <div className="adk-dialog-heading">
+              <div>
+                <span className="adk-eyebrow">{view === "events" ? "AT THE LIBRARY" : "SIMMONS ROOM"}</span>
+                <h2>{friendlyDate(selected)}</h2>
+              </div>
+              <button type="button" className="adk-close" aria-label="Close date popup" onClick={close}>×</button>
+            </div>
+
+            {view === "events" ? (
+              <div className="adk-dialog-items">
+                {openedEvent ? (
+                  <article className="adk-full-event">
+                    <button className="adk-back" type="button" onClick={() => setOpenedEvent(null)}>‹ Back to this date</button>
+                    {openedEvent.image && <img className="adk-event-photo" src={openedEvent.image} alt={openedEvent.imageAlt || ""} loading="lazy" />}
+                    <span className="adk-event-tag">{openedEvent.category}</span>
+                    <h3>{openedEvent.title}</h3>
+                    <p className="adk-event-when"><strong>{openedEvent.time}</strong> · {openedEvent.date}</p>
+                    <p>{openedEvent.description}</p>
+                    {openedEvent.link && <a className="adk-event-link" href={openedEvent.link}>Open full program information ↗</a>}
+                  </article>
+                ) : selectedDayEvents.length && displayedEvent ? (
+                  <div className="adk-slide-wrap" role="region" aria-roledescription="carousel" aria-label={"Programs for " + friendlyDate(selected)}>
+                    <div className="adk-slide-count" aria-live="polite">{slideIndex % selectedDayEvents.length + 1} of {selectedDayEvents.length} program{selectedDayEvents.length === 1 ? "" : "s"}</div>
+                    <button className="adk-slide-card" type="button" onClick={() => setOpenedEvent(displayedEvent)} aria-label={"Read more about " + displayedEvent.title}>
+                      {displayedEvent.image && <img src={displayedEvent.image} alt="" loading="lazy" />}
+                      <span className="adk-slide-information">
+                        <span className="adk-event-tag">{displayedEvent.category}</span>
+                        <strong>{displayedEvent.title}</strong>
+                        <small>{displayedEvent.time} · {displayedEvent.date}</small>
+                        <span className="adk-slide-more">More details <span aria-hidden="true">↗</span></span>
+                      </span>
+                    </button>
+                    {selectedDayEvents.length > 1 && (
+                      <div className="adk-slide-controls">
+                        <button type="button" onClick={() => setSlideIndex(i => (i - 1 + selectedDayEvents.length) % selectedDayEvents.length)} aria-label="Previous event">‹</button>
+                        <span aria-hidden="true">{selectedDayEvents.map((event, i) => <i key={eventId(event.title) + i} className={i === slideIndex % selectedDayEvents.length ? "active" : ""} />)}</span>
+                        <button type="button" onClick={() => setSlideIndex(i => (i + 1) % selectedDayEvents.length)} aria-label="Next event">›</button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="adk-empty-day">
+                    <p>No listed programs on this date.</p>
+                    <p>Check with the library for last-minute additions.</p>
+                  </div>
+                )}
+                {!openedEvent && <button type="button" className="adk-quiet-link" onClick={() => { close(); setView("rooms"); }}>Need to reserve a room instead?</button>}
+              </div>
+            ) : (
+              <div className="adk-dialog-items">
+                {!availability?.enabled ? (
+                  <div className="adk-demo" aria-label="Room booking demonstration">
+                    <div className="adk-demo-ribbon"><strong>INTERACTIVE DEMO</strong><span>Sample times only · No information is sent</span></div>
+                    {demoStep === "time" && (
+                      <>
+                        <h3>Choose a time</h3>
+                        <p>This sample schedule shows how patrons will see open and unavailable periods once live bookings are connected.</p>
+                        <div className="adk-demo-slots" role="group" aria-label="Choose a sample time">
+                          {sampleSlots.map(slot => (
+                            <button type="button" key={slot.start} disabled={slot.busy} aria-pressed={!slot.busy && demoSlot === slot.start}
+                              className={"adk-demo-slot" + (slot.busy ? " busy" : demoSlot === slot.start ? " selected" : "")}
+                              onClick={() => setDemoSlot(slot.start)}>
+                              <span>{slot.start}–{slot.end}</span><small>{slot.busy ? "Unavailable" : demoSlot === slot.start ? "Selected" : "Sample opening"}</small>
+                            </button>
+                          ))}
+                        </div>
+                        <button type="button" className="adk-submit" onClick={() => setDemoStep("review")}>Continue to review ›</button>
+                      </>
+                    )}
+                    {demoStep === "review" && (
+                      <>
+                        <button type="button" className="adk-back" onClick={() => setDemoStep("time")}>‹ Change sample time</button>
+                        <h3>Review your request</h3>
+                        <div className="adk-demo-review">
+                          <p><strong>Room</strong><span>Simmons Room</span></p>
+                          <p><strong>Date</strong><span>{friendlyDate(selected)}</span></p>
+                          <p><strong>Sample time</strong><span>{demoChoice.start}–{demoChoice.end}</span></p>
+                          <p><strong>Room use</strong><span>Generally free · Subject to approval</span></p>
+                        </div>
+                        <label className="adk-check"><input type="checkbox" checked={moneyCollected} onChange={e => setMoneyCollected(e.target.checked)} /><span>This event will charge admission or collect money; staff should review it.</span></label>
+                        <p className="adk-demo-explain">The real request form will also collect contact details privately and verify the request before submitting it to staff.</p>
+                        <button type="button" className="adk-submit" onClick={() => setDemoStep("complete")}>Preview request submitted ›</button>
+                      </>
+                    )}
+                    {demoStep === "complete" && (
+                      <div className="adk-demo-finished" role="status">
+                        <span aria-hidden="true">✓</span>
+                        <h3>Sample request: pending approval</h3>
+                        <p>In the live system, library staff would review the request and confirm or decline it. This was a demonstration: <strong>nothing was booked or sent</strong>.</p>
+                        <button type="button" className="adk-back" onClick={() => setDemoStep("time")}>Try another sample time</button>
+                      </div>
+                    )}
+                    <div className="adk-demo-call">For a real reservation today, <a href={LIBRARY_TEL}>call {LIBRARY_PHONE}</a>.</div>
+                  </div>
+                ) : (
+                  <>
+                    <h3>Available room requests</h3>
+                    <p className="adk-room-disclaimer">Times marked unavailable may be pending or approved bookings. All new requests need staff approval.</p>
+                    {busyFor(selected).length ? <ul className="adk-busy-list">{busyFor(selected).map((slot, i) => <li key={i}>Unavailable: {timeNY(slot.starts_at)}–{timeNY(slot.ends_at)}</li>)}</ul> : <p>No existing room requests shown for this date.</p>}
+                    {bookingStatus === "success" ? (
+                      <div role="status" className="adk-success"><h3>Request received</h3><p>Your request is pending staff approval. This is not a confirmed reservation.</p></div>
+                    ) : (
+                      <form className="adk-form" onSubmit={requestBooking}>
+                        <h4>Request a room time</h4>
+                        <div className="adk-form-two">
+                          <label>Start time<input type="time" value={startTime} onChange={e => setStartTime(e.target.value)} min="09:00" max="21:00" step="1800" required /></label>
+                          <label>End time<input type="time" value={endTime} onChange={e => setEndTime(e.target.value)} min="09:00" max="21:00" step="1800" required /></label>
+                        </div>
+                        <label>Your name<input type="text" autoComplete="name" maxLength={100} value={staffContact.name} onChange={e => setStaffContact(c => ({ ...c, name: e.target.value }))} required /></label>
+                        <label>Email address<input type="email" autoComplete="email" maxLength={200} value={staffContact.email} onChange={e => setStaffContact(c => ({ ...c, email: e.target.value }))} required /></label>
+                        <label>Phone (optional)<input type="tel" autoComplete="tel" maxLength={40} value={staffContact.phone} onChange={e => setStaffContact(c => ({ ...c, phone: e.target.value }))} /></label>
+                        <label>What is the gathering for?<textarea rows={3} maxLength={600} value={staffContact.purpose} onChange={e => setStaffContact(c => ({ ...c, purpose: e.target.value }))} required /></label>
+                        <label className="adk-check"><input type="checkbox" checked={moneyCollected} onChange={e => setMoneyCollected(e.target.checked)} /><span>This event will collect money or charge admission (staff review required).</span></label>
+                        <div ref={turnstileContainer} className="adk-turnstile" aria-label="Spam protection" />
+                        {bookingError && <p role="alert" className="adk-error">{bookingError}</p>}
+                        <button className="adk-submit" type="submit" disabled={bookingStatus === "sending" || !turnstileWidget}>{bookingStatus === "sending" ? "Sending request…" : "Submit for staff approval"}</button>
+                      </form>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </dialog>
     </section>
   );
