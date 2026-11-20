@@ -201,7 +201,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
       <div className="adk-edition" aria-label="Community almanac">
         <div className="adk-edition-first"><span className="adk-printer-mark" aria-hidden="true">✦</span><span>THE TUPPER LAKE COMMUNITY ALMANAC</span></div>
         <span className="adk-edition-rule" aria-hidden="true" />
-        <span className="adk-edition-meta">Rooted in Tupper Lake · Since 1914</span>
+        <span className="adk-edition-meta">Rooted in Tupper Lake · Made for neighbors</span>
       </div>
 
       <div className="adk-calendar-shell">
@@ -221,13 +221,13 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
         </div>
 
         <div className="adk-weekdays" aria-hidden="true">{DAYS.map(day => <span key={day}><span className="adk-longday">{day.slice(0, 3)}</span><span className="adk-shortday">{day.slice(0, 1)}</span></span>)}</div>
-        <div className="adk-grid" role="grid" aria-label={monthTitle + " " + (view === "events" ? "events calendar" : "room schedule")}>
+        <div className="adk-grid" role="group" aria-label={monthTitle + " " + (view === "events" ? "events calendar" : "room schedule")}>
           {days.map(date => {
             const eventItems = dateEvents(date);
             const busy = busyFor(date);
             const count = eventItems.length;
             return (
-              <button type="button" role="gridcell" aria-label={friendlyDate(date) + ": " + (view === "events" ? count + " listed programs" : availability?.enabled ? busy.length + " unavailable periods" : "availability not confirmed")} key={keyOf(date)} className={"adk-day" + (!isActive(date) ? " adk-day-muted" : "") + (keyOf(date) === today ? " adk-day-today" : "")} onClick={() => openDate(date)}>
+              <button type="button" aria-label={friendlyDate(date) + ": " + (view === "events" ? count + " listed programs" : availability?.enabled ? busy.length + " unavailable periods" : "availability not confirmed")} key={keyOf(date)} className={"adk-day" + (!isActive(date) ? " adk-day-muted" : "") + (keyOf(date) === today ? " adk-day-today" : "")} onClick={() => openDate(date)}>
                 <span className="adk-number">{date.getDate()}</span>
                 {view === "events" ? <span className="adk-day-events">{eventItems.slice(0, 2).map(e => <span className={"adk-event-chip adk-tone-" + eventTone(e)} key={eventId(e.title)}>{e.title}</span>)}{count > 2 && <span className="adk-more">+{count - 2} more</span>}</span> : <span className="adk-day-events">{availability?.enabled ? (busy.length ? <span className="adk-reserved">{busy.length} unavailable</span> : <span className="adk-see-times">See times</span>) : <span className="adk-unknown">Check with staff</span>}</span>}
                 {view === "events" && count > 0 && <span className="adk-dots" aria-hidden="true"><i /><i /></span>}
