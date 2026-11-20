@@ -111,7 +111,7 @@ const pills = [
     { label: "DVDs", href: `${CATALOG}&q=dvd` },
     { label: "Graphic Novels", href: `${CATALOG}&q=graphic+novel` },
     { label: "Adirondack History", href: `${CATALOG}&q=adirondack` },
-    { label: "Events", href: "https://tupperlakepubliclibrary.org/events/" },
+    { label: "Events", href: "/Events/" },
 ]
 
 const promoEmojis = ["🌲", "📚", "🎧", "🏔️", "🧶", "💪", "📖", "🗂️"]
@@ -123,6 +123,7 @@ function MobileSection({ menu, index }: { menu: typeof menuData[0]; index: numbe
         <div style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
             <button
                 onClick={() => setExpanded(!expanded)}
+                aria-expanded={expanded}
                 style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", background: "none", border: "none", fontSize: 15, fontWeight: 600, color: "#1a1a1a", cursor: "pointer", textAlign: "left" }}
             >
                 {menu.label}
@@ -223,6 +224,7 @@ export default function Nav() {
                                 <input
                                     style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
                                     placeholder="Search the library catalog…"
+                                    aria-label="Search the library catalog"
                                     value={query}
                                     onChange={e => setQuery(e.target.value)}
                                     onKeyDown={e => { if (e.key === "Enter") { doSearch(query); setMobileOpen(false) } }}
@@ -259,6 +261,7 @@ export default function Nav() {
                         <button
                             key={i}
                             onClick={() => { setOpen(open === i ? null : i); setSearchOpen(false) }}
+                            aria-expanded={open === i}
                             style={{ background: open === i ? "rgba(0,0,0,0.06)" : "none", border: "none", padding: "8px 14px", fontSize: 13, color: "#1a1a1a", cursor: "pointer", borderRadius: 8, display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap", fontWeight: open === i ? 600 : 400 }}
                         >
                             {menu.label}
@@ -268,7 +271,7 @@ export default function Nav() {
                     ))}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <button onClick={() => { setSearchOpen(!searchOpen); setOpen(null) }} style={{ display: "flex", alignItems: "center", gap: 7, background: searchOpen ? "rgba(0,0,0,0.07)" : "rgba(0,0,0,0.04)", border: "none", borderRadius: 22, padding: "7px 16px", fontSize: 13, color: "#666", cursor: "pointer", whiteSpace: "nowrap" }}>
+                    <button onClick={() => { setSearchOpen(!searchOpen); setOpen(null) }} aria-expanded={searchOpen} style={{ display: "flex", alignItems: "center", gap: 7, background: searchOpen ? "rgba(0,0,0,0.07)" : "rgba(0,0,0,0.04)", border: "none", borderRadius: 22, padding: "7px 16px", fontSize: 13, color: "#666", cursor: "pointer", whiteSpace: "nowrap" }}>
                         🔍 Search
                     </button>
                     <button style={{ background: "#2d6a4f", border: "none", borderRadius: 22, padding: "7px 18px", fontSize: 13, fontWeight: 600, color: "#fff", cursor: "pointer", whiteSpace: "nowrap" }}>
@@ -286,6 +289,7 @@ export default function Nav() {
                             <input
                                 style={{ border: "none", background: "transparent", fontSize: 15, outline: "none", flex: 1, color: "#333" }}
                                 placeholder="Search the library"
+                                aria-label="Search the library catalog"
                                 autoFocus
                                 value={query}
                                 onChange={e => setQuery(e.target.value)}
@@ -321,6 +325,7 @@ export default function Nav() {
                                     <input
                                         style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
                                         placeholder="Search everything we lend"
+                                        aria-label="Search everything the library lends"
                                         onKeyDown={e => {
                                             if (e.key === "Enter") {
                                                 const val = (e.target as HTMLInputElement).value
