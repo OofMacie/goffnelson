@@ -5,6 +5,12 @@ This is the **new library website**, built with **Astro + React** and hosted by 
 
 > **Current status (November 20, 2026):** The TinaCMS integration has been **merged into the main branch**, and automated content, TypeScript/Astro, and build checks passed. **TinaCloud credentials and a real staff login/editing test are still required** before calling the editor operational. WCAG 2.2 AAA is an accessibility **goal**, not an achieved certification.
 
+## 🔧 TinaCloud says “Invalid Client ID”?
+
+Go straight to **[Fix “Invalid Client ID” — step-by-step for TinaCloud + Vercel](docs/TINACMS_CONNECTION_FIX.md)**.
+
+The short version: copy the **Client ID** from your **TinaCloud Overview**, add it in **Vercel → Project → Settings → Environment Variables** under **`PUBLIC_TINA_CLIENT_ID`**, add your **private `TINA_TOKEN`** separately, select **Production**, and **redeploy**. The editor embeds the settings at build time. The required `tina/tina-lock.json` schema is now tracked in GitHub. Never paste the token into your repository.
+
 ## 🌼 First, choose what you want to do
 
 | I want to… | Read this section |
