@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { libraryEvents, eventId, type LibraryEvent } from "../lib/library-content";
+import { libraryEvents, eventId } from "../lib/library-content";
 import "./AdirondackCalendar.css";
 
 type LibraryEvent = (typeof libraryEvents)[number];
@@ -166,21 +166,27 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
 
   return (
     <section className="adk" aria-label="Library events and room requests">
-      <div className="adk-hero">
-        <div className="adk-hero-copy">
-          <span className="adk-eyebrow">GOFF–NELSON MEMORIAL LIBRARY · TUPPER LAKE, NY</span>
-          <h1>Gatherings in the <em>Adirondacks.</em></h1>
-          <p>Discover library programs, see what's happening this month, and request a space for your next gathering.</p>
-          <div className="adk-mode" role="group" aria-label="What would you like to see?">
-            <button type="button" aria-pressed={view === "events"} className={view === "events" ? "adk-mode-active" : ""} onClick={() => setView("events")}>Events & programs</button>
-            <button type="button" aria-pressed={view === "rooms"} className={view === "rooms" ? "adk-mode-active" : ""} onClick={() => setView("rooms")}>Room requests</button>
+      <header className="adk-hero">
+        <div className="adk-hero-inner">
+          <div className="adk-hero-copy">
+            <span className="adk-eyebrow">GOFF–NELSON MEMORIAL LIBRARY · TUPPER LAKE, NEW YORK</span>
+            <h1>{view === "events" ? <>Events <span className="adk-gold">&amp; Programs</span></> : <>Meeting Room <span className="adk-gold">Requests</span></>}</h1>
+            <p>{view === "events"
+              ? "Stories, workshops, and familiar faces. Find what's happening at your library, all in one calendar."
+              : "Find a time for your next community gathering in the Simmons Room. All requests are reviewed by library staff."}</p>
+            <nav className="adk-mode" aria-label="Calendar options">
+              <button type="button" aria-pressed={view === "events"} className={view === "events" ? "adk-mode-active" : ""} onClick={() => setView("events")}>Events &amp; programs</button>
+              <button type="button" aria-pressed={view === "rooms"} className={view === "rooms" ? "adk-mode-active" : ""} onClick={() => setView("rooms")}>Room availability</button>
+            </nav>
           </div>
+          <figure className="adk-engraving">
+            <div className="adk-engraving-mat">
+              <img src={ENGRAVING} width="1951" height="1189" loading="eager" decoding="async" alt="Antique wood engraving depicting a wooded Adirondack landscape and Placid Lake" />
+            </div>
+            <figcaption><span>ADIRONDACKS · 1879</span> Hand-engraved by John Filmer</figcaption>
+          </figure>
         </div>
-        <figure className="adk-engraving">
-          <img src={ENGRAVING} width="1951" height="1189" alt="Original nineteenth-century wood engraving of mountains and forest surrounding Placid Lake" />
-          <figcaption>1879 Adirondack engraving · John Filmer · Public domain</figcaption>
-        </figure>
-      </div>
+      </header>
 
       <div className="adk-calendar-shell">
         <div className="adk-topline">
