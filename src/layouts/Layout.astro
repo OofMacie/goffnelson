@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import { librarySettings } from '../lib/library-content'
 
 interface Props {
   title?: string
@@ -38,10 +39,10 @@ const schema = {
   url: SITE_URL,
   logo: DEFAULT_IMAGE,
   image: DEFAULT_IMAGE,
-  telephone: '+1-518-359-9421',
+  telephone: librarySettings.phoneLink,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '41 Lake Street',
+    streetAddress: librarySettings.address.split(',')[0],
     addressLocality: 'Tupper Lake',
     addressRegion: 'NY',
     postalCode: '12986',
@@ -52,11 +53,14 @@ const schema = {
     latitude: 44.2273,
     longitude: -74.4599,
   },
-  openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Wednesday', 'Friday'], opens: '10:00', closes: '18:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday', 'Thursday'], opens: '10:00', closes: '20:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '10:00', closes: '14:00' },
-  ],
+  openingHoursSpecification: librarySettings.hours
+    .filter((period) => !period.closed)
+    .map((period) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: period.days,
+      opens: period.opens,
+      closes: period.closes,
+    })),
   sameAs: [
     'https://www.facebook.com/GoffNelsonMemorialLibrary',
   ],
@@ -148,6 +152,7 @@ const schema = {
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <slot />
   </body>
 </html>
@@ -158,5 +163,40 @@ const schema = {
     margin: 0;
     width: 100%;
     height: 100%;
+  }
+</style>
+
+<style is:global>
+  /* Visible focus indicator and screen-reader-friendly keyboard shortcut. */
+  .skip-link {
+    position: fixed;
+    left: 1rem;
+    top: -6rem;
+    z-index: 10000;
+    padding: .9rem 1.3rem;
+    color: #fff;
+    background: #102b1e;
+    border: 3px solid #fff;
+    border-radius: .4rem;
+    font-weight: 700;
+  }
+  .skip-link:focus { top: 1rem; }
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 3px solid #b54b00;
+    outline-offset: 4px;
+  }
+  :where(button, .event-card-btn, .book-card-btn, .cta-btn):not(:disabled) {
+    min-height: 44px;
+  }
+  :where(p, li) { line-height: 1.6; }
+  :where(p) { max-width: 80ch; }
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within { scroll-behavior: auto !important; }
+    *, *::before, *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
   }
 </style>
