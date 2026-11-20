@@ -43,7 +43,7 @@ npm run build:local
 ```
 **Dependency lockfile:** `package-lock.json` was regenerated and committed using the feature-branch GitHub Actions lockfile job. Run `npm ci` for reproducible installs; CI must pass before merging.
 
-For TinaCloud builds use `npm run build`, which expects environment credentials. For offline code review use `npm run build:local`.
+The normal `npm run build` detects whether both TinaCloud environment variables exist: it uses `build:cloud` with credentials, otherwise `build:local`. This keeps the public site deployable while TinaCloud is being connected. Use `npm run build:local` explicitly for offline code review.
 
 ## Editorial conventions
 - Use descriptive, neutral image alt text. Leave it empty only when an image is truly decorative; inspect photos before publishing.
