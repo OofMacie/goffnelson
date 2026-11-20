@@ -283,3 +283,232 @@
   .adk-slide-card>img{width:90px;height:100px}
 }
 @media(prefers-reduced-motion:reduce){.adk-dialog[open]{animation:none}.adk-day{transition:none}}
+
+
+
+/* ================================================================
+   A CALENDAR INSIDE THE LIBRARY
+   Original SVG architecture references actual Goff–Nelson exterior:
+   LEFT STONE CHIMNEY · LONG SLOPING ROOF · GLAZED TIMBER FACADE.
+   Calendar buttons = the "windows"; lower wall = library's base.
+   Illustrator-friendly roof: /images/goff-nelson-calendar-roof.svg.
+   ================================================================ */
+.adk-facade{
+  width:min(calc(100% - 3rem),1100px);
+  margin:1.3rem auto 2.8rem;
+  position:relative;
+  isolation:isolate;
+  filter:drop-shadow(0 11px 14px rgba(40,45,35,.10));
+}
+.adk-facade-roof{
+  width:100%;
+  height:clamp(86px,19.1vw,210px);
+  margin:0 0 -2px;
+  position:relative;
+  z-index:2;
+  line-height:0;
+  pointer-events:none;
+}
+.adk-facade-roof img{
+  display:block;width:100%;height:100%;
+  object-fit:fill;
+}
+.adk-facade-nameplate{
+  position:relative;z-index:1;
+  display:flex;gap:1.2rem;align-items:center;
+  min-height:76px;
+  background:#2b4034;
+  border-inline:15px solid #433a31;
+  border-top:5px solid #bb9958;
+  border-bottom:7px solid #5b4433;
+  color:var(--birch,#f6f2ec);
+  padding:.65rem 1.45rem .65rem 2rem;
+  box-shadow:inset 0 2px 0 #6d8b73;
+}
+.adk-nameplate-number{
+  background:#bdaf94;
+  color:#273b34;
+  border:3px solid #655a4b;
+  border-radius:3px;
+  min-width:53px;
+  text-align:center;
+  font:900 1.35rem/1 Arial,Helvetica,sans-serif;
+  padding:9px 6px;
+  transform:rotate(-2deg);
+  text-shadow:1px 1px 0 rgba(255,255,255,.2)
+}
+.adk-nameplate-text{display:flex;flex-direction:column;gap:1px;line-height:1}
+.adk-nameplate-text small{
+  font-size:.7rem;letter-spacing:.16em;font-weight:900;
+  color:var(--maple-pale,#f0d88c)
+}
+.adk-nameplate-text strong{
+  font:900 clamp(1.25rem,2.6vw,2.3rem)/1 Arial,Helvetica,sans-serif;
+  letter-spacing:.24em;
+  color:#f6f2ec;
+  text-shadow:2px 3px 0 rgba(0,0,0,.35)
+}
+.adk-nameplate-detail{
+  color:var(--maple-bright,#deb94e);
+  font-weight:900;
+  font-size:.72rem;
+  letter-spacing:.08em;
+  margin-left:auto;
+  text-align:right;
+  max-width:190px
+}
+.adk-facade .adk-calendar-shell{
+  width:100%;max-width:none;
+  margin:0;
+  border-radius:0;
+  border-top:0;
+  border-right:15px solid #4a4033;
+  border-left:15px solid #58574c;
+  border-bottom:0;
+  box-shadow:inset 0 0 0 1px #e6e0d2;
+  overflow:hidden;
+  background:#f8f5ed;
+}
+.adk-facade .adk-topline{padding:1.4rem 1.9rem 1.2rem;border-top:0}
+.adk-facade .adk-topline .adk-eyebrow{
+  background:var(--lake-pale,#b8dce4);color:var(--lake-dark,#133645)
+}
+.adk-facade .adk-month-toolbar{
+  border-top:3px solid #997648;
+  background:linear-gradient(180deg,#fbefc9 0%,var(--maple-ghost,#faf3e0) 100%);
+}
+.adk-facade .adk-month-toolbar h3{
+  color:var(--spruce-dark,#0f1f16);
+  letter-spacing:-.035em
+}
+.adk-facade .adk-weekdays{border-inline:5px solid #4c4032;}
+.adk-facade .adk-grid{
+  background:#584636;
+  border:5px solid #4c4032;
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:4px;
+}
+.adk-facade .adk-day{
+  border:1px solid rgba(98,74,48,.22);
+  border-radius:1px;
+  background:#fffdf7;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+  min-height:114px;
+  padding:10px 8px
+}
+.adk-facade .adk-day:hover{background:#fffae7;box-shadow:inset 0 0 0 2px var(--maple,#c49a3c)}
+.adk-facade .adk-day-muted{background:#e5e5dc}
+.adk-facade .adk-day-today{background:#f0f5ed}
+.adk-facade .adk-day:focus-visible{
+  outline:4px solid var(--lake-bright,#4e9bad);
+  outline-offset:-4px
+}
+.adk-facade .adk-footnote{margin:0;background:#f3eee3}
+.adk-facade-lower{
+  background:#2e4438;
+  color:#f7f0df;
+  border-top:10px solid #765439;
+  border-left:15px solid #58574c;
+  border-right:15px solid #4a4033;
+  padding:1.2rem 1.5rem;
+  min-height:104px;
+  display:grid;
+  grid-template-columns:76px minmax(0,1fr) auto;
+  gap:1.2rem;align-items:center;
+  box-shadow:inset 0 5px 0 rgba(0,0,0,.16)
+}
+.adk-facade-entry{
+  width:68px;height:77px;
+  border:5px solid #6e4c36;
+  background:#42646b;
+  display:grid;grid-template-columns:1fr 1fr;gap:3px;
+  padding:5px;
+  position:relative;
+  box-shadow:0 0 0 2px #b69b6f
+}
+.adk-entry-window{
+  display:block;
+  background:linear-gradient(132deg,#89abb0 0%,#4b737c 48%,#32494c 50%,#385d63 100%);
+  border:2px solid #2b403b
+}
+.adk-entry-handle{
+  width:4px;height:9px;border-radius:3px;background:#d9be79;
+  position:absolute;right:31px;bottom:18px;
+  box-shadow:9px 0 0 #d9be79
+}
+.adk-facade-lower-copy{display:grid;gap:.3rem}
+.adk-facade-lower-copy strong{
+  font:800 clamp(.95rem,1.7vw,1.3rem)/1.2 Arial,Helvetica,sans-serif;
+  letter-spacing:-.02em
+}
+.adk-facade-lower-copy span{
+  font-size:.79rem;font-weight:700;
+  letter-spacing:.04em;color:#bfd9c6
+}
+.adk-facade-action{
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+  color:#14291c!important;
+  background:var(--maple,#c49a3c);
+  border:2px solid #f0d88c;
+  border-radius:5px;
+  padding:.8rem 1rem;
+  min-height:44px;
+  max-width:195px;
+  text-decoration:none!important;
+  text-align:center;
+  font-weight:900;
+  font-size:.85rem;
+  box-shadow:3px 3px 0 #1c2921
+}
+.adk-facade-action:hover{background:var(--maple-bright,#deb94e)}
+.adk-facade-action:focus-visible{outline:3px solid var(--lake-pale,#b8dce4);outline-offset:3px}
+.adk-facade-foundation{
+  height:20px;
+  display:flex;
+  overflow:hidden;
+  background:#66665b;
+  border-top:3px solid #b9b1a0;
+  border-bottom:4px solid #3e463d
+}
+.adk-facade-foundation i{
+  height:100%;
+  flex:1;
+  display:block;
+  border-right:3px solid #444a40;
+  border-top:2px solid rgba(255,255,255,.18);
+  background:#73756c;
+  transform:skewX(-7deg);
+}
+.adk-facade-foundation i:nth-child(2n){background:#585e56}
+.adk-facade-foundation i:nth-child(3n){background:#8b8980}
+.adk-facade-foundation i:nth-child(5n){background:#616c60}
+@media(max-width:800px){
+  .adk-facade .adk-day{min-height:96px;padding:7px 5px}
+  .adk-facade-lower{grid-template-columns:60px minmax(0,1fr);gap:1rem}
+  .adk-facade-action{grid-column:2;justify-self:start}
+  .adk-nameplate-detail{font-size:.61rem;max-width:125px}
+}
+@media(max-width:600px){
+  .adk-facade{width:calc(100% - 12px);margin:1.1rem auto 2rem}
+  .adk-facade-roof{height:clamp(72px,22vw,108px)}
+  .adk-facade-nameplate{min-height:58px;padding:.4rem .5rem;gap:.7rem;border-inline-width:7px;border-bottom-width:4px}
+  .adk-nameplate-number{min-width:35px;font-size:.9rem;padding:7px 3px;border-width:2px}
+  .adk-nameplate-text small{font-size:.48rem;letter-spacing:.055em}
+  .adk-nameplate-text strong{font-size:1.15rem;letter-spacing:.14em}
+  .adk-nameplate-detail{display:none}
+  .adk-facade .adk-calendar-shell{border-inline-width:7px}
+  .adk-facade .adk-topline{padding:1.1rem .75rem}
+  .adk-facade .adk-weekdays{border-inline-width:2px}
+  .adk-facade .adk-grid{padding:0;border-width:2px;gap:2px}
+  .adk-facade .adk-day{min-height:74px;padding:5px 2px}
+  .adk-facade-lower{border-inline-width:7px;grid-template-columns:44px minmax(0,1fr);padding:.75rem;gap:.75rem;border-top-width:7px}
+  .adk-facade-entry{width:43px;height:60px;border-width:3px;padding:3px;gap:1px}
+  .adk-facade-lower-copy strong{font-size:.87rem}
+  .adk-facade-lower-copy span{font-size:.67rem}
+  .adk-facade-action{font-size:.75rem;padding:.6rem .75rem;min-height:44px;max-width:100%}
+  .adk-facade-foundation{height:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .adk-facade .adk-day{transition:none}
+}
