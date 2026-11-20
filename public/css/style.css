@@ -871,3 +871,13 @@ footer img {
   font-size: 14px;
   background-color: var(--lake);
 }
+/* WCAG 2.2 AAA target-size and readable metadata improvements. */
+.carousel-arrow, .events-arrow { width: 44px; height: 44px; }
+.book-card-author { color: #414141; white-space: normal; }
+.carousel-view-all, .events-view-all, .book-card-btn {
+  color: #1b4332;
+  font-size: .875rem;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+.events-view-all:hover, .carousel-view-all:hover { color: #102b1e; }
