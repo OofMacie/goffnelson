@@ -23,7 +23,8 @@ export default defineConfig({
     sitemap(),
     mdx(),
     partytown(),
-    compress(),
+    // Fast design previews: production keeps all existing image/CSS optimizations.
+    ...(process.env.VERCEL_ENV === "preview" ? [] : [compress()]),
     react(),
     flowbiteReact(),
     tina(),
