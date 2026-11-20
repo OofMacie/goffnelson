@@ -1,0 +1,28 @@
+name: TinaCMS quality checks
+
+on:
+  push:
+    branches: [feat/tinacms-library-editor]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Resolve packages
+        run: npm install --no-audit --no-fund
+      - name: Validate CMS content
+        run: npm run content:check
+      - name: Validate Astro and TypeScript
+        run: npm run check
+      - name: Build static pages and Tina editor
+        run: npm run build:local
