@@ -15,7 +15,8 @@ const stringField = (name: string, label: string, required = true) => ({
 
 export default defineConfig({
   branch,
-  clientId: process.env.PUBLIC_TINA_CLIENT_ID,
+  // Astro uses PUBLIC_TINA_CLIENT_ID. Support the generic Tina/Next prefix as a fallback.
+  clientId: (process.env.PUBLIC_TINA_CLIENT_ID || process.env.NEXT_PUBLIC_TINA_CLIENT_ID)?.trim(),
   token: process.env.TINA_TOKEN,
   build: { outputFolder: "admin", publicFolder: "public" },
   media: { tina: { mediaRoot: "images/uploads", publicFolder: "public" } },
