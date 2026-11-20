@@ -169,22 +169,16 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
       <header className="adk-hero">
         <div className="adk-hero-inner">
           <div className="adk-hero-copy">
-            <span className="adk-eyebrow">GOFF–NELSON MEMORIAL LIBRARY · TUPPER LAKE, NEW YORK</span>
+            <span className="adk-eyebrow">GOFF–NELSON MEMORIAL LIBRARY · TUPPER LAKE, NY</span>
             <h1>{view === "events" ? <>Events <span className="adk-gold">&amp; Programs</span></> : <>Meeting Room <span className="adk-gold">Requests</span></>}</h1>
             <p>{view === "events"
-              ? "Stories, workshops, and familiar faces. Find what's happening at your library, all in one calendar."
-              : "Find a time for your next community gathering in the Simmons Room. All requests are reviewed by library staff."}</p>
-            <nav className="adk-mode" aria-label="Calendar options">
+              ? "Find stories, workshops, and community gatherings at your library. Select a date to explore what's on."
+              : "See the Simmons Room schedule and request a time for your next gathering. All requests require staff approval."}</p>
+            <nav className="adk-mode" aria-label="Calendar and room options">
               <button type="button" aria-pressed={view === "events"} className={view === "events" ? "adk-mode-active" : ""} onClick={() => setView("events")}>Events &amp; programs</button>
               <button type="button" aria-pressed={view === "rooms"} className={view === "rooms" ? "adk-mode-active" : ""} onClick={() => setView("rooms")}>Room availability</button>
             </nav>
           </div>
-          <figure className="adk-engraving">
-            <div className="adk-engraving-mat">
-              <img src={ENGRAVING} width="1951" height="1189" loading="eager" decoding="async" alt="Antique wood engraving depicting a wooded Adirondack landscape and Placid Lake" />
-            </div>
-            <figcaption><span>ADIRONDACKS · 1879</span> Hand-engraved by John Filmer</figcaption>
-          </figure>
         </div>
       </header>
 
