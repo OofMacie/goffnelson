@@ -75,7 +75,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const days = useMonthDates(month);
   const categories = ["All programs", ...Array.from(new Set(calendarEvents.map(e => e.category).filter(Boolean)))];
-  const visible = category === "All programs" ? libraryEvents : calendarEvents.filter(e => e.category === category);
+  const visible = category === "All programs" ? calendarEvents : calendarEvents.filter(e => e.category === category);
   const unscheduled = visible.filter(e => !isCalendarRule(e));
 
   useEffect(() => {
