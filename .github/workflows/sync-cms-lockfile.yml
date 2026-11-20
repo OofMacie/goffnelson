@@ -1,0 +1,32 @@
+name: Generate TinaCMS lockfile (feature branch only)
+
+on:
+  push:
+    branches: [feat/tinacms-library-editor]
+
+permissions:
+  contents: write
+
+jobs:
+  update-lockfile:
+    if: github.repository == 'OofMacie/goffnelson'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies and resolve lockfile
+        run: npm install --package-lock-only --no-audit --no-fund
+      - name: Commit lockfile only if changed
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: update npm lockfile for TinaCMS'
+            git push origin HEAD:feat/tinacms-library-editor
+          fi
