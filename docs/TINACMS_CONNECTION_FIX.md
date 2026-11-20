@@ -27,11 +27,12 @@ These are instructions for **the existing Astro website**, not a new Tina starte
 | Name (copy exactly) | Value | Environment |
 | --- | --- | --- |
 | `PUBLIC_TINA_CLIENT_ID` | Paste the Client ID copied from TinaCloud Overview | **Production** |
-| `TINA_TOKEN` | Paste the private **read-only token** from TinaCloud Tokens | **Production** |
+| `TINA_TOKEN` (preferred) **or** `CONTENT_READONLY` (supported for this project) | Paste the private **Content (Read-only)** token from TinaCloud Tokens | **Production** |
 
-5. Optionally add the same variables to **Preview** for feature-branch testing.
-6. **Save** each variable. No quotation marks, no `Bearer ` prefix, and no extra whitespace.
-7. Go to **Deployments**, open the latest **main** deployment, and click **Redeploy**. Vercel only applies newly entered environment variables to **new builds**.
+5. **Important:** your existing Vercel variable is named `CONTENT_READONLY` and is sensitive, so Vercel cannot rename it. The code recognizes that name. You do **not** need to copy its secret or create a duplicate. The `SEARCH` and `CLIENT_ID` variables are not used by this Astro project. For future deployments the standard Tina variable name is `TINA_TOKEN`.
+6. Optionally add the same variables to **Preview** for feature-branch testing.
+7. **Save** each variable. No quotation marks, no `Bearer ` prefix, and no extra whitespace.
+8. Go to **Deployments**, open the latest **main** deployment, and click **Redeploy**. Vercel only applies newly entered environment variables to **new builds**.
 
 ### C. Try Tina again
 
