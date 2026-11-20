@@ -17,7 +17,8 @@ export default defineConfig({
   branch,
   // Astro uses PUBLIC_TINA_CLIENT_ID. Support the generic Tina/Next prefix as a fallback.
   clientId: (process.env.PUBLIC_TINA_CLIENT_ID || process.env.NEXT_PUBLIC_TINA_CLIENT_ID)?.trim(),
-  token: process.env.TINA_TOKEN,
+  // Prefer the documented key. CONTENT_READONLY is supported for the existing Vercel setup.
+  token: (process.env.TINA_TOKEN || process.env.CONTENT_READONLY)?.trim(),
   build: { outputFolder: "admin", publicFolder: "public" },
   media: { tina: { mediaRoot: "images/uploads", publicFolder: "public" } },
   schema: {
