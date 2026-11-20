@@ -25,4 +25,4 @@ jobs:
       - name: Validate Astro and TypeScript
         run: npm run check
       - name: Build static pages and Tina editor
-        run: npm run build:local
+        run: npm run build
