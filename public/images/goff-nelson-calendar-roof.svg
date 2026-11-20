@@ -15,6 +15,12 @@
 <!-- Window glazing beneath the asymmetric descending roof. -->
 <path d="M0 174 194 78 1098 194 1098 207 0 207Z" fill="#1d382e"/>
 <path d="M12 182 195 91 1084 200 1084 207 12 207Z" fill="url(#glass)" opacity=".9"/>
+<!-- Continuous dark-timber fascia beneath the short left roof hip.
+     Covers the open wedge between the eave and glazing so the left roof
+     is visibly attached to the library instead of floating in open air. -->
+<path d="M0 148 L193 65 L199 105 L0 191 Z" fill="#203b31"/>
+<path d="M0 164 L194 82 L196 94 L0 181 Z" fill="#34584a" opacity=".88"/>
+<path d="M0 188 L194 104" fill="none" stroke="#1c3027" stroke-width="4"/>
 <!-- Timber mullions, like the real glazed facade. -->
 <g stroke="#3b2e27" stroke-width="12">
 <path d="M236 95V210 M400 117V210 M571 139V210 M743 162V210 M920 181V210"/>
