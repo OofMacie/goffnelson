@@ -3,7 +3,7 @@
 
 This is the **new library website**, built with **Astro + React** and hosted by **Vercel**. **TinaCMS** gives library staff a simple, private editor for updating events, books, photos and hours. You, as the developer, **keep full access to every line of code** in GitHub and VS Code.
 
-> **Current status:** TinaCMS is being introduced on the testing branch named **feat/tinacms-library-editor**. The CMS content and code are committed, but TinaCloud login and the Vercel editing workflow need a real-world test before announcing that the editor is ready. WCAG 2.2 AAA is a **goal**, not an achieved certification.
+> **Current status (November 20, 2026):** The TinaCMS integration has been **merged into the main branch**, and automated content, TypeScript/Astro, and build checks passed. **TinaCloud credentials and a real staff login/editing test are still required** before calling the editor operational. WCAG 2.2 AAA is an accessibility **goal**, not an achieved certification.
 
 ## 🌼 First, choose what you want to do
 
@@ -50,10 +50,10 @@ Do this once as the developer or website administrator.
 | --- | --- |
 | GitHub owner | **OofMacie** |
 | Repository | **goffnelson** |
-| Test branch | **feat/tinacms-library-editor** |
-| Live branch (after testing/merge) | **main** |
+| Production branch (already merged) | **main** |
+| Optional separate testing branch | **feat/tinacms-library-editor** |
 
-**What is a branch?** Think of it as a separate working copy of the website. The *test branch* lets us try changes without putting them directly on the public site. The *main branch* is the version normally used for production.
+**What is a branch?** Think of it as a separate working copy of the website. The *test branch* allows safe previews without putting edits directly on the public website. The TinaCMS code is **already in main**, which is the branch normally used for production.
 
 ### Step 3 — Locate your TinaCloud credentials
 
@@ -87,13 +87,13 @@ An *environment variable* is a named setting that Vercel provides to your websit
 | **PUBLIC_TINA_CLIENT_ID** | Your TinaCloud **Client ID** |
 | **TINA_TOKEN** | Your TinaCloud **read-only token** |
 
-The public site can build without these settings, but staff cannot use the connected TinaCloud editor until they are configured. For the first test, select **Preview**, preferably for the **feat/tinacms-library-editor** branch. Never put the token in a public file. The Client ID is meant to be public; the token is not. <strong>Save</strong> each variable.
+The public site can build without these settings, but staff cannot use the connected TinaCloud editor until they are configured. For safe initial testing, select **Preview** for the **feat/tinacms-library-editor** branch. For the public editor, you must **also add the two variables to Production** and make sure TinaCloud is connected to **main**. Never put the token in a public file. The Client ID is meant to be public; the token is not. <strong>Save</strong> each variable.
 
 ### Step 3 — Open the testing deployment
 1. Click **Deployments** in the Vercel project.
-2. Find the deployment for **feat/tinacms-library-editor**.
-3. If you added variables after it was built, click **Redeploy**.
-4. Open the **Preview URL** from that deployment.
+2. For an isolated test, select the deployment for **feat/tinacms-library-editor**. For the live site, select the deployment for **main**.
+3. If you added variables after deployment, click **Redeploy**.
+4. Open the deployment URL Vercel gives you.
 5. Add **/admin/index.html** to the end of its address.
 
 For example: `https://YOUR-PREVIEW-URL/admin/index.html` (replace this example with the real address Vercel shows).
@@ -109,9 +109,9 @@ For example: `https://YOUR-PREVIEW-URL/admin/index.html` (replace this example w
 
 ✅ **You're done with Part 2 when:** a Tina edit becomes a GitHub commit and appears on the preview website.
 
-### Later: Move from testing to production
+### Finish the production connection
 
-After the code has passed tests and been merged to **main**:
+The TinaCMS code is **already merged into main**. Once the preview workflow has been verified:
 1. Set the TinaCloud project's live branch to **main**, as appropriate for your project.
 2. Add the same two Vercel variables to **Production** (keep the token private).
 3. Redeploy the production site.
@@ -191,7 +191,8 @@ You can keep coding **directly in GitHub or VS Code**, just as before! You do no
 4. Run these commands **one line at a time**:
 
 ```bash
-git switch feat/tinacms-library-editor
+git switch main
+git pull origin main
 npm ci
 npm run dev
 ```
@@ -253,7 +254,8 @@ goffnelson/
 
 ## Before publishing
 
-- [ ] GitHub Actions passes: npm ci, content check, type check, local build.
+- [x] Feature-branch GitHub Actions passed: npm ci, content check, Astro/TypeScript check, and local build.
+- [ ] Confirm Vercel's production deployment succeeds after the merge.
 - [ ] You have personally tested a TinaCloud login and a real edit through Vercel.
 - [ ] Navigation has no dummy links or unimplemented buttons.
 - [ ] Library staff confirm opening hours and programs.
