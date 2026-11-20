@@ -1,0 +1,49 @@
+{
+  "title": "Library information",
+  "about": "Goff-Nelson Memorial Library has served Tupper Lake and the Adirondack region since 1916.",
+  "address": "41 Lake Street, Tupper Lake, NY 12986",
+  "phone": "518-359-9421",
+  "phoneLink": "+15183599421",
+  "facebook": "https://www.facebook.com/GoffNelsonMemorialLibrary",
+  "hours": [
+    {
+      "label": "Monday, Wednesday, Friday",
+      "days": [
+        "Monday",
+        "Wednesday",
+        "Friday"
+      ],
+      "opens": "10:00",
+      "closes": "18:00",
+      "closed": false
+    },
+    {
+      "label": "Tuesday, Thursday",
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "opens": "10:00",
+      "closes": "20:00",
+      "closed": false
+    },
+    {
+      "label": "Saturday",
+      "days": [
+        "Saturday"
+      ],
+      "opens": "10:00",
+      "closes": "14:00",
+      "closed": false
+    },
+    {
+      "label": "Sunday",
+      "days": [
+        "Sunday"
+      ],
+      "opens": "",
+      "closes": "",
+      "closed": true
+    }
+  ]
+}

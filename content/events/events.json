@@ -1,0 +1,65 @@
+{
+  "title": "Upcoming Events",
+  "entries": [
+    {
+      "title": "Story Time for Tots",
+      "date": "Every Tuesday",
+      "time": "10:30 AM",
+      "description": "Interactive stories and songs for children ages 2-5",
+      "category": "Children's Programs",
+      "image": "/images/ChildrensRoom/20250719_101707.jpg",
+      "imageAlt": "Children's room at the library",
+      "link": ""
+    },
+    {
+      "title": "Teen Game Night",
+      "date": "First Friday",
+      "time": "6:00 PM",
+      "description": "Board games, video games, and snacks for teens",
+      "category": "Teen Programs",
+      "image": "/images/YoungAdult/20250917_113824.jpg",
+      "imageAlt": "Young adult area of the library",
+      "link": ""
+    },
+    {
+      "title": "Community Garden",
+      "date": "Second Wednesday",
+      "time": "7:00 PM",
+      "description": "Monthly discussion of current fiction and non-fiction",
+      "category": "Adult Programs",
+      "image": "/images/CommunityGarden/1000015930.jpg",
+      "imageAlt": "Community garden at the library",
+      "link": ""
+    },
+    {
+      "title": "Computer Basics Workshop",
+      "date": "Third Thursday",
+      "time": "2:00 PM",
+      "description": "Learn essential computer skills and internet safety",
+      "category": "Technology",
+      "image": "/images/Lobby/20250714_185812.jpg",
+      "imageAlt": "Computer area inside the library",
+      "link": ""
+    },
+    {
+      "title": "Adirondack History Talk",
+      "date": "Fourth Monday",
+      "time": "6:30 PM",
+      "description": "Local history presentation and Q&A session",
+      "category": "Community",
+      "image": "/images/CommunityGarden/garden.png",
+      "imageAlt": "Garden and outdoor space at the library",
+      "link": ""
+    },
+    {
+      "title": "Yarn Social",
+      "date": "Every Wednesday",
+      "time": "1:00 PM",
+      "description": "Knitting, crocheting, and crafting with friends",
+      "category": "Crafts",
+      "image": "/images/CommunityGarden/1000015928.jpg",
+      "imageAlt": "Community garden at the library",
+      "link": ""
+    }
+  ]
+}

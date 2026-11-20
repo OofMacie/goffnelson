@@ -111,7 +111,7 @@ const pills = [
     { label: "DVDs", href: `${CATALOG}&q=dvd` },
     { label: "Graphic Novels", href: `${CATALOG}&q=graphic+novel` },
     { label: "Adirondack History", href: `${CATALOG}&q=adirondack` },
-    { label: "Events", href: "https://tupperlakepubliclibrary.org/events/" },
+    { label: "Events", href: "/Events/" },
 ]
 
 const promoEmojis = ["🌲", "📚", "🎧", "🏔️", "🧶", "💪", "📖", "🗂️"]
@@ -123,6 +123,7 @@ function MobileSection({ menu, index }: { menu: typeof menuData[0]; index: numbe
         <div style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
             <button
                 onClick={() => setExpanded(!expanded)}
+                aria-expanded={expanded}
                 style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", background: "none", border: "none", fontSize: 15, fontWeight: 600, color: "#1a1a1a", cursor: "pointer", textAlign: "left" }}
             >
                 {menu.label}
@@ -133,7 +134,7 @@ function MobileSection({ menu, index }: { menu: typeof menuData[0]; index: numbe
                     {menu.columns.flatMap(col => col.links).map((link, k) => (
                         <a key={k} href="#" style={{ display: "block", padding: "9px 0", fontSize: 14, color: "#333", textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
                             {link.text}
-                            {link.note && <span style={{ display: "block", fontSize: 12, color: "#999", marginTop: 2 }}>{link.note}</span>}
+                            {link.note && <span style={{ display: "block", fontSize: 12, color: "#454545", marginTop: 2 }}>{link.note}</span>}
                         </a>
                     ))}
                 </div>
@@ -195,7 +196,7 @@ export default function Nav() {
                             href={`${CATALOG}&rw=0`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={{ background: "#2d6a4f", border: "none", borderRadius: 20, padding: "7px 14px", fontSize: 12, fontWeight: 600, color: "#fff", textDecoration: "none", whiteSpace: "nowrap" }}
+                            style={{ background: "#1b4332", border: "none", borderRadius: 20, padding: "7px 14px", fontSize: 12, fontWeight: 600, color: "#fff", textDecoration: "none", whiteSpace: "nowrap" }}
                         >
                             Search Catalog
                         </a>
@@ -223,6 +224,7 @@ export default function Nav() {
                                 <input
                                     style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
                                     placeholder="Search the library catalog…"
+                                    aria-label="Search the library catalog"
                                     value={query}
                                     onChange={e => setQuery(e.target.value)}
                                     onKeyDown={e => { if (e.key === "Enter") { doSearch(query); setMobileOpen(false) } }}
@@ -238,7 +240,7 @@ export default function Nav() {
                         {/* Footer links */}
                         <div style={{ padding: "20px", background: "#f8f6f0", marginTop: 8 }}>
                             <p style={{ fontSize: 13, color: "#555", margin: "0 0 4px" }}>📍 41 Lake Street, Tupper Lake NY 12986</p>
-                            <p style={{ fontSize: 13, color: "#555", margin: 0 }}>📞 <a href="tel:+15183599421" style={{ color: "#2d6a4f", textDecoration: "none" }}>518-359-9421</a></p>
+                            <p style={{ fontSize: 13, color: "#555", margin: 0 }}>📞 <a href="tel:+15183599421" style={{ color: "#1b4332", textDecoration: "none" }}>518-359-9421</a></p>
                         </div>
                     </div>
                 )}
@@ -259,6 +261,7 @@ export default function Nav() {
                         <button
                             key={i}
                             onClick={() => { setOpen(open === i ? null : i); setSearchOpen(false) }}
+                            aria-expanded={open === i}
                             style={{ background: open === i ? "rgba(0,0,0,0.06)" : "none", border: "none", padding: "8px 14px", fontSize: 13, color: "#1a1a1a", cursor: "pointer", borderRadius: 8, display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap", fontWeight: open === i ? 600 : 400 }}
                         >
                             {menu.label}
@@ -268,10 +271,10 @@ export default function Nav() {
                     ))}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <button onClick={() => { setSearchOpen(!searchOpen); setOpen(null) }} style={{ display: "flex", alignItems: "center", gap: 7, background: searchOpen ? "rgba(0,0,0,0.07)" : "rgba(0,0,0,0.04)", border: "none", borderRadius: 22, padding: "7px 16px", fontSize: 13, color: "#666", cursor: "pointer", whiteSpace: "nowrap" }}>
+                    <button onClick={() => { setSearchOpen(!searchOpen); setOpen(null) }} aria-expanded={searchOpen} style={{ display: "flex", alignItems: "center", gap: 7, background: searchOpen ? "rgba(0,0,0,0.07)" : "rgba(0,0,0,0.04)", border: "none", borderRadius: 22, padding: "7px 16px", fontSize: 13, color: "#414141", cursor: "pointer", whiteSpace: "nowrap" }}>
                         🔍 Search
                     </button>
-                    <button style={{ background: "#2d6a4f", border: "none", borderRadius: 22, padding: "7px 18px", fontSize: 13, fontWeight: 600, color: "#fff", cursor: "pointer", whiteSpace: "nowrap" }}>
+                    <button style={{ background: "#1b4332", border: "none", borderRadius: 22, padding: "7px 18px", fontSize: 13, fontWeight: 600, color: "#fff", cursor: "pointer", whiteSpace: "nowrap" }}>
                         Get a Card
                     </button>
                 </div>
@@ -286,6 +289,7 @@ export default function Nav() {
                             <input
                                 style={{ border: "none", background: "transparent", fontSize: 15, outline: "none", flex: 1, color: "#333" }}
                                 placeholder="Search the library"
+                                aria-label="Search the library catalog"
                                 autoFocus
                                 value={query}
                                 onChange={e => setQuery(e.target.value)}
@@ -294,7 +298,7 @@ export default function Nav() {
                         </div>
                         <button
                             onClick={() => window.open(CATALOG, "_blank")}
-                            style={{ display: "flex", alignItems: "center", gap: 8, background: "#2d6a4f", color: "#fff", border: "none", borderRadius: 30, padding: "12px 22px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
+                            style={{ display: "flex", alignItems: "center", gap: 8, background: "#1b4332", color: "#fff", border: "none", borderRadius: 30, padding: "12px 22px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}
                         >
                             Browse All
                         </button>
@@ -321,6 +325,7 @@ export default function Nav() {
                                     <input
                                         style={{ border: "none", background: "transparent", fontSize: 14, outline: "none", flex: 1, color: "#333" }}
                                         placeholder="Search everything we lend"
+                                        aria-label="Search everything the library lends"
                                         onKeyDown={e => {
                                             if (e.key === "Enter") {
                                                 const val = (e.target as HTMLInputElement).value
@@ -334,11 +339,11 @@ export default function Nav() {
                         <div style={{ display: "flex", gap: 48 }}>
                             {menuData[open].columns.map((col, j) => (
                                 <div key={j} style={{ minWidth: 160 }}>
-                                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#2d6a4f", marginBottom: 14, display: "block" }}>{col.heading}</span>
+                                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#1b4332", marginBottom: 14, display: "block" }}>{col.heading}</span>
                                     {col.links.map((link, k) => (
                                         <a key={k} href="#" style={{ display: "block", fontSize: 13, color: "#222", textDecoration: "none", padding: "5px 0", lineHeight: 1.4 }}>
                                             {link.text}
-                                            {link.note !== "" && <span style={{ display: "block", fontSize: 11, color: "#999", marginTop: 1 }}>{link.note}</span>}
+                                            {link.note !== "" && <span style={{ display: "block", fontSize: 11, color: "#454545", marginTop: 1 }}>{link.note}</span>}
                                         </a>
                                     ))}
                                 </div>
@@ -353,7 +358,7 @@ export default function Nav() {
                                 </div>
                                 <div>
                                     <div style={{ fontSize: 13, fontWeight: 600, color: "#111", marginBottom: 3 }}>{promo.title}</div>
-                                    <div style={{ fontSize: 12, color: "#777", lineHeight: 1.4 }}>{promo.desc}</div>
+                                    <div style={{ fontSize: 12, color: "#414141", lineHeight: 1.4 }}>{promo.desc}</div>
                                 </div>
                             </div>
                         ))}

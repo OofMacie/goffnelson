@@ -37,7 +37,7 @@
   --birch:               #F6F2EC;   /* warm page white                   */
   --mist:                #EAE5DC;   /* card / surface                    */
   --driftwood:           #C4BEB4;   /* borders                           */
-  --granite:             #7A756C;   /* muted text                        */
+  --granite:             #4E4A43;   /* muted text                        */
   --bark:                #383430;   /* body text                         */
   --night:               #141210;   /* headings                          */
 
@@ -65,7 +65,7 @@
   --hero-heading:        var(--lake-ghost);     /* h1 on hero             */
   --hero-sub:            var(--lake-pale);      /* subheading / tagline   */
   --hero-btn:            var(--maple);          /* CTA button on hero     */
-  --hero-btn-text:       var(--maple-dark);     /* text on --hero-btn     */
+  --hero-btn-text:       #08140D;     /* text on --hero-btn     */
   --hero-btn-hover:      var(--maple-bright);   /* hover state            */
 
 
@@ -83,7 +83,7 @@
 
   --event-accent:        var(--maple);          /* highlight stripe       */
   --event-bg:            var(--maple-ghost);    /* event card bg          */
-  --event-date:          var(--maple-mid);      /* event date text        */
+  --event-date:          var(--maple-dark);      /* event date text        */
   --event-tag-bg:        var(--maple-pale);     /* category badge fill    */
   --event-tag-text:      var(--maple-dark);     /* badge text             */
 
@@ -106,7 +106,7 @@
 
   /* ── Online resources / databases ───────────────────────────── */
 
-  --resource-accent:     var(--lake);           /* resource link color    */
+  --resource-accent:     var(--lake-dark);           /* resource link color    */
   --resource-bg:         var(--lake-ghost);     /* resource tile bg       */
   --resource-border:     var(--lake-pale);      /* tile border            */
 
@@ -117,7 +117,7 @@
   --table-head-text:     var(--spruce-pale);    /* th text                */
   --table-row-alt:       var(--mist);           /* alternating row        */
   --table-border:        var(--driftwood);      /* cell borders           */
-  --table-open:          var(--spruce-light);   /* open hours text        */
+  --table-open:          var(--spruce-mid);   /* open hours text        */
   --table-closed:        var(--sumac);          /* closed / holiday text  */
 
 
@@ -141,7 +141,7 @@
   --text-heading:        var(--night);          /* h1–h3                  */
   --text-body:           var(--bark);           /* paragraphs             */
   --text-muted:          var(--granite);        /* captions, meta, dates  */
-  --text-link:           var(--lake);           /* inline links           */
+  --text-link:           var(--spruce);           /* inline links           */
   --text-link-hover:     var(--lake-mid);       /* hovered link           */
   --text-on-dark:        var(--birch);          /* text on dark bg        */
 
@@ -149,7 +149,7 @@
   /* ── Footer ──────────────────────────────────────────────────── */
 
   --footer-bg:           var(--spruce-dark);    /* footer background      */
-  --footer-text:         var(--spruce-light);   /* footer body text       */
+  --footer-text:         var(--birch);   /* footer body text       */
   --footer-link:         var(--spruce-pale);    /* footer links           */
   --footer-border:       var(--spruce-mid);     /* footer rule / divider  */
 

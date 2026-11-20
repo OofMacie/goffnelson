@@ -1,16 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Nav from '../components/Nav.tsx'
-import { BookCarousel } from '../components/BookCarousel.tsx'
-import Events from '../components/Events.tsx'
-import Footer from '../components/Footer.tsx'
-import { library, icon } from "@fortawesome/fontawesome-svg-core";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faGamepad } from "@fontawesome/free-solid-svg-icons";
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.tsx";
+import { BookCarousel } from "../components/BookCarousel.tsx";
+import Events from "../components/Events.tsx";
+import Footer from "../components/Footer.tsx";
+import TinaIsland from "@tinacms/astro/TinaIsland.astro";
+import HomeBody from "../components/cms/HomeBody.astro";
+import { getHome } from "../lib/tina-data";
+import { islands } from "../lib/tina-islands";
 
-library.add(faFacebook, faEnvelope, faGamepad);
-
-
+const response = await getHome();
+const home = response.data?.home;
 ---
 
 <Layout
@@ -19,41 +19,12 @@ library.add(faFacebook, faEnvelope, faGamepad);
   image="/images/outsidebuilding/outside.webp"
 >
   <Nav client:load />
-
-  <main>
-    <!-- Hero -->
-    <section class="hero" aria-label="Library hero image">
-      <img
-        src="/images/ChildrensRoom/20250719_101707.jpg"
-        alt="Children's Room at Goff-Nelson Memorial Library, Tupper Lake NY"
-        width="1600"
-        height="600"
-        fetchpriority="high"
-        decoding="async"
-      />
-      <div class="hero-overlay">
-        <a href="https://cefls.ent.sirsi.net/client/en_US/default/search/results?te=&lm=TUP" class="cta-btn" target="_blank" rel="noopener noreferrer">
-          Search Our Catalog
-        </a>
-      </div>
-    </section>
-
-    <!-- Intro -->
-    <section class="intro" aria-labelledby="intro-heading">
-      <h1 id="intro-heading">Welcome to Goff-Nelson Memorial Library</h1>
-      <p>
-        Serving Tupper Lake and the Adirondack region since 1916. Free library cards for all residents.
-        Visit us at <strong>41 Lake Street, Tupper Lake, NY</strong> or call <a href="tel:+15183599421">518-359-9421</a>.
-      </p>
-    </section>
-
-    <!-- New Arrivals Carousel -->
+  <main id="main-content">
+    <TinaIsland name="home" wrapper={islands.home.wrapper} primary>
+      <HomeBody data={home} />
+    </TinaIsland>
     <BookCarousel client:load />
-
-    <!-- Events Carousel -->
     <Events client:load />
-
-    <!-- Footer -->
-    <Footer client:load />
   </main>
+  <Footer client:load />
 </Layout>

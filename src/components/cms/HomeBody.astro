@@ -1,0 +1,50 @@
+---
+import { tinaField } from "@tinacms/astro/tina-field";
+import { librarySettings } from "../../lib/library-content";
+import type { HomeQuery } from "../../../tina/__generated__/types";
+
+interface Props {
+  data: HomeQuery["home"];
+}
+
+const { data } = Astro.props;
+---
+
+{data && (
+  <>
+    <section class="hero" aria-label="Library photograph">
+      <img
+        src={data.heroImage ?? ""}
+        alt={data.heroAlt ?? ""}
+        data-tina-field={tinaField(data, "heroImage")}
+        width="1600"
+        height="600"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="hero-overlay">
+        <a
+          href="https://cefls.ent.sirsi.net/client/en_US/default/search/results?te=&lm=TUP"
+          class="cta-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Search Our Catalog
+        </a>
+      </div>
+    </section>
+
+    <section class="intro" aria-labelledby="intro-heading">
+      <h1 id="intro-heading" data-tina-field={tinaField(data, "headline")}>
+        {data.headline}
+      </h1>
+      <p data-tina-field={tinaField(data, "introduction")}>
+        {data.introduction}
+      </p>
+      <p>
+        Visit us at <strong>{librarySettings.address}</strong> or call
+        <a href={`tel:${librarySettings.phoneLink}`}>{librarySettings.phone}</a>.
+      </p>
+    </section>
+  </>
+)}
