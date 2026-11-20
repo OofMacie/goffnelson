@@ -1,0 +1,170 @@
+/* Calendar facade refinement • 2026-11-20
+ * Keep the distinctive Goff–Nelson roof and the original spruce/gold design.
+ * These rules replace the tall, detached white introduction with a shallow
+ * illustrated sign-strip integral to the building itself.
+ */
+.adk .adk-hero-inner{padding:clamp(1.15rem,2.5vw,1.8rem) 0}
+.adk .adk-hero h1{font-size:clamp(1.85rem,3.3vw,2.6rem);margin:.45rem 0 .5rem}
+.adk .adk-hero-copy>p{font-size:.94rem;line-height:1.5}
+.adk .adk-mode{margin-top:.9rem}
+.adk .adk-edition{margin-top:1rem;margin-bottom:0}
+.adk .adk-facade{margin-top:.35rem}
+.adk .adk-facade-nameplate{border-bottom-width:5px}
+.adk .adk-facade .adk-calendar-shell{box-shadow:none;background:#f9f6f0}
+.adk .adk-facade .adk-topline-compact{
+  min-height:75px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:.9rem 1.5rem;
+  padding:.85rem 1.5rem .72rem;
+  background:linear-gradient(90deg,#c49a3c 0 31%,#3d7a8a 31% 54%,#527b6a 54% 78%,#963030 78%) top/100% 5px no-repeat,#f5f0e6;
+  border-bottom:2px solid #c8baa2;
+}
+.adk .adk-guide-identity{display:flex;align-items:center;gap:.7rem;min-width:0}
+.adk .adk-guide-sunburst{
+  width:37px;height:37px;display:grid;place-items:center;flex:none;
+  background:#c49a3c;border:3px solid #eed59f;border-radius:3px;
+  color:#1e3828;font-size:1.3rem;font-weight:900;transform:rotate(-5deg);
+  box-shadow:2px 3px 0 #c4beb4;
+}
+.adk .adk-guide-words{display:flex;flex-direction:column;gap:.12rem;min-width:0}
+.adk .adk-guide-words .adk-eyebrow{
+  background:transparent;color:#6b4d18;transform:none;
+  padding:0;border-radius:0;letter-spacing:.1em;font-size:.64rem;
+}
+.adk .adk-topline-compact h2{
+  font:900 clamp(1.05rem,1.6vw,1.32rem)/1.17 Arial,Helvetica,sans-serif;
+  color:#1e3828;letter-spacing:-.02em;margin:0
+}
+.adk .adk-guide-tools{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:.65rem}
+.adk .adk-topline-compact .adk-filter{font-size:.78rem;gap:.45rem}
+.adk .adk-topline-compact .adk-filter select{
+  max-width:175px;min-height:42px;padding:.45rem .6rem;
+  border:1.5px solid #a89a83;border-radius:4px;background:#fffdfa;
+  font-size:.82rem;font-weight:700;color:#1e3828;
+}
+.adk .adk-display-toggle{display:inline-flex;gap:0;border:2px solid #4e6959;border-radius:5px;overflow:hidden;background:#fff}
+.adk .adk-display-toggle button{
+  min-height:42px;padding:.45rem .7rem;min-width:69px;
+  border:0;border-right:1px solid #9eaf9f;background:#fff;
+  color:#315444;font-weight:800;font-size:.76rem;cursor:pointer;
+}
+.adk .adk-display-toggle button:last-child{border-right:0}
+.adk .adk-display-toggle button[aria-pressed="true"]{background:#1e3828;color:#fff}
+.adk .adk-display-toggle button:hover:not([aria-pressed="true"]){background:#e8f0ec}
+.adk .adk-room-topline-note{
+  display:inline-flex;align-items:center;min-height:38px;
+  border-left:4px solid #c49a3c;padding:.4rem .7rem;
+  background:#fff8e6;color:#3a543e;font-size:.8rem;font-weight:800;
+}
+.adk .adk-facade .adk-month-toolbar{
+  min-height:62px;padding:.55rem 1.4rem;gap:.7rem;
+  background:#fbefcc;border-block:0;
+  border-bottom:4px solid #795b3a;
+}
+.adk .adk-facade .adk-month-toolbar h3{
+  font-size:clamp(1.28rem,2.4vw,1.7rem);
+  margin:0 .3rem;min-width:0;line-height:1.2;
+}
+.adk .adk-facade .adk-month-arrow{
+  border:2px solid #94815e;background:#fffdf6;border-radius:4px;
+  color:#1e3828;box-shadow:2px 2px 0 #c9b687;
+}
+.adk .adk-facade .adk-month-arrow:hover{background:#f0d88c}
+.adk .adk-facade .adk-today{min-height:42px}
+.adk .adk-facade .adk-grid{gap:3px;background:#524639}
+.adk .adk-facade .adk-day{min-height:109px}
+.adk .adk-room-integrated{
+  display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;
+  padding:1.1rem 1.5rem;
+  margin:0;border-top:4px solid #c49a3c;border-bottom:3px solid #6b553e;
+  background:#e8f0ec;color:#1e3828;
+}
+.adk .adk-room-integrated-text{min-width:0;flex:1 1 350px}
+.adk .adk-room-integrated .adk-eyebrow{font-size:.66rem;color:#6b4d18}
+.adk .adk-room-integrated h3{font:900 1.15rem/1.2 Arial,Helvetica,sans-serif;margin:.25rem 0;color:#1e3828}
+.adk .adk-room-integrated p{font-size:.84rem;line-height:1.5;margin:.2rem 0 0;max-width:65ch}
+.adk .adk-room-integrated a{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;padding:.6rem .9rem;white-space:normal;
+  border-radius:4px;border:2px solid #ad8b4f;
+  color:#1e3828;background:#f0d88c;
+  font-weight:900;font-size:.82rem;text-decoration:none;
+}
+.adk .adk-room-integrated a:hover{background:#deb94e}
+.adk .adk-facade-lower{border-top-width:7px}
+.adk .adk-agenda{
+  padding:.75rem;display:grid;gap:.65rem;
+  background:#e9e2d5;
+  border:5px solid #504439;
+}
+.adk .adk-agenda-row{
+  --tone:#c49a3c;
+  display:grid;grid-template-columns:64px minmax(0,1fr) auto;
+  min-height:83px;gap:1rem;align-items:center;
+  padding:.7rem .9rem .7rem .7rem;
+  background:#fffdf7;border-left:6px solid var(--tone);
+  border-radius:2px;box-shadow:2px 3px 0 #baad99;
+}
+.adk .adk-agenda-row.adk-tone-lake{--tone:#3d7a8a}
+.adk .adk-agenda-row.adk-tone-berry{--tone:#963030}
+.adk .adk-agenda-row.adk-tone-fern{--tone:#527b6a}
+.adk .adk-agenda-row.adk-tone-spruce{--tone:#1e3828}
+.adk .adk-agenda-row.adk-tone-gold{--tone:#c49a3c}
+.adk .adk-agenda-date{
+  display:grid;justify-items:center;gap:.1rem;
+  padding:.35rem .3rem;background:#f6f0dc;border:1px solid #d7c9a9;
+  color:#1e3828;line-height:1.05;
+}
+.adk .adk-agenda-date span{font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.adk .adk-agenda-date strong{font-size:1.45rem;font-weight:900}
+.adk .adk-agenda-content{min-width:0;display:grid;gap:.18rem}
+.adk .adk-agenda-content .adk-event-tag{justify-self:start;padding:.1rem .4rem;font-size:.63rem}
+.adk .adk-agenda-content h3{font:900 1.04rem/1.25 Arial,Helvetica,sans-serif;color:#1e3828;overflow-wrap:anywhere}
+.adk .adk-agenda-content p{font-size:.81rem;color:#4e4a43;margin:0}
+.adk .adk-agenda-row>button{
+  background:#1e3828;color:white;border:2px solid #1e3828;
+  padding:.5rem .75rem;border-radius:4px;font-weight:800;font-size:.81rem
+}
+.adk .adk-agenda-row>button:hover{background:#2e5241}
+.adk .adk-agenda-empty{padding:1.5rem;margin:0;background:#fffdf7;color:#383430}
+@media(max-width:800px){
+  .adk .adk-facade .adk-topline-compact{padding:.85rem 1rem;gap:.8rem}
+  .adk .adk-guide-tools{justify-content:flex-start}
+  .adk .adk-guide-sunburst{width:32px;height:32px}
+  .adk .adk-facade .adk-month-toolbar{padding:.5rem .75rem}
+  .adk .adk-room-integrated{padding:1rem}
+}
+@media(max-width:610px){
+  .adk .adk-hero-inner{padding:1.1rem 0}
+  .adk .adk-hero-copy>p{font-size:.87rem}
+  .adk .adk-edition{margin-top:.7rem}
+  .adk .adk-facade{margin-top:.2rem}
+  .adk .adk-facade .adk-topline-compact{display:grid;padding:.75rem .55rem;gap:.65rem}
+  .adk .adk-guide-tools{justify-content:space-between;gap:.45rem}
+  .adk .adk-topline-compact .adk-filter{flex:1 1 145px;min-width:0}
+  .adk .adk-topline-compact .adk-filter select{min-width:0;width:100%;max-width:unset}
+  .adk .adk-display-toggle{flex:none}
+  .adk .adk-display-toggle button{min-width:57px;padding:.42rem .38rem}
+  .adk .adk-guide-words .adk-eyebrow{font-size:.58rem}
+  .adk .adk-topline-compact h2{font-size:1.06rem}
+  .adk .adk-facade .adk-month-toolbar{gap:4px;padding:.45rem .35rem}
+  .adk .adk-facade .adk-month-toolbar h3{font-size:clamp(1.03rem,4.3vw,1.3rem);margin:0 3px;letter-spacing:-.04em}
+  .adk .adk-facade .adk-day{min-height:72px}
+  .adk .adk-facade .adk-grid{gap:2px}
+  .adk .adk-agenda{padding:.3rem;border-width:2px}
+  .adk .adk-agenda-row{grid-template-columns:45px minmax(0,1fr);gap:.65rem;padding:.6rem;border-left-width:4px}
+  .adk .adk-agenda-date strong{font-size:1.15rem}
+  .adk .adk-agenda-content h3{font-size:.93rem}
+  .adk .adk-agenda-row>button{grid-column:2;justify-self:start;min-height:42px}
+  .adk .adk-room-integrated{display:grid;gap:.75rem}
+  .adk .adk-room-integrated a{justify-self:start}
+  .adk .adk-room-topline-note{font-size:.73rem;padding:.35rem .45rem}
+}
+@media(max-width:370px){
+  .adk .adk-facade .adk-month-toolbar h3{font-size:1rem}
+  .adk .adk-facade .adk-today{padding:6px;font-size:.75rem}
+  .adk .adk-display-toggle button{min-width:53px}
+}
+@media(prefers-reduced-motion:reduce){
+  .adk .adk-facade .adk-day{transition:none}
+}
