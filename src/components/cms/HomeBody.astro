@@ -1,5 +1,6 @@
 ---
 import { tinaField } from "@tinacms/astro/tina-field";
+import { librarySettings } from "../../lib/library-content";
 import type { HomeQuery } from "../../../tina/__generated__/types";
 
 interface Props {
@@ -39,6 +40,10 @@ const { data } = Astro.props;
       </h1>
       <p data-tina-field={tinaField(data, "introduction")}>
         {data.introduction}
+      </p>
+      <p>
+        Visit us at <strong>{librarySettings.address}</strong> or call
+        <a href={`tel:${librarySettings.phoneLink}`}>{librarySettings.phone}</a>.
       </p>
     </section>
   </>
