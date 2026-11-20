@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="library-footer__inner">
         <div className="library-footer__grid">
           <div className="library-footer__brand">
-            <img src="/images/logo/logo.png" className="library-footer__logo" alt="" loading="lazy" />
+            <img src="/assets/logo2.png" className="library-footer__logo" alt="" loading="lazy" />
             <span>Goff-Nelson Memorial Library</span>
           </div>
           <section aria-labelledby="footer-about">
