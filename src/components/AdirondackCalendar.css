@@ -181,3 +181,105 @@
   .adk-demo-slot{padding:.5rem}
 }
 @media(prefers-reduced-motion:reduce){.adk-slide-card{transition:none}}
+
+
+/* ===========================================================
+   The Community Almanac · expressive 2000s-style personality
+   Still unmistakably the original Goff–Nelson site:
+   bold spruce/gold, warm birch paper, lake-blue and sumac accents.
+   Historical vignette stays quiet; program identity brings the color.
+   =========================================================== */
+.adk-edition {
+  width:min(calc(100% - 3rem),1100px);
+  margin:1.65rem auto -.6rem;
+  display:flex;gap:1rem;align-items:center;flex-wrap:wrap;
+  color:var(--maple-dark,#6b4d18);
+  font-size:.76rem;font-weight:800;letter-spacing:.085em;
+}
+.adk-edition-first{display:flex;align-items:center;gap:.6rem}
+.adk-printer-mark{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:31px;height:31px;flex:0 0 31px;
+  background:var(--maple,#c49a3c);color:var(--spruce-dark,#0f1f16);
+  border-radius:50%;font-size:1.15rem;line-height:1;
+  box-shadow:3px 3px 0 var(--spruce-pale,#c2d5ca)
+}
+.adk-edition-rule{height:2px;background:var(--maple,#c49a3c);flex:1 1 40px;min-width:12px}
+.adk-edition-meta{font-size:.69rem;letter-spacing:.055em;color:var(--spruce-mid,#2e5241)}
+.adk-calendar-shell{
+  border-radius:10px;
+  border-color:var(--spruce-pale,#c2d5ca);
+  box-shadow:0 5px 0 rgba(46,82,65,.10),0 15px 34px rgba(30,56,40,.06)
+}
+.adk-topline{
+  background:
+    linear-gradient(90deg,var(--maple,#c49a3c) 0 29%,var(--lake,#3d7a8a) 29% 50%,var(--spruce-mid,#2e5241) 50% 77%,var(--sumac,#963030) 77%) top left/100% 7px no-repeat,
+    #fff;
+  border-top:0;
+  padding-top:2rem;
+}
+.adk-topline h2{letter-spacing:-.02em}
+.adk-topline .adk-eyebrow{
+  display:inline-block;background:var(--maple-pale,#f0d88c);
+  padding:.24rem .6rem;border-radius:3px;transform:rotate(-1deg);
+  color:#4a340d;font-weight:900;letter-spacing:.11em
+}
+.adk-month-toolbar{border-top:1px solid var(--driftwood,#c4beb4)}
+.adk-month-toolbar h3{
+  border-bottom:3px solid var(--maple,#c49a3c);
+  padding-bottom:2px;letter-spacing:-.04em;
+}
+.adk-day{position:relative;transition:background .12s ease}
+.adk-day:focus-visible{z-index:2}
+.adk-day:hover .adk-number{outline:2px solid var(--maple,#c49a3c);outline-offset:2px}
+.adk-day-today:not(.adk-day-muted)::before{
+  content:"";position:absolute;top:0;right:0;width:0;height:0;
+  border-top:16px solid var(--maple,#c49a3c);
+  border-left:16px solid transparent;
+}
+.adk-event-chip{font-weight:800;font-size:.72rem;border-left-width:4px;box-shadow:0 1px 0 rgba(0,0,0,.07)}
+.adk-event-chip.adk-tone-lake{background:#e3f2f5;border-left-color:#3d7a8a;color:#133645}
+.adk-event-chip.adk-tone-berry{background:#faeaea;border-left-color:#963030;color:#6b1e1e}
+.adk-event-chip.adk-tone-gold{background:#fff2c1;border-left-color:#c49a3c;color:#60430b}
+.adk-event-chip.adk-tone-spruce{background:#e8f0ec;border-left-color:#1e3828;color:#1e3828}
+.adk-event-chip.adk-tone-fern{background:#e6f1e4;border-left-color:#527b6a;color:#254732}
+.adk-event-chip.adk-tone-maple{background:#faf3e0;border-left-color:#9a7228;color:#6b4d18}
+.adk-slide-card.adk-tone-lake{border-left-color:var(--lake,#3d7a8a)}
+.adk-slide-card.adk-tone-berry{border-left-color:var(--sumac,#963030)}
+.adk-slide-card.adk-tone-gold{border-left-color:var(--maple,#c49a3c)}
+.adk-slide-card.adk-tone-spruce{border-left-color:var(--spruce,#1e3828)}
+.adk-slide-card.adk-tone-fern{border-left-color:var(--fern,#8ba888)}
+.adk-slide-card.adk-tone-maple{border-left-color:var(--maple-mid,#9a7228)}
+.adk-slide-card{box-shadow:3px 3px 0 rgba(196,154,60,.14)}
+.adk-slide-more{display:inline-block;margin-top:.15rem;text-decoration-thickness:2px;text-underline-offset:3px}
+.adk-slide-controls>span i.active{box-shadow:0 0 0 2px var(--maple-pale,#f0d88c)}
+.adk-slide-wrap .adk-slide-count{
+  display:inline-flex;align-self:start;justify-self:end;
+  padding:.1rem .4rem;background:var(--spruce-ghost,#e8f0ec);border-radius:2px
+}
+.adk-mode button{box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.adk-mode .adk-mode-active{box-shadow:0 3px 0 var(--maple-dark,#6b4d18)}
+.adk-demo-ribbon{border-left:5px solid var(--maple,#c49a3c);font-size:.74rem}
+.adk-demo-slot:not(:disabled):hover{border-color:var(--lake,#3d7a8a);background:var(--lake-ghost,#e3f2f5)}
+.adk-demo-slot.selected{box-shadow:0 3px 0 rgba(196,154,60,.2)}
+.adk-demo-slot.busy{position:relative}
+.adk-demo-slot.busy::after{content:"×";position:absolute;top:.4rem;right:.55rem;font-size:1.1rem;color:var(--sumac-dark,#6b1e1e)}
+.adk-demo-finished{border-left:5px solid var(--spruce,#1e3828)}
+/* Decorative linework must not consume touch targets or reduce legibility. */
+.adk-hero::after{opacity:.11}
+.adk-dialog[open]{animation:adk-pop-in .16s ease-out}
+@keyframes adk-pop-in{from{opacity:0;transform:translateY(6px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:650px){
+  .adk-edition{width:calc(100% - 2rem);font-size:.65rem;gap:.55rem;margin-top:1rem}
+  .adk-edition-rule{display:none}
+  .adk-edition-meta{font-size:.66rem}
+  .adk-topline{padding-top:1.5rem}
+  .adk-slide-card{grid-template-columns:110px 1fr}
+  .adk-slide-card>img{width:110px}
+  .adk-hero h1{font-size:clamp(2rem,8vw,2.55rem)}
+}
+@media(max-width:410px){
+  .adk-slide-card{grid-template-columns:90px 1fr}
+  .adk-slide-card>img{width:90px;height:100px}
+}
+@media(prefers-reduced-motion:reduce){.adk-dialog[open]{animation:none}.adk-day{transition:none}}
