@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { libraryEvents, eventId } from "../lib/library-content";
 import "./AdirondackCalendar.css";
+import "./AdirondackCalendarRefinements.css";
 
 type LibraryEvent = { title: string; date: string; time: string; description: string; category: string; image?: string; imageAlt?: string; link?: string; };
 const calendarEvents: LibraryEvent[] = libraryEvents;
