@@ -1,0 +1,65 @@
+{
+  "title": "Spring Staff Picks",
+  "entries": [
+    {
+      "title": "Braiding Sweetgrass",
+      "author": "Robin Wall Kimmerer",
+      "isbn": "9781571313560",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781571313560-L.jpg"
+    },
+    {
+      "title": "A Walk in the Woods",
+      "author": "Bill Bryson",
+      "isbn": "9780767902519",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780767902519-L.jpg"
+    },
+    {
+      "title": "Pilgrim at Tinker Creek",
+      "author": "Annie Dillard",
+      "isbn": "9780061233326",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780061233326-L.jpg"
+    },
+    {
+      "title": "The Hidden Life of Trees",
+      "author": "Peter Wohlleben",
+      "isbn": "9781771642484",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781771642484-L.jpg"
+    },
+    {
+      "title": "The God of the Woods",
+      "author": "Liz Moore",
+      "isbn": "9780593418932",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780593418932-L.jpg"
+    },
+    {
+      "title": "A Sand County Almanac",
+      "author": "Aldo Leopold",
+      "isbn": "9780345345059",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780345345059-L.jpg"
+    },
+    {
+      "title": "The Signature of All Things",
+      "author": "Elizabeth Gilbert",
+      "isbn": "9780670024858",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780670024858-L.jpg"
+    },
+    {
+      "title": "H Is for Hawk",
+      "author": "Helen Macdonald",
+      "isbn": "9780802123411",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780802123411-L.jpg"
+    },
+    {
+      "title": "The Overstory",
+      "author": "Richard Powers",
+      "isbn": "9780393356687",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780393356687-L.jpg"
+    },
+    {
+      "title": "Woodswoman",
+      "author": "Anne LaBastille",
+      "isbn": "9780140153347",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780140153347-L.jpg"
+    }
+  ]
+}
