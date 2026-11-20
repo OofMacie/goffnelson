@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
-    "build": "tinacms build --content=local -c \"astro build\"",
+    "build": "node scripts/build-site.mjs",
     "preview": "astro preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build:local": "tinacms build --local --skip-cloud-checks -c \"astro build\"",
     "check": "npm run cms:generate && astro check",
     "content:check": "node scripts/validate-content.mjs",
-    "cms:generate": "tinacms build --local --skip-cloud-checks"
+    "cms:generate": "tinacms build --local --skip-cloud-checks",
+    "build:cloud": "tinacms build --content=local -c \"astro build\""
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
