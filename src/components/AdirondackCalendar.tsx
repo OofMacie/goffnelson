@@ -204,7 +204,16 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
         <span className="adk-edition-meta">Rooted in Tupper Lake · Made for neighbors</span>
       </div>
 
-      <div className="adk-calendar-shell">
+      <div className="adk-facade" aria-label="Calendar framed by the architecture of the Goff–Nelson Memorial Library">
+        <div className="adk-facade-roof" aria-hidden="true">
+          <img src="/images/goff-nelson-calendar-roof.svg" alt="" width="1100" height="210" decoding="async" />
+        </div>
+        <div className="adk-facade-nameplate">
+          <span className="adk-nameplate-number" aria-hidden="true">41</span>
+          <span className="adk-nameplate-text"><small>GOFF–NELSON MEMORIAL</small><strong>LIBRARY</strong></span>
+          <span className="adk-nameplate-detail">A PLACE TO GATHER SINCE 1914</span>
+        </div>
+        <div className="adk-calendar-shell">
         <div className="adk-topline">
           <div>
             <p className="adk-eyebrow">{view === "events" ? "THE COMMUNITY ALMANAC" : "THE SIMMONS ROOM"}</p>
@@ -236,6 +245,22 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
           })}
         </div>
         <p className="adk-footnote">{view === "events" ? "Recurring programs are shown based on the published listings. Dates and times should be confirmed with library staff." : loading ? "Checking room schedule…" : availability?.enabled ? "Reserved times are shown without patrons' personal information. Requests require library approval." : "Online availability and requests aren't active yet. Call the library for an up-to-date schedule."}</p>
+      </div>
+        <div className="adk-facade-lower">
+          <div className="adk-facade-entry" aria-hidden="true">
+            <span className="adk-entry-window" />
+            <span className="adk-entry-window" />
+            <span className="adk-entry-handle" />
+          </div>
+          <div className="adk-facade-lower-copy">
+            <strong>{view === "events" ? "Your library is full of life." : "The Simmons Room welcomes community gatherings."}</strong>
+            <span>41 Lake Street · Tupper Lake, New York</span>
+          </div>
+          <a className="adk-facade-action" href={view === "events" ? "/Rooms/" : "/Events/"}>
+            {view === "events" ? "Explore room requests" : "Explore library events"} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div className="adk-facade-foundation" aria-hidden="true"><i/><i/><i/><i/><i/><i/><i/></div>
       </div>
 
       {view === "rooms" && (
