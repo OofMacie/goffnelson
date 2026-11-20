@@ -87,7 +87,7 @@ An *environment variable* is a named setting that Vercel provides to your websit
 | **PUBLIC_TINA_CLIENT_ID** | Your TinaCloud **Client ID** |
 | **TINA_TOKEN** | Your TinaCloud **read-only token** |
 
-For the first test, select **Preview**, preferably for the **feat/tinacms-library-editor** branch. Never put the token in a public file. The Client ID is meant to be public; the token is not. <strong>Save</strong> each variable.
+The public site can build without these settings, but staff cannot use the connected TinaCloud editor until they are configured. For the first test, select **Preview**, preferably for the **feat/tinacms-library-editor** branch. Never put the token in a public file. The Client ID is meant to be public; the token is not. <strong>Save</strong> each variable.
 
 ### Step 3 — Open the testing deployment
 1. Click **Deployments** in the Vercel project.
@@ -231,7 +231,8 @@ goffnelson/
 | `npm run content:check` | Check content for missing or invalid values |
 | `npm run check` | Generate Tina types and check Astro/TypeScript |
 | `npm run build:local` | Build without connecting to TinaCloud |
-| `npm run build` | Build for TinaCloud (needs credentials) |
+| `npm run build` | Automatically uses TinaCloud when credentials exist, otherwise builds from local content |
+| `npm run build:cloud` | Connected TinaCloud build (requires credentials) |
 | `npm run format:check` | Check formatting |
 
 **Keep code clean and DRY:** One piece of information lives in one place. Content stays in **content/**, reusable display components stay in **src/components/**, and Tina's form definitions stay in **tina/config.ts**. You should not have to duplicate opening hours in multiple files.
