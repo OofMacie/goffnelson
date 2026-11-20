@@ -65,7 +65,7 @@
   --hero-heading:        var(--lake-ghost);     /* h1 on hero             */
   --hero-sub:            var(--lake-pale);      /* subheading / tagline   */
   --hero-btn:            var(--maple);          /* CTA button on hero     */
-  --hero-btn-text:       var(--spruce-dark);     /* text on --hero-btn     */
+  --hero-btn-text:       #08140D;     /* text on --hero-btn     */
   --hero-btn-hover:      var(--maple-bright);   /* hover state            */
 
 
