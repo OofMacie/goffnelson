@@ -102,6 +102,9 @@ const menuData = [
     },
 ]
 
+// Keep existing navigation and its original visual design. Map only real new pages.
+const libraryPageHref = (text: string) => text === "All Events Calendar" ? "/Events/" : text === "Room Reservations" ? "/Rooms/" : "#";
+
 const CATALOG = "https://cefls.ent.sirsi.net/client/en_US/default/search/results?te=&lm=TUP"
 
 const pills = [
@@ -132,7 +135,7 @@ function MobileSection({ menu, index }: { menu: typeof menuData[0]; index: numbe
             {expanded && (
                 <div style={{ padding: "0 20px 16px" }}>
                     {menu.columns.flatMap(col => col.links).map((link, k) => (
-                        <a key={k} href="#" style={{ display: "block", padding: "9px 0", fontSize: 14, color: "#333", textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
+                        <a key={k} href={libraryPageHref(link.text)} style={{ display: "block", padding: "9px 0", fontSize: 14, color: "#333", textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
                             {link.text}
                             {link.note && <span style={{ display: "block", fontSize: 12, color: "#454545", marginTop: 2 }}>{link.note}</span>}
                         </a>
@@ -341,7 +344,7 @@ export default function Nav() {
                                 <div key={j} style={{ minWidth: 160 }}>
                                     <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#1b4332", marginBottom: 14, display: "block" }}>{col.heading}</span>
                                     {col.links.map((link, k) => (
-                                        <a key={k} href="#" style={{ display: "block", fontSize: 13, color: "#222", textDecoration: "none", padding: "5px 0", lineHeight: 1.4 }}>
+                                        <a key={k} href={libraryPageHref(link.text)} style={{ display: "block", fontSize: 13, color: "#222", textDecoration: "none", padding: "5px 0", lineHeight: 1.4 }}>
                                             {link.text}
                                             {link.note !== "" && <span style={{ display: "block", fontSize: 11, color: "#454545", marginTop: 1 }}>{link.note}</span>}
                                         </a>
