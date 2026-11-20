@@ -35,13 +35,13 @@ The implementation follows the current official Tina/Astro integration:
 
 Run:
 ```sh
-npm install
+npm ci
 npm run dev
 # visit http://localhost:4321/admin/index.html
 npm run check
 npm run build:local
 ```
-**Dependency lockfile:** The remote editing environment cannot run npm's resolver. `package.json` has been updated, but `package-lock.json` must be regenerated with `npm install` and committed before merging the PR or running `npm ci`. This is a release blocker, not optional cleanup.
+**Dependency lockfile:** `package-lock.json` was regenerated and committed using the feature-branch GitHub Actions lockfile job. Run `npm ci` for reproducible installs; CI must pass before merging.
 
 For TinaCloud builds use `npm run build`, which expects environment credentials. For offline code review use `npm run build:local`.
 
