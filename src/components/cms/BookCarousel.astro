@@ -33,7 +33,7 @@ const coverFor = (book: (typeof books)[number]) =>
       >New arrivals</a>
     </div>
     <div class="carousel-wrapper">
-      <button type="button" class="carousel-arrow carousel-arrow-left" data-carousel-arrow="left" aria-label="Scroll books left" disabled>‹</button>
+      <button type="button" class="carousel-arrow carousel-arrow-left" data-carousel-arrow="left" aria-label="Scroll books left" disabled><Icon name="chevron-left" /></button>
       <div class="carousel-track" data-carousel-track>
         {books.map((book) => {
           const cover = coverFor(book);
@@ -57,7 +57,7 @@ const coverFor = (book: (typeof books)[number]) =>
           );
         })}
       </div>
-      <button type="button" class="carousel-arrow carousel-arrow-right" data-carousel-arrow="right" aria-label="Scroll books right">›</button>
+      <button type="button" class="carousel-arrow carousel-arrow-right" data-carousel-arrow="right" aria-label="Scroll books right"><Icon name="chevron-right" /></button>
     </div>
   </section>
 )}

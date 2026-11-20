@@ -6,7 +6,7 @@ const files = import.meta.glob("../assets/icons/*.svg", {
 }) as Record<string, string>;
 
 export type IconName =
-  | "archive" | "book-open" | "calendar-days" | "dumbbell" | "headphones"
+  | "archive" | "book-open" | "calendar-days" | "chevron-down" | "chevron-left" | "chevron-right" | "dumbbell" | "headphones"
   | "heart-handshake" | "id-card" | "landmark" | "map-pin" | "package"
   | "phone" | "search" | "users";
 

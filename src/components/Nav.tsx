@@ -127,7 +127,7 @@ function MobileSection({ menu, index }: { menu: typeof menuData[0]; index: numbe
                 style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", background: "none", border: "none", fontSize: 15, fontWeight: 600, color: "#1a1a1a", cursor: "pointer", textAlign: "left" }}
             >
                 {menu.label}
-                <span style={{ fontSize: 30, transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.2s", display: "inline-block" }}>▾</span>
+                <span style={{ fontSize: 18, transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.2s", display: "inline-block" }}><Icon name="chevron-down" /></span>
             </button>
             {expanded && (
                 <div style={{ padding: "0 20px 16px" }}>
@@ -266,7 +266,7 @@ export default function Nav() {
                         >
                             {menu.label}
                             {/* ▼ Dropdown arrow size — increase fontSize to make it bigger */}
-                            <span style={{ fontSize: 30, display: "inline-block", transform: open === i ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.18s" }}>▾</span>
+                            <span style={{ fontSize: 18, display: "inline-block", transform: open === i ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.18s" }}><Icon name="chevron-down" /></span>
                         </button>
                     ))}
                 </div>

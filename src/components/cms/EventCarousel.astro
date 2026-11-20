@@ -21,7 +21,7 @@ const events = (data?.entries ?? []).flatMap((event) => (event?.title?.trim() ? 
       <a href="/Events/" class="events-view-all">View all events</a>
     </div>
     <div class="events-wrapper">
-      <button type="button" class="events-arrow events-arrow-left" data-carousel-arrow="left" aria-label="Scroll events left" disabled>‹</button>
+      <button type="button" class="events-arrow events-arrow-left" data-carousel-arrow="left" aria-label="Scroll events left" disabled><Icon name="chevron-left" /></button>
       <div class="events-track" data-carousel-track>
         {events.map((event) => (
           <article class="event-card" data-tina-field={tinaField(event)}>
@@ -50,7 +50,7 @@ const events = (data?.entries ?? []).flatMap((event) => (event?.title?.trim() ? 
           </article>
         ))}
       </div>
-      <button type="button" class="events-arrow events-arrow-right" data-carousel-arrow="right" aria-label="Scroll events right">›</button>
+      <button type="button" class="events-arrow events-arrow-right" data-carousel-arrow="right" aria-label="Scroll events right"><Icon name="chevron-right" /></button>
     </div>
   </section>
 )}
