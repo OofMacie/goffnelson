@@ -33,7 +33,11 @@ function occursOn(event: LibraryEvent, date: Date): boolean {
 }
 const isCalendarRule = (event: LibraryEvent) => isISO(event.date.trim()) || (matchDay(event.date) >= 0 && (/^every\s/i.test(event.date) || ordinal(event.date) !== 0));
 const timeNY = (iso: string) => new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" }).format(new Date(iso));
-const ymdNY = (iso: string) => new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "America/New_York" }).format(new Date(iso));
+const ymdNY = (iso: string) => {
+  const parts = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "America/New_York" }).formatToParts(new Date(iso));
+  const field = (key: string) => parts.find(p => p.type === key)?.value || "";
+  return [field("year"), field("month"), field("day")].join("-");
+};
 
 const nextStart = () => {
   const now = new Date();
@@ -63,6 +67,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const [availability, setAvailability] = useState<Availability | null>(null);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("All programs");
+  const [displayMode, setDisplayMode] = useState<"calendar" | "list">("calendar");
   const [startTime, setStartTime] = useState("10:00");
   const [endTime, setEndTime] = useState("11:00");
   const [bookingStatus, setBookingStatus] = useState<BookingStatus>("idle");
@@ -147,7 +152,8 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const busyFor = (date: Date) => (availability?.busy || []).filter(slot => ymdNY(slot.starts_at) === keyOf(date));
   const monthTitle = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(month);
   const isActive = (date: Date) => date.getMonth() === month.getMonth();
-  const today = keyOf(new Date());
+  const today = ymdNY(new Date().toISOString());
+  const agendaEntries = days.filter(date => date.getMonth() === month.getMonth()).flatMap(date => dateEvents(date).map(event => ({ date, event })));
   const selectedDayEvents = selected ? dateEvents(selected) : [];
   const displayedEvent = selectedDayEvents.length ? selectedDayEvents[slideIndex % selectedDayEvents.length] : null;
   const sampleSlots = [{ start: "10:00", end: "11:00", busy: false },{ start: "11:00", end: "12:00", busy: true },{ start: "12:00", end: "13:00", busy: false },{ start: "13:00", end: "14:00", busy: false },{ start: "14:00", end: "15:00", busy: true },{ start: "15:00", end: "16:00", busy: false }];
@@ -214,13 +220,32 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
           <span className="adk-nameplate-detail">A PLACE TO GATHER SINCE 1914</span>
         </div>
         <div className="adk-calendar-shell">
-        <div className="adk-topline">
-          <div>
-            <p className="adk-eyebrow">{view === "events" ? "THE COMMUNITY ALMANAC" : "THE SIMMONS ROOM"}</p>
-            <h2>{view === "events" ? "Your monthly program guide" : "Find a time to gather"}</h2>
-            <p>{view === "events" ? "Select a date to see what's happening." : "Select a date to review published availability and request a time."}</p>
+
+        <div className="adk-topline adk-topline-compact">
+          <div className="adk-guide-identity">
+            <span className="adk-guide-sunburst" aria-hidden="true">✳</span>
+            <div className="adk-guide-words">
+              <span className="adk-eyebrow">{view === "events" ? "THE COMMUNITY ALMANAC" : "THE SIMMONS ROOM"}</span>
+              <h2>{view === "events" ? "Programs & gatherings" : "Meeting room calendar"}</h2>
+            </div>
           </div>
-          {view === "events" && <label className="adk-filter">Show <select value={category} onChange={e => setCategory(e.target.value)}>{categories.map(c => <option key={c} value={c}>{c}</option>)}</select></label>}
+          <div className="adk-guide-tools">
+            {view === "events" ? (
+              <>
+                <label className="adk-filter">Show
+                  <select value={category} onChange={e => setCategory(e.target.value)}>
+                    {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </label>
+                <div className="adk-display-toggle" role="group" aria-label="Choose event display">
+                  <button type="button" aria-pressed={displayMode === "calendar"} onClick={() => setDisplayMode("calendar")}>Calendar</button>
+                  <button type="button" aria-pressed={displayMode === "list"} onClick={() => setDisplayMode("list")}>List</button>
+                </div>
+              </>
+            ) : (
+              <span className="adk-room-topline-note">Community use · Staff approval required</span>
+            )}
+          </div>
         </div>
         <div className="adk-month-toolbar">
           <button type="button" className="adk-month-arrow" onClick={() => changeMonth(-1)} aria-label="Previous month">‹</button>
@@ -229,6 +254,18 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
           <button type="button" className="adk-today" onClick={() => setMonth(nextStart())}>Today</button>
         </div>
 
+        {view === "events" && displayMode === "list" ? (
+          <div className="adk-agenda" role="list" aria-label={monthTitle + " events"}>
+            {agendaEntries.length ? agendaEntries.map(({ date, event }, i) => (
+              <div className={"adk-agenda-row adk-tone-" + eventTone(event)} role="listitem" key={keyOf(date) + "-" + eventId(event.title) + "-" + i}>
+                <div className="adk-agenda-date" aria-hidden="true"><span>{new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(date)}</span><strong>{date.getDate()}</strong></div>
+                <div className="adk-agenda-content"><span className="adk-event-tag">{event.category}</span><h3>{event.title}</h3><p>{event.time}</p></div>
+                <button type="button" onClick={() => { openDate(date); setOpenedEvent(event); }} aria-label={"Details for " + event.title + " on " + friendlyDate(date)}>Details <span aria-hidden="true">↗</span></button>
+              </div>
+            )) : <p className="adk-agenda-empty">No programs are listed for this month. Try another month or another category.</p>}
+          </div>
+        ) : (
+          <>
         <div className="adk-weekdays" aria-hidden="true">{DAYS.map(day => <span key={day}><span className="adk-longday">{day.slice(0, 3)}</span><span className="adk-shortday">{day.slice(0, 1)}</span></span>)}</div>
         <div className="adk-grid" role="group" aria-label={monthTitle + " " + (view === "events" ? "events calendar" : "room schedule")}>
           {days.map(date => {
@@ -238,13 +275,26 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
             return (
               <button type="button" aria-label={friendlyDate(date) + ": " + (view === "events" ? count + " listed programs" : availability?.enabled ? busy.length + " unavailable periods" : "availability not confirmed")} key={keyOf(date)} className={"adk-day" + (!isActive(date) ? " adk-day-muted" : "") + (keyOf(date) === today ? " adk-day-today" : "")} onClick={() => openDate(date)}>
                 <span className="adk-number">{date.getDate()}</span>
-                {view === "events" ? <span className="adk-day-events">{eventItems.slice(0, 2).map(e => <span className={"adk-event-chip adk-tone-" + eventTone(e)} key={eventId(e.title)}>{e.title}</span>)}{count > 2 && <span className="adk-more">+{count - 2} more</span>}</span> : <span className="adk-day-events">{availability?.enabled ? (busy.length ? <span className="adk-reserved">{busy.length} unavailable</span> : <span className="adk-see-times">See times</span>) : <span className="adk-unknown">Check with staff</span>}</span>}
+                {view === "events" ? <span className="adk-day-events">{eventItems.slice(0, 2).map(e => <span className={"adk-event-chip adk-tone-" + eventTone(e)} key={eventId(e.title)}>{e.title}</span>)}{count > 2 && <span className="adk-more">+{count - 2} more</span>}</span> : <span className="adk-day-events">{availability?.enabled ? (busy.length ? <span className="adk-reserved">{busy.length} unavailable</span> : <span className="adk-see-times">See times</span>) : <span className="adk-unknown">Try demo</span>}</span>}
                 {view === "events" && count > 0 && <span className="adk-dots" aria-hidden="true"><i /><i /></span>}
               </button>
             );
           })}
         </div>
+
+          </>
+        )}
         <p className="adk-footnote">{view === "events" ? "Recurring programs are shown based on the published listings. Dates and times should be confirmed with library staff." : loading ? "Checking room schedule…" : availability?.enabled ? "Reserved times are shown without patrons' personal information. Requests require library approval." : "Online availability and requests aren't active yet. Call the library for an up-to-date schedule."}</p>
+        {view === "rooms" && (
+          <section className="adk-room-integrated" aria-labelledby="adk-room-integrated-title">
+            <div className="adk-room-integrated-text">
+              <span className="adk-eyebrow">ROOM USE AT GOFF–NELSON</span>
+              <h3 id="adk-room-integrated-title">The Simmons Room</h3>
+              <p>Community room use is generally free. Events collecting money require staff review. A request is not confirmed until approved.</p>
+            </div>
+            <a href={LIBRARY_TEL}>Questions? Call {LIBRARY_PHONE}</a>
+          </section>
+        )}
       </div>
         <div className="adk-facade-lower">
           <div className="adk-facade-entry" aria-hidden="true">
@@ -263,12 +313,6 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
         <div className="adk-facade-foundation" aria-hidden="true"><i/><i/><i/><i/><i/><i/><i/></div>
       </div>
 
-      {view === "rooms" && (
-        <section className="adk-room-note">
-          <div><span className="adk-eyebrow">A SPACE FOR THE COMMUNITY</span><h2>The Simmons Room</h2><p>Room use is generally free under the library's current practice. If your event collects money, please disclose that in your request so staff can review the arrangements. A request is not a confirmed reservation until approved.</p></div>
-          <div className="adk-room-contact"><strong>Need to speak with staff?</strong><span>Call {LIBRARY_PHONE} for room availability and arrangements.</span><a href={LIBRARY_TEL}>Call the library</a></div>
-        </section>
-      )}
       {view === "events" && unscheduled.length > 0 && <details className="adk-other"><summary>Programs awaiting a specific calendar date ({unscheduled.length})</summary><div>{unscheduled.map(event => <article key={eventId(event.title)}><h3>{event.title}</h3><p>{event.date} · {event.time} — {event.description}</p></article>)}</div></details>}
       <p className="adk-art-credit">Historical artwork: <a href="https://commons.wikimedia.org/wiki/File:AmCyc_Adirondack_Mountains_-_view_from_Placid_Lake.jpg" target="_blank" rel="noreferrer">John Filmer, <em>The American Cyclopædia</em> (1879)</a>. Engraving is from the Lake Placid region, not the library building.</p>
 
