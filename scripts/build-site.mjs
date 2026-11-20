@@ -10,12 +10,14 @@ const clientId = (
   process.env.NEXT_PUBLIC_TINA_CLIENT_ID ||
   ""
 ).trim();
-const token = (process.env.TINA_TOKEN || "").trim();
+// Vercel will not allow an existing Sensitive variable to be renamed.
+// Accept the existing CONTENT_READONLY key without reading or copying its value.
+const token = (process.env.TINA_TOKEN || process.env.CONTENT_READONLY || "").trim();
 
 if (Boolean(clientId) !== Boolean(token)) {
   console.error(
     "TinaCloud configuration is incomplete. Set BOTH PUBLIC_TINA_CLIENT_ID " +
-    "and TINA_TOKEN in Vercel Project Settings > Environment Variables, " +
+    "and either TINA_TOKEN or CONTENT_READONLY (a TinaCloud Content read-only token) in Vercel Project Settings > Environment Variables, " +
     "then redeploy. Never commit the token to GitHub."
   );
   process.exit(1);
@@ -27,7 +29,7 @@ const target = connected ? "build:cloud" : "build:local";
 if (!connected) {
   console.warn(
     "TinaCloud credentials absent: the public site will build, but the hosted /admin editor CANNOT log in until the Vercel Production credentials are configured and the site is redeployed. " +
-    "Add PUBLIC_TINA_CLIENT_ID and TINA_TOKEN to the hosting environment to enable the connected editor.",
+    "Add PUBLIC_TINA_CLIENT_ID and a Content read-only token under TINA_TOKEN (or CONTENT_READONLY) to enable the connected editor.",
   );
 }
 
