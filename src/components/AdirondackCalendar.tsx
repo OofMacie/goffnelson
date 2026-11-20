@@ -78,6 +78,9 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
   const [turnstileWidget, setTurnstileWidget] = useState<string | null>(null);
   const [turnstileLoaded, setTurnstileLoaded] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
+  const eventCardRef = useRef<HTMLButtonElement>(null);
+  const detailBackRef = useRef<HTMLButtonElement>(null);
+  const previouslyViewingDetail = useRef(false);
   const turnstileContainer = useRef<HTMLDivElement>(null);
   const days = useMonthDates(month);
   const categories = ["All programs", ...Array.from(new Set(calendarEvents.map(e => e.category).filter(Boolean)))];
@@ -132,6 +135,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
     if (nextView) setView(nextView);
     setSelected(date);
     setSlideIndex(0);
+    previouslyViewingDetail.current = false;
     setOpenedEvent(null);
     setDemoStep("time");
     setDemoSlot("10:00");
@@ -139,11 +143,21 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
     setBookingError("");
     dialog.current?.showModal();
   };
+  // When a short event card expands, put keyboard focus on its Back control.
+  // Restore focus to the card when visitors return to the carousel.
+  useEffect(() => {
+    if (!selected || !dialog.current?.open) return;
+    if (openedEvent) detailBackRef.current?.focus();
+    else if (previouslyViewingDetail.current) eventCardRef.current?.focus();
+    previouslyViewingDetail.current = Boolean(openedEvent);
+  }, [openedEvent, selected]);
+
   const close = () => {
     dialog.current?.close();
     if (turnstileWidget && window.turnstile) window.turnstile.remove(turnstileWidget);
     setTurnstileWidget(null);
     setSelected(null);
+    previouslyViewingDetail.current = false;
     setOpenedEvent(null);
     setDemoStep("time");
     setBookingStatus("idle");
@@ -274,9 +288,9 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
             const busy = busyFor(date);
             const count = eventItems.length;
             return (
-              <button type="button" aria-label={friendlyDate(date) + ": " + (view === "events" ? count + " listed programs" : availability?.enabled ? busy.length + " unavailable periods" : "availability not confirmed")} key={keyOf(date)} className={"adk-day" + (!isActive(date) ? " adk-day-muted" : "") + (keyOf(date) === today ? " adk-day-today" : "")} onClick={() => openDate(date)}>
+              <button type="button" aria-label={friendlyDate(date) + ": " + (view === "events" ? count + " listed programs" : availability?.enabled ? busy.length + " unavailable periods" : "demo only, availability not confirmed")} key={keyOf(date)} className={"adk-day" + (!isActive(date) ? " adk-day-muted" : "") + (keyOf(date) === today ? " adk-day-today" : "")} onClick={() => openDate(date)}>
                 <span className="adk-number">{date.getDate()}</span>
-                {view === "events" ? <span className="adk-day-events">{eventItems.slice(0, 2).map(e => <span className={"adk-event-chip adk-tone-" + eventTone(e)} key={eventId(e.title)}>{e.title}</span>)}{count > 2 && <span className="adk-more">+{count - 2} more</span>}</span> : <span className="adk-day-events">{availability?.enabled ? (busy.length ? <span className="adk-reserved">{busy.length} unavailable</span> : <span className="adk-see-times">See times</span>) : <span className="adk-unknown">Try demo</span>}</span>}
+                {view === "events" ? <span className="adk-day-events">{eventItems.slice(0, 2).map((e, i) => <span className={"adk-event-chip adk-tone-" + eventTone(e)} key={eventId(e.title) + "-" + i}>{e.title}</span>)}{count > 2 && <span className="adk-more">+{count - 2} more</span>}</span> : <span className="adk-day-events">{availability?.enabled ? (busy.length ? <span className="adk-reserved">{busy.length} unavailable</span> : <span className="adk-see-times">See times</span>) : <span className="adk-unknown">Try demo</span>}</span>}
                 {view === "events" && count > 0 && <span className="adk-dots" aria-hidden="true"><i /><i /></span>}
               </button>
             );
@@ -338,7 +352,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
               <div className="adk-dialog-items">
                 {openedEvent ? (
                   <article className="adk-full-event">
-                    <button className="adk-back" type="button" onClick={() => setOpenedEvent(null)}>‹ Back to this date</button>
+                    <button ref={detailBackRef} className="adk-back" type="button" onClick={() => setOpenedEvent(null)}>‹ Back to this date</button>
                     {openedEvent.image && <img className="adk-event-photo" src={openedEvent.image} alt={openedEvent.imageAlt || ""} loading="lazy" />}
                     <span className="adk-event-tag">{openedEvent.category}</span>
                     <h3>{openedEvent.title}</h3>
@@ -349,7 +363,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
                 ) : selectedDayEvents.length && displayedEvent ? (
                   <div className="adk-slide-wrap" role="region" aria-roledescription="carousel" aria-label={"Programs for " + friendlyDate(selected)}>
                     <div className="adk-slide-count" aria-live="polite">{slideIndex % selectedDayEvents.length + 1} of {selectedDayEvents.length} program{selectedDayEvents.length === 1 ? "" : "s"}</div>
-                    <button className={"adk-slide-card adk-tone-" + eventTone(displayedEvent)} type="button" onClick={() => setOpenedEvent(displayedEvent)} aria-label={"Read more about " + displayedEvent.title}>
+                    <button ref={eventCardRef} className={"adk-slide-card adk-tone-" + eventTone(displayedEvent)} type="button" onClick={() => setOpenedEvent(displayedEvent)} aria-label={"Read more about " + displayedEvent.title}>
                       {displayedEvent.image && <img src={displayedEvent.image} alt="" loading="lazy" />}
                       <span className="adk-slide-information">
                         <span className="adk-event-tag">{displayedEvent.category}</span>
