@@ -320,6 +320,7 @@ body {
 
 .cta-btn:hover {
   background: #1b4332;
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -470,7 +471,7 @@ body {
 
 /* Colored placeholder when cover image 404s */
 .book-card-placeholder {
-  display: none;
+  display: flex;
   position: absolute;
   inset: 0;
   align-items: center;
@@ -492,7 +493,7 @@ body {
 }
 
 .book-card-title {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #1a1a1a;
   line-height: 1.35;
@@ -505,8 +506,8 @@ body {
 }
 
 .book-card-author {
-  font-size: 0.72rem;
-  color: #666;
+  font-size: 0.875rem;
+  color: #414141;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
