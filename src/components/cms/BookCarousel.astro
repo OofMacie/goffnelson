@@ -1,6 +1,7 @@
 ---
 import { tinaField } from '@tinacms/astro/tina-field';
 import Icon from '../Icon.astro';
+import { sanitizeImageSrc } from '../../lib/safe-url';
 import type { BooksQuery } from '../../../tina/__generated__/types';
 
 interface Props {
@@ -16,7 +17,7 @@ const { data } = Astro.props;
 // Skip half-filled entries so one blank book never breaks the carousel.
 const books = (data?.entries ?? []).flatMap((book) => (book?.title?.trim() ? [book] : []));
 const coverFor = (book: (typeof books)[number]) =>
-  book?.cover ||
+  sanitizeImageSrc(book?.cover) ||
   (book?.isbn ? `https://covers.openlibrary.org/b/isbn/${book.isbn.replace(/\D/g, '')}-L.jpg` : '');
 ---
 

@@ -1,6 +1,7 @@
 ---
 import { tinaField } from "@tinacms/astro/tina-field";
 import { librarySettings } from "../../lib/library-content";
+import { safeTelHref, sanitizeImageSrc } from "../../lib/safe-url";
 import type { HomeQuery } from "../../../tina/__generated__/types";
 
 interface Props {
@@ -15,7 +16,7 @@ const { data } = Astro.props;
     <section class="hero" aria-label="Library photograph">
       <img
         class="hero__image"
-        src={data.heroImage ?? ""}
+        src={sanitizeImageSrc(data.heroImage)}
         alt={data.heroAlt ?? ""}
         data-tina-field={tinaField(data, "heroImage")}
         width="1600"
@@ -44,7 +45,7 @@ const { data } = Astro.props;
       </p>
       <p>
         Visit us at <strong>{librarySettings.address}</strong> or call
-        <a href={`tel:${librarySettings.phoneLink}`}>{librarySettings.phone}</a>.
+        <a href={safeTelHref(librarySettings.phoneLink) || undefined}>{librarySettings.phone}</a>.
       </p>
     </section>
   </>

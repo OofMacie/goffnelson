@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.tsx";
 import Footer from "../components/Footer.tsx";
 import { eventHeading, eventId, libraryEvents } from "../lib/library-content";
+import { safeLink, sanitizeImageSrc } from "../lib/safe-url";
 ---
 
 <Layout
@@ -17,20 +18,24 @@ import { eventHeading, eventId, libraryEvents } from "../lib/library-content";
         <p>Discover activities, workshops, and community programs at your library.</p>
       </header>
       <div id="events" class="programs-grid">
-        {libraryEvents.map((event) => (
+        {libraryEvents.map((event) => {
+          const image = sanitizeImageSrc(event.image);
+          const link = safeLink(event.link);
+          return (
           <article class="program-card" id={eventId(event.title)}>
-            {event.image && (
-              <img src={event.image} alt={event.imageAlt || ""} loading="lazy" />
+            {image && (
+              <img src={image} alt={event.imageAlt || ""} loading="lazy" />
             )}
             <div class="program-card__body">
               <p class="program-card__category">{event.category}</p>
               <h2>{event.title}</h2>
               <p><strong>{event.date}</strong> · {event.time}</p>
               <p>{event.description}</p>
-              {event.link && <a href={event.link}>More about {event.title}</a>}
+              {link && <a href={link}>More about {event.title}</a>}
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </div>
   </main>

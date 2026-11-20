@@ -1,4 +1,5 @@
 import { librarySettings, formatOpeningTime } from "../lib/library-content";
+import { safeLink, safeTelHref } from "../lib/safe-url";
 import "../styles/library-footer.css";
 
 export default function Footer() {
@@ -37,8 +38,8 @@ export default function Footer() {
             <h2 id="footer-contact">Contact</h2>
             <address>
               <p>{address}</p>
-              <p><a href={`tel:${phoneLink}`}>{phone}</a></p>
-              <p><a href={facebook} target="_blank" rel="noopener noreferrer">Library Facebook page</a></p>
+              <p><a href={safeTelHref(phoneLink) || undefined}>{phone}</a></p>
+              <p><a href={safeLink(facebook) || undefined} target="_blank" rel="noopener noreferrer">Library Facebook page</a></p>
             </address>
           </section>
         </div>

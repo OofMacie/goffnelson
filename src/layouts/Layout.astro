@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import { librarySettings } from '../lib/library-content'
+import { escapeForScript } from '../lib/safe-url'
 
 interface Props {
   title?: string
@@ -146,8 +147,7 @@ const schema = {
     <link rel="dns-prefetch" href="https://cefls.ent.sirsi.net" />
 
     <!-- Structured Data -->
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
-
+    <script is:inline type="application/ld+json" set:html={escapeForScript(JSON.stringify(schema))} />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
