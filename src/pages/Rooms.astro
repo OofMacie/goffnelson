@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.tsx";
+import Footer from "../components/Footer.tsx";
+import AdirondackCalendar from "../components/AdirondackCalendar.tsx";
+---
+<Layout title="Meeting Room Requests" description="Review available times and request the Simmons Room at Goff-Nelson Memorial Library. All room requests require staff approval.">
+  <Nav client:load />
+  <main id="main-content">
+    <AdirondackCalendar client:load initialView="rooms" />
+    <noscript>
+      <section style="max-width:50rem;margin:2rem auto;padding:1.5rem">
+        <h2>Request the Simmons Room</h2>
+        <p>Please call the library at <a href="tel:+15183599421">518-359-9421</a> to discuss room availability or make a request. Online bookings require JavaScript and staff approval.</p>
+      </section>
+    </noscript>
+  </main>
+  <Footer client:load />
+</Layout>
