@@ -9,7 +9,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build:local": "tinacms build --local --skip-cloud-checks -c \"astro build\"",
-    "check": "astro check"
+    "check": "astro check",
+    "content:check": "node scripts/validate-content.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
