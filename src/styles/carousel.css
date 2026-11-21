@@ -4,16 +4,13 @@
   padding-block: var(--section-y);
 }
 
-/* --card-w sizes the cards; --media-half is half the media height as a share of card width,
-   so the arrows sit centred on the cover/image instead of over the card text. */
+/* --card-w sizes the cards in each carousel. */
 .carousel--books {
   --card-w: 8.5rem;
-  --media-half: 0.75;
 }
 
 .carousel--events {
   --card-w: min(18rem, 80vw);
-  --media-half: 0.28125;
   background: var(--event-bg);
 }
 
@@ -41,7 +38,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2) var(--space-5);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 .carousel__title {
@@ -59,6 +56,18 @@
   color: var(--spruce);
 }
 
+/* Section link and scroll buttons share one row, so the buttons never cover the cards. */
+.carousel__aside {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.carousel__controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
 .carousel__link {
   display: inline-flex;
   align-items: center;
@@ -73,35 +82,7 @@
   color: var(--spruce-dark);
 }
 
-/* ── Viewport, arrows and scrolling track ────────────────────── */
-
-.carousel__viewport {
-  --arrow-offset: var(--space-2);
-  position: relative;
-}
-
-@media (min-width: 48rem) {
-  .carousel__viewport {
-    /* Sit the arrows on the container edge so they line up with the title. */
-    --arrow-offset: calc(var(--tap-target) / -2);
-  }
-}
-
-.carousel__arrow {
-  position: absolute;
-  /* Track padding-top (space-2) + centre of the media area. */
-  top: calc(var(--space-2) + var(--card-w) * var(--media-half));
-  z-index: 2;
-  translate: 0 -50%;
-}
-
-.carousel__arrow--prev {
-  inset-inline-start: var(--arrow-offset);
-}
-
-.carousel__arrow--next {
-  inset-inline-end: var(--arrow-offset);
-}
+/* ── Scrolling track ─────────────────────────────────────────── */
 
 .carousel__track {
   display: flex;

@@ -10,7 +10,7 @@ Research date: 2026-11-20. 142 numbered sources are listed in section 5. Claims 
 - The JSON-LD block escapes `<` so editor text cannot close the script element (F10).
 - `window.open` calls in the nav use `noopener,noreferrer` (F11).
 - `vercel.json` sets `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Cross-Origin-Opener-Policy` and `Permissions-Policy`. HSTS is deliberately not set there: Vercel already sends `max-age=63072000; includeSubDomains; preload`, and a shorter value would weaken it.
-- The nav no longer uses React inline `style=""` attributes, which removes the main blocker for a strict CSP (F3).
+- The nav's React inline `style=""` attributes were replaced with CSS classes (F3). One remains: the per-card colour variable on the promo cards in `Nav.tsx`. Turn it into a class before enabling a strict CSP.
 
 **Needs a decision or access you control (not changed here)**
 

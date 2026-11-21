@@ -26,20 +26,33 @@ const events = (data?.entries ?? []).flatMap((event) => (event?.title?.trim() ? 
             <Icon name="calendar-days" />
             <span data-tina-field={tinaField(data, 'title')}>{data.title}</span>
           </h2>
-          <a href="/Events/" class="carousel__link">
-            View all events
-          </a>
+          <div class="carousel__aside">
+            <a href="/Events/" class="carousel__link">
+              {' '}
+              View all events{' '}
+            </a>
+            <div class="carousel__controls">
+              <button
+                type="button"
+                class="icon-button"
+                data-carousel-arrow="left"
+                aria-label="Scroll events left"
+                disabled
+              >
+                <Icon name="chevron-left" />
+              </button>
+              <button
+                type="button"
+                class="icon-button"
+                data-carousel-arrow="right"
+                aria-label="Scroll events right"
+              >
+                <Icon name="chevron-right" />
+              </button>
+            </div>
+          </div>
         </div>
         <div class="carousel__viewport">
-          <button
-            type="button"
-            class="icon-button carousel__arrow carousel__arrow--prev"
-            data-carousel-arrow="left"
-            aria-label="Scroll events left"
-            disabled
-          >
-            <Icon name="chevron-left" />
-          </button>
           <div class="carousel__track" data-carousel-track>
             {events.map((event) => {
               // Editor-supplied URLs are checked here; the original object stays intact for click-to-edit.
@@ -92,14 +105,6 @@ const events = (data?.entries ?? []).flatMap((event) => (event?.title?.trim() ? 
               );
             })}
           </div>
-          <button
-            type="button"
-            class="icon-button carousel__arrow carousel__arrow--next"
-            data-carousel-arrow="right"
-            aria-label="Scroll events right"
-          >
-            <Icon name="chevron-right" />
-          </button>
         </div>
       </div>
     </section>

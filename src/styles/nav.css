@@ -117,14 +117,26 @@
   font-weight: 600;
 }
 
+/* Sits on the label's baseline, so it stays centred on the letters in any font
+   (a flex-centred box follows the font's line metrics and can look too high or low). */
 .nav__chevron {
-  display: grid;
-  place-items: center;
-  font-size: 1.125rem;
+  display: inline-block;
+  width: 1.3em;
+  height: 1.3em;
+  margin-inline-start: 0.4em;
+  vertical-align: -0.33em;
+  line-height: 0;
   transition: transform 0.18s ease;
 }
 
-.nav__chevron.is-open {
+.nav__chevron .icon-box,
+.nav__chevron .icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.nav__chevron[data-open='true'] {
   transform: rotate(180deg);
 }
 

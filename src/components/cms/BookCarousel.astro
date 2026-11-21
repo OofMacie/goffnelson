@@ -30,20 +30,32 @@ const coverFor = (book: (typeof books)[number]) =>
             <Icon name="book-open" />
             <span data-tina-field={tinaField(data, 'title')}>{data.title}</span>
           </h2>
-          <a href={newArrivals} class="carousel__link" target="_blank" rel="noopener noreferrer">
-            New arrivals
-          </a>
+          <div class="carousel__aside">
+            <a href={newArrivals} class="carousel__link" target="_blank" rel="noopener noreferrer">
+              New arrivals
+            </a>
+            <div class="carousel__controls">
+              <button
+                type="button"
+                class="icon-button"
+                data-carousel-arrow="left"
+                aria-label="Scroll books left"
+                disabled
+              >
+                <Icon name="chevron-left" />
+              </button>
+              <button
+                type="button"
+                class="icon-button"
+                data-carousel-arrow="right"
+                aria-label="Scroll books right"
+              >
+                <Icon name="chevron-right" />
+              </button>
+            </div>
+          </div>
         </div>
         <div class="carousel__viewport">
-          <button
-            type="button"
-            class="icon-button carousel__arrow carousel__arrow--prev"
-            data-carousel-arrow="left"
-            aria-label="Scroll books left"
-            disabled
-          >
-            <Icon name="chevron-left" />
-          </button>
           <div class="carousel__track" data-carousel-track>
             {books.map((book) => {
               const cover = coverFor(book);
@@ -94,14 +106,6 @@ const coverFor = (book: (typeof books)[number]) =>
               );
             })}
           </div>
-          <button
-            type="button"
-            class="icon-button carousel__arrow carousel__arrow--next"
-            data-carousel-arrow="right"
-            aria-label="Scroll books right"
-          >
-            <Icon name="chevron-right" />
-          </button>
         </div>
       </div>
     </section>

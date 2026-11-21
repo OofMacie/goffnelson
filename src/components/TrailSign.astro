@@ -1,0 +1,110 @@
+---
+/**
+ * Hand-routed Adirondack trail sign used as the homepage catalog call-to-action.
+ * Modelled on NY's Adirondack Park sign rules (yellow lettering on brown) and a
+ * real hand-cut trail sign: saw-cut plank, routed lettering, marker disc, post and stump.
+ * All artwork is decorative; the link text carries the meaning.
+ */
+const CATALOG_URL = 'https://cefls.ent.sirsi.net/client/en_US/default/search/results?te=&lm=TUP';
+---
+
+<svg class="svg-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <!--
+      Routed-lettering filter. Letters get a wobble (hand-cut), a dark groove wall,
+      a lit lip along the lower edge and an inner shadow on the upper-left, like paint
+      sitting in a routed channel.
+    -->
+    <filter
+      id="engrave"
+      x="-4%"
+      y="-10%"
+      width="108%"
+      height="120%"
+      color-interpolation-filters="sRGB"
+    >
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="5" result="noise"
+      ></feTurbulence>
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="1.1"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="ink"></feDisplacementMap>
+      <feMorphology in="ink" operator="dilate" radius="0.8" result="wall"></feMorphology>
+      <feFlood flood-color="#110701" flood-opacity="0.95"></feFlood>
+      <feComposite in2="wall" operator="in" result="groove"></feComposite>
+      <feOffset in="wall" dx="0.7" dy="1" result="lipShape"></feOffset>
+      <feComposite in="lipShape" in2="wall" operator="out" result="lipEdge"></feComposite>
+      <feFlood flood-color="#e9bf8b" flood-opacity="0.5"></feFlood>
+      <feComposite in2="lipEdge" operator="in" result="lip"></feComposite>
+      <feOffset in="ink" dx="0.9" dy="1.1" result="inkShift"></feOffset>
+      <feComposite in="ink" in2="inkShift" operator="out" result="rimRaw"></feComposite>
+      <feColorMatrix
+        in="rimRaw"
+        type="matrix"
+        values="0 0 0 0 0.18  0 0 0 0 0.09  0 0 0 0 0.01  0 0 0 0.9 0"
+        result="rim"></feColorMatrix>
+      <feMerge>
+        <feMergeNode in="lip"></feMergeNode>
+        <feMergeNode in="groove"></feMergeNode>
+        <feMergeNode in="ink"></feMergeNode>
+        <feMergeNode in="rim"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<div class="hero__sign">
+  <a class="trail-sign" href={CATALOG_URL} target="_blank" rel="noopener noreferrer">
+    <span class="trail-sign__plank">
+      <svg class="trail-sign__marker" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="marker-arc-top" d="M 13,50 A 37,37 0 0 1 87,50"></path>
+          <path id="marker-arc-bottom" d="M 5,50 A 45,45 0 0 0 95,50"></path>
+        </defs>
+        <circle cx="50" cy="50" r="30" fill="#c9302a" stroke="#fff" stroke-width="3.2"></circle>
+        <circle
+          cx="50"
+          cy="50"
+          r="30"
+          fill="none"
+          stroke="#7d1511"
+          stroke-opacity=".5"
+          stroke-width="1"
+          transform="translate(0 .8)"></circle>
+        <text x="50" y="47" text-anchor="middle" class="trail-sign__marker-label">BOOK</text>
+        <text x="50" y="60" text-anchor="middle" class="trail-sign__marker-label">TRAIL</text>
+        <text class="trail-sign__marker-ring">
+          <textPath href="#marker-arc-top" startOffset="50%" text-anchor="middle">FOLLOW</textPath>
+        </text>
+        <text class="trail-sign__marker-ring">
+          <textPath href="#marker-arc-bottom" startOffset="50%" text-anchor="middle"
+            >MARKERS</textPath
+          >
+        </text>
+      </svg>
+
+      <span class="trail-sign__text">
+        <span class="trail-sign__kicker">
+          <svg class="trail-sign__dash" viewBox="0 0 40 12" aria-hidden="true" focusable="false">
+            <rect x="0" y="3" width="40" height="6" rx="3" fill="currentColor"></rect>
+          </svg>
+          Trail to
+          <svg class="trail-sign__arrow" viewBox="0 0 44 18" aria-hidden="true" focusable="false">
+            <path
+              d="M0,6 H29 V0.5 L43.5,9 L29,17.5 V12 H0 Z"
+              fill="currentColor"
+              stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <span class="trail-sign__main">Search the Catalog</span>
+        <span class="trail-sign__place">Tupper Lake NY</span>
+      </span>
+    </span>
+    <span class="visually-hidden"> (opens in a new tab)</span>
+  </a>
+  <span class="trail-sign__post" aria-hidden="true"></span>
+  <span class="trail-sign__base" aria-hidden="true"></span>
+</div>

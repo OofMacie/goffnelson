@@ -151,7 +151,7 @@ function MobileSection({ menu }: { menu: Menu }) {
         onClick={() => setExpanded(!expanded)}
       >
         {menu.label}
-        <span className={`nav__chevron${expanded ? 'is-open' : ''}`}>
+        <span className="nav__chevron" data-open={expanded}>
           <Icon name="chevron-down" />
         </span>
       </button>
@@ -254,9 +254,11 @@ export default function Nav() {
                   aria-controls={`nav-menu-${index}`}
                   onClick={() => toggle({ kind: 'menu', index })}
                 >
-                  {menu.label}
-                  <span className={`nav__chevron${isOpen('menu', index) ? 'is-open' : ''}`}>
-                    <Icon name="chevron-down" />
+                  <span className="nav__trigger-label">
+                    {menu.label}
+                    <span className="nav__chevron" data-open={isOpen('menu', index)}>
+                      <Icon name="chevron-down" />
+                    </span>
                   </span>
                 </button>
               </li>

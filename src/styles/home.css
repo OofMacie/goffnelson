@@ -9,17 +9,19 @@
 .hero__image {
   display: block;
   width: 100%;
-  height: clamp(15rem, 38vw, 30rem);
+  height: clamp(19rem, 46vw, 32rem);
   object-fit: cover;
   object-position: center;
 }
 
-/* Spans the photo so the call-to-action is always centred, at any width. */
-.hero__actions {
+/* Spruce and pine treeline in the page colour: the photo flows into the page like a forest edge. */
+.hero::after {
+  content: '';
   position: absolute;
-  inset: auto var(--gutter) var(--space-6);
-  display: flex;
-  justify-content: center;
+  inset: auto 0 -1px;
+  height: clamp(3.5rem, 9vw, 7rem);
+  background: url('../assets/art/treeline.svg') center bottom / cover no-repeat;
+  pointer-events: none;
 }
 
 .intro {
