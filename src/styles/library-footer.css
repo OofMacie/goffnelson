@@ -1,9 +1,20 @@
 /* Site footer. */
 
 .library-footer {
+  position: relative;
   padding: var(--section-y) var(--gutter);
   background: var(--footer-bg);
   color: var(--footer-text);
+}
+
+/* Green spruce and pine treeline rising from the footer into the page above. */
+.library-footer::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 calc(100% - 1px);
+  height: clamp(3.5rem, 9vw, 7rem);
+  background: url('../assets/art/footer-treeline.svg') center bottom / cover no-repeat;
+  pointer-events: none;
 }
 
 .library-footer__inner {
