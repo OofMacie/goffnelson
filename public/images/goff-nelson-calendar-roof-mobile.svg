@@ -25,8 +25,8 @@
   <g stroke="#bed3ce" stroke-width="2" opacity=".35">
     <path d="M185 44 V148 M312 44 V148 M440 44 V148 M562 44 V148"/>
   </g>
-  <path d="M121 90 L645 138" stroke="#2d2d27" stroke-width="15" fill="none"/>
-  <path d="M121 87 L645 135" stroke="#75563d" stroke-width="8" fill="none"/>
+  <path d="M99 88 L645 138" stroke="#2d2d27" stroke-width="15" fill="none"/>
+  <path d="M99 85 L645 135" stroke="#75563d" stroke-width="8" fill="none"/>
 </g>
 <!-- Strong, unbroken asymmetrical roof and underlying fascia. -->
 <path d="M0 98 L145 48 L640 111" stroke="#19241e" stroke-width="19" fill="none" stroke-linejoin="miter"/>
