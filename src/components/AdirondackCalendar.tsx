@@ -227,7 +227,10 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
 
       <div className="adk-facade" aria-label="Calendar framed by the architecture of the Goff–Nelson Memorial Library">
         <div className="adk-facade-roof" aria-hidden="true">
-          <img src="/images/goff-nelson-calendar-roof.svg" alt="" width="1100" height="210" decoding="async" />
+          <picture>
+            <source media="(max-width: 600px)" srcSet="/images/goff-nelson-calendar-roof-mobile.svg" type="image/svg+xml" />
+            <img src="/images/goff-nelson-calendar-roof.svg" alt="" width="1100" height="210" decoding="async" />
+          </picture>
         </div>
         <div className="adk-facade-nameplate">
           <span className="adk-nameplate-number" aria-hidden="true">41</span>
