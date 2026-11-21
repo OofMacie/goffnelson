@@ -2,70 +2,26 @@
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.tsx";
 import Footer from "../components/Footer.tsx";
-import { eventHeading, eventId, libraryEvents } from "../lib/library-content";
-import { safeLink, sanitizeImageSrc } from "../lib/safe-url";
+import EventLibraryCalendar from "../components/EventLibraryCalendar.tsx";
+import { libraryEvents } from "../lib/library-content";
 ---
-
-<Layout
-  title={eventHeading}
-  description="Find programs and events at Goff-Nelson Memorial Library in Tupper Lake, New York."
->
+<Layout title="Library Events Calendar" description="Explore an interactive calendar of Goff-Nelson Memorial Library events and programs in Tupper Lake, New York.">
   <Nav client:load />
-  <main id="main-content" class="programs-page">
-    <div class="programs-page__inner">
-      <header>
-        <h1>{eventHeading}</h1>
-        <p>Discover activities, workshops, and community programs at your library.</p>
-      </header>
-      <div id="events" class="programs-grid">
-        {libraryEvents.map((event) => {
-          const image = sanitizeImageSrc(event.image);
-          const link = safeLink(event.link);
-          return (
-          <article class="program-card" id={eventId(event.title)}>
-            {image && (
-              <img src={image} alt={event.imageAlt || ""} loading="lazy" />
-            )}
-            <div class="program-card__body">
-              <p class="program-card__category">{event.category}</p>
-              <h2>{event.title}</h2>
-              <p><strong>{event.date}</strong> · {event.time}</p>
-              <p>{event.description}</p>
-              {link && <a href={link}>More about {event.title}</a>}
-            </div>
+  <main id="main-content">
+    <EventLibraryCalendar client:load />
+    <noscript>
+      <section style="max-width:70rem;margin:2rem auto;padding:1.5rem">
+        <h2>Library programs</h2>
+        <p>Enable JavaScript for the interactive calendar. You can also call 518-359-9421 for event dates.</p>
+        {libraryEvents.map((event) => (
+          <article style="padding:1rem 0;border-bottom:1px solid #c3d1c5">
+            <h3>{event.title}</h3>
+            <p>{event.date} · {event.time}</p>
+            <p>{event.description}</p>
           </article>
-          );
-        })}
-      </div>
-    </div>
+        ))}
+      </section>
+    </noscript>
   </main>
   <Footer client:load />
 </Layout>
-
-<style>
-  .programs-page {
-    background: #fffdf7;
-    color: #18261d;
-    padding: clamp(2rem, 5vw, 4rem) 1.5rem;
-  }
-  .programs-page__inner { max-width: 75rem; margin-inline: auto; }
-  header { max-width: 45rem; margin-bottom: 2.5rem; }
-  h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; }
-  .programs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-    gap: 1.5rem;
-  }
-  .program-card {
-    background: white;
-    border: 1px solid #a6b5a7;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    scroll-margin-top: 2rem;
-  }
-  .program-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-  .program-card__body { padding: 1.5rem; }
-  .program-card h2 { font-size: 1.35rem; }
-  .program-card__category { font-weight: 700; color: #204a35; }
-  p { line-height: 1.65; }
-</style>
