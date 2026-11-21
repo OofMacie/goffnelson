@@ -39,9 +39,9 @@
     </g>
 
     <!-- Mid-window timber brace, ends trimmed by window's exact geometric boundary. -->
-    <path d="M169 123 L1110 209" stroke="#2a2a25" stroke-width="17" fill="none"/>
-    <path d="M169 119 L1110 205" stroke="#745740" stroke-width="10" fill="none"/>
-    <path d="M169 115 L1110 201" stroke="#967254" stroke-width="2" opacity=".65" fill="none"/>
+    <path d="M141 120.5 L1110 209" stroke="#2a2a25" stroke-width="17" fill="none"/>
+    <path d="M141 116.5 L1110 205" stroke="#745740" stroke-width="10" fill="none"/>
+    <path d="M141 112.5 L1110 201" stroke="#967254" stroke-width="2" opacity=".65" fill="none"/>
   </g>
 
   <!-- Roof above window: trim matches the same pitch on both sides of chimney. -->
