@@ -168,3 +168,29 @@
 @media(prefers-reduced-motion:reduce){
   .adk .adk-facade .adk-day{transition:none}
 }
+
+/* The real library's architectural roof has two carefully authored sizes.
+   <picture> swaps the drawing; neither asset is an enlarged bitmap.
+   Explicit sizing prevents layout shift when navigating months or views. */
+.adk .adk-facade-roof picture{
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+.adk .adk-facade-roof picture img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+}
+@media (max-width:600px){
+  .adk .adk-facade-roof{
+    height:clamp(72px,22.6vw,144px);
+    margin-bottom:-2px;
+  }
+}
+/* Keep the roof visually connected to the nameplate on compact screens. */
+@media (max-width:370px){
+  .adk .adk-facade-roof{height:clamp(70px,22.6vw,84px)}
+}
