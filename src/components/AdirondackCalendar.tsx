@@ -209,8 +209,8 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
             <span className="adk-eyebrow">GOFF–NELSON MEMORIAL LIBRARY · TUPPER LAKE, NY</span>
             <h1>{view === "events" ? <>Events <span className="adk-gold">&amp; Programs</span></> : <>Meeting Room <span className="adk-gold">Requests</span></>}</h1>
             <p>{view === "events"
-              ? "Find stories, workshops, and community gatherings at your library. Select a date to explore what's on."
-              : "See the Simmons Room schedule and request a time for your next gathering. All requests require staff approval."}</p>
+              ? "Explore library events and programs. Select a date for details."
+              : "Explore Simmons Room times. Library staff review all requests."}</p>
             <nav className="adk-mode" aria-label="Calendar and room options">
               <button type="button" aria-pressed={view === "events"} className={view === "events" ? "adk-mode-active" : ""} onClick={() => setView("events")}>Events &amp; programs</button>
               <button type="button" aria-pressed={view === "rooms"} className={view === "rooms" ? "adk-mode-active" : ""} onClick={() => setView("rooms")}>Room availability</button>
@@ -308,7 +308,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
             <div className="adk-room-integrated-text">
               <span className="adk-eyebrow">ROOM USE AT GOFF–NELSON</span>
               <h3 id="adk-room-integrated-title">The Simmons Room</h3>
-              <p>Community room use is generally free. Events collecting money require staff review. A request is not confirmed until approved.</p>
+              <p>Room use is generally free. Events collecting money need staff review; every request requires approval.</p>
             </div>
             <a href={LIBRARY_TEL}>Questions? Call {LIBRARY_PHONE}</a>
           </section>
@@ -321,7 +321,7 @@ export default function AdirondackCalendar({ initialView = "events" }: { initial
             <span className="adk-entry-handle" />
           </div>
           <div className="adk-facade-lower-copy">
-            <strong>{view === "events" ? "Your library is full of life." : "The Simmons Room welcomes community gatherings."}</strong>
+            <strong>{view === "events" ? "Your library is full of life." : "A place for neighbors to meet."}</strong>
             <span>41 Lake Street · Tupper Lake, New York</span>
           </div>
           <a className="adk-facade-action" href={view === "events" ? "/Rooms/" : "/Events/"}>
