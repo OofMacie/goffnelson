@@ -3,19 +3,19 @@
  * These rules replace the tall, detached white introduction with a shallow
  * illustrated sign-strip integral to the building itself.
  */
-.adk .adk-hero-inner{padding:clamp(1.15rem,2.5vw,1.8rem) 0}
-.adk .adk-hero h1{font-size:clamp(1.85rem,3.3vw,2.6rem);margin:.45rem 0 .5rem}
+.adk .adk-hero-inner{padding:clamp(1rem,2.1vw,1.55rem) 0}
+.adk .adk-hero h1{font-size:clamp(1.85rem,3.3vw,2.6rem);margin:.35rem 0 .4rem}
 .adk .adk-hero-copy>p{font-size:.94rem;line-height:1.5}
-.adk .adk-mode{margin-top:.9rem}
-.adk .adk-edition{margin-top:1rem;margin-bottom:0}
-.adk .adk-facade{margin-top:.35rem}
+.adk .adk-mode{margin-top:.7rem}
+.adk .adk-edition{margin-top:.7rem;margin-bottom:0}
+.adk .adk-facade{margin-top:.25rem;margin-bottom:2.3rem}
 .adk .adk-facade-nameplate{border-bottom-width:5px}
 .adk .adk-facade .adk-calendar-shell{box-shadow:none;background:#f9f6f0}
 .adk .adk-facade .adk-topline-compact{
-  min-height:75px;
+  min-height:69px;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
-  gap:.9rem 1.5rem;
-  padding:.85rem 1.5rem .72rem;
+  gap:.7rem 1.25rem;
+  padding:.65rem 1.4rem .6rem;
   background:linear-gradient(90deg,#c49a3c 0 31%,#3d7a8a 31% 54%,#527b6a 54% 78%,#963030 78%) top/100% 5px no-repeat,#f5f0e6;
   border-bottom:2px solid #c8baa2;
 }
@@ -57,7 +57,7 @@
   background:#fff8e6;color:#3a543e;font-size:.8rem;font-weight:800;
 }
 .adk .adk-facade .adk-month-toolbar{
-  min-height:62px;padding:.55rem 1.4rem;gap:.7rem;
+  min-height:57px;padding:.4rem 1.25rem;gap:.55rem;
   background:#fbefcc;border-block:0;
   border-bottom:4px solid #795b3a;
 }
@@ -72,10 +72,10 @@
 .adk .adk-facade .adk-month-arrow:hover{background:#f0d88c}
 .adk .adk-facade .adk-today{min-height:42px}
 .adk .adk-facade .adk-grid{gap:3px;background:#524639}
-.adk .adk-facade .adk-day{min-height:109px}
+.adk .adk-facade .adk-day{min-height:101px}
 .adk .adk-room-integrated{
-  display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;
-  padding:1.1rem 1.5rem;
+  display:flex;justify-content:space-between;align-items:center;gap:1.15rem;flex-wrap:wrap;
+  padding:.85rem 1.25rem;
   margin:0;border-top:4px solid #c49a3c;border-bottom:3px solid #6b553e;
   background:#e8f0ec;color:#1e3828;
 }
@@ -91,7 +91,7 @@
   font-weight:900;font-size:.82rem;text-decoration:none;
 }
 .adk .adk-room-integrated a:hover{background:#deb94e}
-.adk .adk-facade-lower{border-top-width:7px}
+.adk .adk-facade-lower{border-top-width:7px;padding:.9rem 1.25rem;gap:1rem}
 .adk .adk-agenda{
   padding:.75rem;display:grid;gap:.65rem;
   background:#e9e2d5;
@@ -100,8 +100,8 @@
 .adk .adk-agenda-row{
   --tone:#c49a3c;
   display:grid;grid-template-columns:64px minmax(0,1fr) auto;
-  min-height:83px;gap:1rem;align-items:center;
-  padding:.7rem .9rem .7rem .7rem;
+  min-height:78px;gap:.9rem;align-items:center;
+  padding:.6rem .85rem .6rem .7rem;
   background:#fffdf7;border-left:6px solid var(--tone);
   border-radius:2px;box-shadow:2px 3px 0 #baad99;
 }
@@ -128,18 +128,18 @@
 .adk .adk-agenda-row>button:hover{background:#2e5241}
 .adk .adk-agenda-empty{padding:1.5rem;margin:0;background:#fffdf7;color:#383430}
 @media(max-width:800px){
-  .adk .adk-facade .adk-topline-compact{padding:.85rem 1rem;gap:.8rem}
+  .adk .adk-facade .adk-topline-compact{padding:.7rem 1rem;gap:.7rem}
   .adk .adk-guide-tools{justify-content:flex-start}
   .adk .adk-guide-sunburst{width:32px;height:32px}
   .adk .adk-facade .adk-month-toolbar{padding:.5rem .75rem}
-  .adk .adk-room-integrated{padding:1rem}
+  .adk .adk-room-integrated{padding:.8rem}
 }
 @media(max-width:610px){
-  .adk .adk-hero-inner{padding:1.1rem 0}
+  .adk .adk-hero-inner{padding:.9rem 0}
   .adk .adk-hero-copy>p{font-size:.87rem}
-  .adk .adk-edition{margin-top:.7rem}
+  .adk .adk-edition{margin-top:.55rem}
   .adk .adk-facade{margin-top:.2rem}
-  .adk .adk-facade .adk-topline-compact{display:grid;padding:.75rem .55rem;gap:.65rem}
+  .adk .adk-facade .adk-topline-compact{display:grid;padding:.65rem .55rem;gap:.6rem}
   .adk .adk-guide-tools{justify-content:space-between;gap:.45rem}
   .adk .adk-topline-compact .adk-filter{flex:1 1 145px;min-width:0}
   .adk .adk-topline-compact .adk-filter select{min-width:0;width:100%;max-width:unset}
@@ -147,7 +147,7 @@
   .adk .adk-display-toggle button{min-width:57px;padding:.42rem .38rem}
   .adk .adk-guide-words .adk-eyebrow{font-size:.58rem}
   .adk .adk-topline-compact h2{font-size:1.06rem}
-  .adk .adk-facade .adk-month-toolbar{gap:4px;padding:.45rem .35rem}
+  .adk .adk-facade .adk-month-toolbar{gap:4px;padding:.35rem .35rem}
   .adk .adk-facade .adk-month-toolbar h3{font-size:clamp(1.03rem,4.3vw,1.3rem);margin:0 3px;letter-spacing:-.04em}
   .adk .adk-facade .adk-day{min-height:72px}
   .adk .adk-facade .adk-grid{gap:2px}
@@ -156,7 +156,7 @@
   .adk .adk-agenda-date strong{font-size:1.15rem}
   .adk .adk-agenda-content h3{font-size:.93rem}
   .adk .adk-agenda-row>button{grid-column:2;justify-self:start;min-height:42px}
-  .adk .adk-room-integrated{display:grid;gap:.75rem}
+  .adk .adk-room-integrated{display:grid;gap:.65rem}
   .adk .adk-room-integrated a{justify-self:start}
   .adk .adk-room-topline-note{font-size:.73rem;padding:.35rem .45rem}
 }
@@ -193,4 +193,16 @@
 /* Keep the roof visually connected to the nameplate on compact screens. */
 @media (max-width:370px){
   .adk .adk-facade-roof{height:clamp(70px,22.6vw,84px)}
+}
+
+/* Gentle spacing reduction; keep architectural SVG at its original aspect ratio.
+   Calendar buttons retain their usable size and all details remain legible. */
+.adk .adk-facade .adk-footnote{padding:.7rem 1.35rem}
+@media(max-width:800px){
+  .adk .adk-facade .adk-day{min-height:92px}
+}
+@media(max-width:610px){
+  .adk .adk-facade .adk-day{min-height:72px}
+  .adk .adk-facade-lower{padding:.68rem .72rem;gap:.65rem}
+  .adk .adk-facade .adk-footnote{padding:.65rem .7rem}
 }
