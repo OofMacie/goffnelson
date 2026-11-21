@@ -4,9 +4,9 @@
  * illustrated sign-strip integral to the building itself.
  */
 .adk .adk-hero-inner{padding:clamp(1rem,2.1vw,1.55rem) 0}
-.adk .adk-hero h1{font-size:clamp(1.85rem,3.3vw,2.6rem);margin:.35rem 0 .4rem}
-.adk .adk-hero-copy>p{font-size:.94rem;line-height:1.5}
-.adk .adk-mode{margin-top:.7rem}
+.adk .adk-hero h1{font-size:clamp(1.85rem,3.3vw,2.6rem);margin:.25rem 0 .32rem;line-height:1.1}
+.adk .adk-hero-copy>p{font-size:.94rem;line-height:1.42}
+.adk .adk-mode{margin-top:.6rem}
 .adk .adk-edition{margin-top:.7rem;margin-bottom:0}
 .adk .adk-facade{margin-top:.25rem;margin-bottom:2.3rem}
 .adk .adk-facade-nameplate{border-bottom-width:5px}
@@ -19,23 +19,23 @@
   background:linear-gradient(90deg,#c49a3c 0 31%,#3d7a8a 31% 54%,#527b6a 54% 78%,#963030 78%) top/100% 5px no-repeat,#f5f0e6;
   border-bottom:2px solid #c8baa2;
 }
-.adk .adk-guide-identity{display:flex;align-items:center;gap:.7rem;min-width:0}
+.adk .adk-guide-identity{display:flex;align-items:center;gap:.6rem;min-width:0}
 .adk .adk-guide-sunburst{
   width:37px;height:37px;display:grid;place-items:center;flex:none;
   background:#c49a3c;border:3px solid #eed59f;border-radius:3px;
   color:#1e3828;font-size:1.3rem;font-weight:900;transform:rotate(-5deg);
   box-shadow:2px 3px 0 #c4beb4;
 }
-.adk .adk-guide-words{display:flex;flex-direction:column;gap:.12rem;min-width:0}
+.adk .adk-guide-words{display:flex;flex-direction:column;gap:.05rem;min-width:0}
 .adk .adk-guide-words .adk-eyebrow{
   background:transparent;color:#6b4d18;transform:none;
   padding:0;border-radius:0;letter-spacing:.1em;font-size:.64rem;
 }
 .adk .adk-topline-compact h2{
-  font:900 clamp(1.05rem,1.6vw,1.32rem)/1.17 Arial,Helvetica,sans-serif;
+  font:900 clamp(1.05rem,1.6vw,1.32rem)/1.12 Arial,Helvetica,sans-serif;
   color:#1e3828;letter-spacing:-.02em;margin:0
 }
-.adk .adk-guide-tools{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:.65rem}
+.adk .adk-guide-tools{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:.5rem}
 .adk .adk-topline-compact .adk-filter{font-size:.78rem;gap:.45rem}
 .adk .adk-topline-compact .adk-filter select{
   max-width:175px;min-height:42px;padding:.45rem .6rem;
@@ -63,7 +63,7 @@
 }
 .adk .adk-facade .adk-month-toolbar h3{
   font-size:clamp(1.28rem,2.4vw,1.7rem);
-  margin:0 .3rem;min-width:0;line-height:1.2;
+  margin:0 .2rem;min-width:0;line-height:1.15;
 }
 .adk .adk-facade .adk-month-arrow{
   border:2px solid #94815e;background:#fffdf6;border-radius:4px;
@@ -81,8 +81,8 @@
 }
 .adk .adk-room-integrated-text{min-width:0;flex:1 1 350px}
 .adk .adk-room-integrated .adk-eyebrow{font-size:.66rem;color:#6b4d18}
-.adk .adk-room-integrated h3{font:900 1.15rem/1.2 Arial,Helvetica,sans-serif;margin:.25rem 0;color:#1e3828}
-.adk .adk-room-integrated p{font-size:.84rem;line-height:1.5;margin:.2rem 0 0;max-width:65ch}
+.adk .adk-room-integrated h3{font:900 1.15rem/1.15 Arial,Helvetica,sans-serif;margin:.16rem 0;color:#1e3828}
+.adk .adk-room-integrated p{font-size:.84rem;line-height:1.42;margin:.14rem 0 0;max-width:65ch}
 .adk .adk-room-integrated a{
   display:inline-flex;align-items:center;justify-content:center;
   min-height:44px;padding:.6rem .9rem;white-space:normal;
@@ -119,7 +119,7 @@
 .adk .adk-agenda-date strong{font-size:1.45rem;font-weight:900}
 .adk .adk-agenda-content{min-width:0;display:grid;gap:.18rem}
 .adk .adk-agenda-content .adk-event-tag{justify-self:start;padding:.1rem .4rem;font-size:.63rem}
-.adk .adk-agenda-content h3{font:900 1.04rem/1.25 Arial,Helvetica,sans-serif;color:#1e3828;overflow-wrap:anywhere}
+.adk .adk-agenda-content h3{font:900 1.04rem/1.2 Arial,Helvetica,sans-serif;color:#1e3828;overflow-wrap:anywhere}
 .adk .adk-agenda-content p{font-size:.81rem;color:#4e4a43;margin:0}
 .adk .adk-agenda-row>button{
   background:#1e3828;color:white;border:2px solid #1e3828;
