@@ -206,3 +206,108 @@
   .adk .adk-facade-lower{padding:.68rem .72rem;gap:.65rem}
   .adk .adk-facade .adk-footnote{padding:.65rem .7rem}
 }
+
+
+/* Compact layout pass — the same design, with less duplicated vertical text.
+   On wide screens, move the existing event/room navigation alongside the
+   heading instead of putting it on its own full-width row.
+   Keep all real controls >= 44px and preserve the facade illustration. */
+@media (min-width: 981px) {
+  .adk .adk-hero-copy {
+    width:100%;
+    max-width:none;
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) auto;
+    grid-template-areas:
+      "label links"
+      "heading links"
+      "intro links";
+    column-gap:1.5rem;
+    row-gap:0;
+    align-items:center;
+  }
+  .adk .adk-hero-copy>.adk-eyebrow {grid-area:label;align-self:end}
+  .adk .adk-hero-copy>h1 {grid-area:heading;align-self:center}
+  .adk .adk-hero-copy>p {
+    grid-area:intro;
+    max-width:670px;
+    align-self:start;
+  }
+  .adk .adk-hero-copy>.adk-mode {
+    grid-area:links;
+    justify-self:end;
+    align-self:center;
+    flex-wrap:nowrap;
+    margin:0;
+    gap:.4rem;
+  }
+  .adk .adk-hero-copy>.adk-mode button {
+    padding:.55rem .85rem;
+    min-height:44px;
+    white-space:nowrap;
+  }
+}
+/* Preserve the vintage almanac seal, but remove excess line height from the
+   separate edition strip above the building. */
+.adk .adk-edition {
+  margin-top:.48rem;
+  margin-bottom:0;
+  gap:.6rem;
+  line-height:1.15;
+}
+.adk .adk-edition-first {gap:.45rem}
+.adk .adk-printer-mark {
+  width:26px;height:26px;
+  flex-basis:26px;
+  font-size:1rem;
+}
+.adk .adk-facade {margin-top:.12rem}
+/* The Simmons Room already has its own heading and staff-approval note.
+   Present the short room use rules as one integrated sign rather than a
+   second 3-line section under the windows. */
+.adk .adk-room-integrated .adk-eyebrow {display:none}
+.adk .adk-room-integrated-text {
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+  flex-basis:440px;
+}
+.adk .adk-room-integrated-text h3 {
+  flex:0 0 auto;
+  margin:0;
+  white-space:nowrap;
+}
+.adk .adk-room-integrated-text p {
+  margin:0;
+  max-width:54ch;
+}
+.adk .adk-room-integrated {
+  column-gap:1rem;
+  row-gap:.55rem;
+  padding:.62rem 1.1rem;
+}
+/* The footer still reads as the library's door and foundation. */
+.adk .adk-facade-lower-copy {gap:.12rem}
+.adk .adk-facade-lower-copy strong {line-height:1.15}
+.adk .adk-facade-lower {
+  padding:.72rem 1.2rem;
+  min-height:90px;
+}
+@media(max-width:980px) {
+  .adk .adk-hero-copy {display:block}
+  .adk .adk-hero-copy>.adk-mode {margin-top:.6rem}
+}
+@media(max-width:800px) {
+  .adk .adk-room-integrated-text {display:block}
+  .adk .adk-room-integrated-text h3 {margin:0 0 .22rem}
+  .adk .adk-facade-lower {
+    min-height:0;
+    padding:.7rem .8rem;
+  }
+}
+@media(max-width:610px) {
+  .adk .adk-edition {margin-top:.4rem}
+  .adk .adk-printer-mark {width:24px;height:24px;flex-basis:24px}
+  .adk .adk-room-integrated {padding:.7rem .75rem}
+  .adk .adk-facade-lower {padding:.65rem .7rem}
+}
