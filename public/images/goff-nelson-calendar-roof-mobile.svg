@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 145" preserveAspectRatio="none" role="img" aria-label="Compact decorative Goff–Nelson library chimney and sloping roof">
+<!-- Deliberately simplified mobile roof: same real-building silhouette, fewer beams
+     and stone joints for clarity at narrow widths. All window framing is clipped. -->
+<defs>
+  <linearGradient id="mobile-glass" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#a5c5c4"/>
+    <stop offset=".55" stop-color="#4c797f"/>
+    <stop offset="1" stop-color="#284b4d"/>
+  </linearGradient>
+  <linearGradient id="mobile-stone" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#859189"/>
+    <stop offset="1" stop-color="#4a5551"/>
+  </linearGradient>
+  <clipPath id="mobile-glazing"><path d="M0 112 L145 61 L640 126 V145 H0Z"/></clipPath>
+  <clipPath id="mobile-chimney"><path d="M47 9 L119 10 L122 144 L44 144Z"/></clipPath>
+</defs>
+<!-- Continuous wall beneath eaves, without disconnected gaps. -->
+<path d="M0 95 L145 42 L640 108 V145 H0Z" fill="#1b342c"/>
+<path d="M0 112 L145 61 L640 126 V145 H0Z" fill="url(#mobile-glass)"/>
+<g clip-path="url(#mobile-glazing)">
+  <path d="M-5 108 L145 60 L645 127" stroke="#233a32" stroke-width="11" fill="none"/>
+  <g stroke="#372f29" stroke-width="10">
+    <path d="M173 43 V154 M300 43 V154 M428 43 V154 M550 43 V154"/>
+  </g>
+  <g stroke="#bed3ce" stroke-width="2" opacity=".35">
+    <path d="M185 44 V148 M312 44 V148 M440 44 V148 M562 44 V148"/>
+  </g>
+  <path d="M99 88 L645 138" stroke="#2d2d27" stroke-width="15" fill="none"/>
+  <path d="M99 85 L645 135" stroke="#75563d" stroke-width="8" fill="none"/>
+</g>
+<!-- Strong, unbroken asymmetrical roof and underlying fascia. -->
+<path d="M0 98 L145 48 L640 111" stroke="#19241e" stroke-width="19" fill="none" stroke-linejoin="miter"/>
+<path d="M0 93 L145 42 L640 105" stroke="#68492f" stroke-width="12" fill="none" stroke-linejoin="miter"/>
+<path d="M0 90 L145 39 L640 102" stroke="#b99c6c" stroke-width="2.8" fill="none" stroke-linejoin="miter"/>
+<path d="M0 110 L145 58 L640 125" stroke="#15362a" stroke-width="5" fill="none" stroke-linejoin="miter"/>
+<!-- Chimney masks beams and roof joins; simple masonry survives small-screen scaling. -->
+<path d="M47 9 L119 10 L122 144 L44 144Z" fill="url(#mobile-stone)" stroke="#2b3832" stroke-width="5"/>
+<path d="M41 7 H124 V16 H41Z" fill="#6d7a72" stroke="#26352e" stroke-width="3"/>
+<g clip-path="url(#mobile-chimney)" stroke="#c3c7b7" stroke-opacity=".42" stroke-width="1.9" fill="none">
+  <path d="M45 27 H122 M44 43 H122 M44 61 H122 M44 80 H122 M44 99 H122 M44 118 H122 M44 134 H122"/>
+  <path d="M72 16 V27 M98 27 V43 M67 43 V61 M103 61 V80 M72 80 V99 M96 99 V118 M69 118 V134"/>
+</g>
+<path d="M0 139 H640" stroke="#342b22" stroke-width="12"/>
+<path d="M0 136 H640" stroke="#c2a366" stroke-width="2.5"/>
+</svg>

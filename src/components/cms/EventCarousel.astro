@@ -2,7 +2,6 @@
 import { tinaField } from '@tinacms/astro/tina-field';
 import Icon from '../Icon.astro';
 import type { EventsQuery } from '../../../tina/__generated__/types';
-import { eventId } from '../../lib/library-content';
 import { safeLink, sanitizeImageSrc } from '../../lib/safe-url';
 
 interface Props {
@@ -29,7 +28,7 @@ const events = (data?.entries ?? []).flatMap((event) => (event?.title?.trim() ? 
           <div class="carousel__aside">
             <a href="/Events/" class="carousel__link">
               {' '}
-              View all events{' '}
+              See the events calendar{' '}
             </a>
             <div class="carousel__controls">
               <button
@@ -95,7 +94,7 @@ const events = (data?.entries ?? []).flatMap((event) => (event?.title?.trim() ? 
                       {event.description}
                     </p>
                     <a
-                      href={link || `/Events/#${eventId(event.title)}`}
+                      href={link || "/Events/"}
                       class="button button--accent"
                     >
                       {link ? 'Event details' : 'View program information'}

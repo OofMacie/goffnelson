@@ -51,7 +51,7 @@ function SearchField({
 // ─── Menu content, shared by the desktop mega menu and the mobile accordion ───
 function MenuLinks({ links }: { links: Menu['columns'][number]['links'] }) {
   return links.map((link) => (
-    <a key={link.text} href="#" className="nav__link">
+    <a key={link.text} href={link.text === "All Events Calendar" ? "/Events/" : "#"} className="nav__link">
       {link.text}
       {link.note && <span className="nav__note">{link.note}</span>}
     </a>
