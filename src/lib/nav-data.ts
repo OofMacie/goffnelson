@@ -5,6 +5,7 @@ export const CATALOG = 'https://cefls.ent.sirsi.net/client/en_US/default/search/
 export interface MenuLink {
   text: string;
   note: string;
+  href?: string;
 }
 
 export interface Menu {
@@ -61,7 +62,7 @@ export const menus: Menu[] = [
       {
         heading: 'EVENTS',
         links: [
-          { text: 'All Events Calendar', note: '' },
+          { text: 'All Events Calendar', href: '/Events/' note: '' },
           { text: 'Tupper Tots', note: 'Story time for little ones' },
           { text: 'Tupper Teens', note: 'After school programs' },
         ],
@@ -131,7 +132,7 @@ export const menus: Menu[] = [
           { text: 'Hours & Location', note: '41 Lake Street, Tupper Lake NY' },
           { text: 'Contact Us', note: '518-359-9421' },
           { text: 'History of the Library', note: '' },
-          { text: 'Board of Trustees', href: '/BoardofTrustrees/' note: '' },
+          { text: 'Board of Trustees', href: '/BoardofTrustrees/', note: '' },
           { text: 'Policies & Annual Report', note: '' },
         ],
       },
