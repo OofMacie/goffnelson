@@ -5,14 +5,31 @@ import Nav from "../components/Nav.tsx";
 import Footer from "../components/Footer.tsx";
 ---
 
-<Layout title="LibraryBoard of Trustees" description="See the board members, board minutes, and more.">
+<Layout title="Board of Trustees" description="See the board members, board minutes, and more.">
   <Nav client:load />
   
   <main id="main-content">
-      <section class="container trustees" style="max-width:70rem;margin:2rem auto;padding:1.5rem">
+      <section class="container trustees">
         <h1>Board of Trustees</h1>
         <p>Welcome to the Board of Trustees</p>
       </section>
   </main>
   <Footer client:load />
 </Layout>
+
+<style>
+  .trustees {
+    max-width: 70rem;
+    margin: 2rem auto;
+    padding-block: 1.5rem;
+    min-height: 20rem;
+    color: var(--text-body);
+    background: var(--page-bg);
+  }
+  .trustees h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+  }
+</style>
