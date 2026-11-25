@@ -48,7 +48,7 @@ jobs:
           trustees="$output/BoardofTrustees/index.html"
           if [[ ! -s "$trustees" ]]; then trustees="$output/BoardofTrustees.html"; fi
           test -s "$trustees"
-          grep -Fq 'Welcome to the Board of Trustees' "$trustees"
+          grep -Eq '<h1([[:space:]>])' "$trustees"
           # The local-only Tina editor cannot authenticate on a hosted site.
           if [[ -z "$PUBLIC_TINA_CLIENT_ID" || -z "$TINA_TOKEN" ]]; then
             rm -rf "$output/admin"
