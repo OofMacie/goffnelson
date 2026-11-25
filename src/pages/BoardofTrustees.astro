@@ -1,8 +1,8 @@
-
 ---
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.tsx";
 import Footer from "../components/Footer.tsx";
+import "../styles/trustees.css";
 ---
 
 <Layout title="Board of Trustees" description="See the board members, board minutes, and more.">
@@ -16,20 +16,3 @@ import Footer from "../components/Footer.tsx";
   </main>
   <Footer client:load />
 </Layout>
-
-<style>
-  .trustees {
-    max-width: 70rem;
-    margin: 2rem auto;
-    padding-block: 1.5rem;
-    min-height: 20rem;
-    color: var(--text-body);
-    background: var(--page-bg);
-  }
-  .trustees h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-heading);
-    margin-bottom: 1rem;
-  }
-</style>
