@@ -131,7 +131,7 @@ export const menus: Menu[] = [
           { text: 'Hours & Location', note: '41 Lake Street, Tupper Lake NY' },
           { text: 'Contact Us', note: '518-359-9421' },
           { text: 'History of the Library', note: '' },
-          { text: 'Board of Trustees', note: '' },
+          { text: 'Board of Trustees', href: '/BoardofTrustrees/' note: '' },
           { text: 'Policies & Annual Report', note: '' },
         ],
       },
