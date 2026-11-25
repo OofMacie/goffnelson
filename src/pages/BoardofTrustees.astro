@@ -1,0 +1,18 @@
+
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.tsx";
+import Footer from "../components/Footer.tsx";
+---
+
+<Layout title="LibraryBoard of Trustees" description="See the board members, board minutes, and more.">
+  <Nav client:load />
+  <main id="main-content">
+    <noscript>
+      <section style="max-width:70rem;margin:2rem auto;padding:1.5rem">
+
+      </section>
+    </noscript>
+  </main>
+  <Footer client:load />
+</Layout>
