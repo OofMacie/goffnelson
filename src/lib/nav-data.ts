@@ -62,7 +62,7 @@ export const menus: Menu[] = [
       {
         heading: 'EVENTS',
         links: [
-          { text: 'All Events Calendar', href: '/Events/' note: '' },
+          { text: 'All Events Calendar', href: '/Events/', note: '' },
           { text: 'Tupper Tots', note: 'Story time for little ones' },
           { text: 'Tupper Teens', note: 'After school programs' },
         ],
