@@ -1,0 +1,47 @@
+/* Reusable page primitives. Opt in with these classes on any page using Layout. */
+.page-section {
+  padding-block: var(--section-y);
+  color: var(--text-body);
+}
+.page-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-heading);
+  margin-block-end: var(--space-4);
+}
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-heading);
+  margin-block-end: var(--space-3);
+}
+.page-copy {
+  color: var(--text-body);
+  line-height: 1.65;
+}
+.content-card {
+  background: var(--card-bg);
+  color: var(--card-text);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-5);
+}
+.surface-spruce { background: var(--spruce); color: var(--text-on-dark); }
+.surface-lake { background: var(--lake-dark); color: var(--text-on-dark); }
+.surface-maple { background: var(--maple-ghost); color: var(--maple-dark); }
+.surface-birch { background: var(--birch); color: var(--text-body); }
+.surface-mist { background: var(--mist); color: var(--text-body); }
+.content-link {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.content-link:hover { color: var(--text-link-hover); }
