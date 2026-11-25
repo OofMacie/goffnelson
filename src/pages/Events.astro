@@ -1,27 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.tsx";
-import Footer from "../components/Footer.tsx";
 import EventLibraryCalendar from "../components/EventLibraryCalendar.tsx";
 import { libraryEvents } from "../lib/library-content";
 ---
 <Layout title="Library Events Calendar" description="Explore an interactive calendar of Goff-Nelson Memorial Library events and programs in Tupper Lake, New York.">
-  <Nav client:load />
-  <main id="main-content">
-    <EventLibraryCalendar client:load />
-    <noscript>
-      <section style="max-width:70rem;margin:2rem auto;padding:1.5rem">
-        <h2>Library programs</h2>
-        <p>Enable JavaScript for the interactive calendar. You can also call 518-359-9421 for event dates.</p>
-        {libraryEvents.map((event) => (
-          <article style="padding:1rem 0;border-bottom:1px solid #c3d1c5">
-            <h3>{event.title}</h3>
-            <p>{event.date} · {event.time}</p>
-            <p>{event.description}</p>
-          </article>
-        ))}
-      </section>
-    </noscript>
-  </main>
-  <Footer client:load />
+  <EventLibraryCalendar client:load />
+  <noscript>
+    <section style="max-width:70rem;margin:2rem auto;padding:1.5rem">
+      <h2>Library programs</h2>
+      <p>Enable JavaScript for the interactive calendar. You can also call 518-359-9421 for event dates.</p>
+      {libraryEvents.map((event) => (
+        <article style="padding:1rem 0;border-bottom:1px solid #c3d1c5">
+          <h3>{event.title}</h3>
+          <p>{event.date} · {event.time}</p>
+          <p>{event.description}</p>
+        </article>
+      ))}
+    </section>
+  </noscript>
 </Layout>

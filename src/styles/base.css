@@ -12,6 +12,17 @@ body {
   overflow-x: clip;
 }
 
+.site-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-layout > #main-content {
+  flex: 1 0 auto;
+  min-width: 0;
+}
+
 :where(p) {
   max-width: 80ch;
   line-height: 1.6;

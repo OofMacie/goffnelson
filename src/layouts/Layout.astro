@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css'
+import Nav from '../components/Nav.tsx'
+import Footer from '../components/Footer.tsx'
 import { librarySettings } from '../lib/library-content'
 import { escapeForScript } from '../lib/safe-url'
 
@@ -149,8 +151,12 @@ const schema = {
     <!-- Structured Data -->
     <script is:inline type="application/ld+json" set:html={escapeForScript(JSON.stringify(schema))} />
   </head>
-  <body>
+  <body class="site-layout">
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <slot />
+    <Nav client:load />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

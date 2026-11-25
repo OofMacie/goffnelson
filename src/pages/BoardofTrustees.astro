@@ -1,18 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.tsx";
-import Footer from "../components/Footer.tsx";
 import "../styles/trustees.css";
 ---
 
 <Layout title="Board of Trustees" description="See the board members, board minutes, and more.">
-  <Nav client:load />
-  
-  <main id="main-content">
-      <section class="container trustees">
-        <h1>Board of Trustees</h1>
-        <p>Welcome to the Board of Trustees</p>
-      </section>
-  </main>
-  <Footer client:load />
+    <section class="container trustees">
+      <h1>Board of Trustees</h1>
+      <p>Welcome to the Board of Trustees</p>
+    </section>
 </Layout>

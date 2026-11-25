@@ -1,7 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.tsx";
-import Footer from "../components/Footer.tsx";
 import TinaIsland from "@tinacms/astro/TinaIsland.astro";
 import HomeBody from "../components/cms/HomeBody.astro";
 import BookCarousel from "../components/cms/BookCarousel.astro";
@@ -17,17 +15,13 @@ const [home, books, events] = await Promise.all([getHome(), getBooks(), getEvent
   description="Your community library in Tupper Lake, NY. Browse books, eBooks, audiobooks, DVDs, attend events, join programs for kids and teens, and access free digital resources."
   image="/images/outsidebuilding/outside.webp"
 >
-  <Nav client:load />
-  <main id="main-content">
-    <TinaIsland name="home" wrapper={islands.home.wrapper} primary>
-      <HomeBody data={home.data?.home} />
-    </TinaIsland>
-    <TinaIsland name="books" wrapper={islands.books.wrapper}>
-      <BookCarousel data={books.data?.books} />
-    </TinaIsland>
-    <TinaIsland name="events" wrapper={islands.events.wrapper}>
-      <EventCarousel data={events.data?.events} />
-    </TinaIsland>
-  </main>
-  <Footer client:load />
+  <TinaIsland name="home" wrapper={islands.home.wrapper} primary>
+    <HomeBody data={home.data?.home} />
+  </TinaIsland>
+  <TinaIsland name="books" wrapper={islands.books.wrapper}>
+    <BookCarousel data={books.data?.books} />
+  </TinaIsland>
+  <TinaIsland name="events" wrapper={islands.events.wrapper}>
+    <EventCarousel data={events.data?.events} />
+  </TinaIsland>
 </Layout>

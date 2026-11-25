@@ -1,7 +1,10 @@
 /* Site footer. */
 
 .library-footer {
+  --footer-treeline-height: clamp(3.5rem, 9vw, 7rem);
   position: relative;
+  flex-shrink: 0;
+  margin-top: var(--footer-treeline-height);
   padding: var(--section-y) var(--gutter);
   background: var(--footer-bg);
   color: var(--footer-text);
